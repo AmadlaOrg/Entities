@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Monitoring:Collectd",
+  "title": "Application Monitoring Collectd Entity",
+  "description": "collectd configuration. Extends Application/Monitoring with collectd-specific settings.",
+  "type": "object",
+  "properties": {
+    "plugins": {
+      "type": "array",
+      "description": "Plugin configurations for collectd.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Plugin name (e.g., cpu, memory, disk, interface, network)."
+          },
+          "options": {
+            "type": "object",
+            "description": "Plugin-specific options."
+          }
+        }
+      }
+    },
+    "global_options": {
+      "type": "object",
+      "description": "Global collectd options.",
+      "properties": {
+        "Hostname": {
+          "type": "string",
+          "description": "Hostname reported by collectd."
+        },
+        "FQDNLookup": {
+          "type": "boolean",
+          "description": "Whether to perform FQDN lookup for hostname.",
+          "default": true
+        },
+        "Interval": {
+          "type": "integer",
+          "description": "Default collection interval in seconds.",
+          "default": 10
+        }
+      }
+    }
+  }
+}

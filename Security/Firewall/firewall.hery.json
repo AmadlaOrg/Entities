@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:Firewall",
+  "title": "Security Firewall Entity",
+  "description": "Defines firewall rules, default policies, NAT, and rate limiting. Used by enjoin-firewall.",
+  "type": "object",
+  "properties": {
+    "backend": {
+      "type": "string",
+      "enum": ["iptables", "nftables", "ufw", "firewalld"],
+      "description": "Firewall backend. If omitted, enjoin auto-detects via OS/Preference."
+    },
+    "default_policy": {
+      "type": "object",
+      "properties": {
+        "input": { "type": "string", "enum": ["accept", "drop", "reject"], "default": "drop" },
+        "forward": { "type": "string", "enum": ["accept", "drop", "reject"], "default": "drop" },
+        "output": { "type": "string", "enum": ["accept", "drop", "reject"], "default": "accept" }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "chain": { "type": "string", "enum": ["input", "output", "forward"], "default": "input" },
+          "action": { "type": "string", "enum": ["accept", "drop", "reject", "log"] },
+          "protocol": { "type": "string", "enum": ["tcp", "udp", "icmp", "any"], "default": "tcp" },
+          "port": { "type": ["integer", "string"], "description": "Port number or range (e.g., 8080, \"1024:65535\")." },
+          "source": { "type": "string", "description": "Source IP or CIDR." },
+          "destination": { "type": "string", "description": "Destination IP or CIDR." },
+          "interface": { "type": "string", "description": "Network interface (e.g., eth0)." },
+          "state": { "type": "string", "enum": ["new", "established", "related"] },
+          "comment": { "type": "string" }
+        },
+        "required": ["action"]
+      }
+    },
+    "nat": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["snat", "dnat", "masquerade"] },
+          "source": { "type": "string" },
+          "destination": { "type": "string" },
+          "to": { "type": "string" },
+          "interface": { "type": "string" }
+        },
+        "required": ["type"]
+      }
+    },
+    "rate_limiting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "protocol": { "type": "string", "enum": ["tcp", "udp", "icmp"], "default": "tcp" },
+          "port": { "type": ["integer", "string"] },
+          "limit": { "type": "string", "description": "Rate limit (e.g., \"25/minute\", \"100/second\")." },
+          "burst": { "type": "integer", "description": "Burst allowance above limit." }
+        },
+        "required": ["name", "limit"]
+      }
+    }
+  }
+}

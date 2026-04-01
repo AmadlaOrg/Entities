@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Serverless",
+  "title": "Infrastructure Cloud Serverless Entity",
+  "description": "Common properties shared by all serverless function services (AWS Lambda, GCP Cloud Functions, Azure Functions).",
+  "type": "object",
+  "properties": {
+    "runtime": {
+      "type": "string",
+      "description": "Runtime environment (e.g., python3.12, nodejs20.x, go1.x, java21)."
+    },
+    "handler": {
+      "type": "string",
+      "description": "Function entry point (e.g., index.handler, main.Handle)."
+    },
+    "memory_mb": {
+      "type": "integer",
+      "description": "Memory allocation in megabytes."
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "description": "Maximum execution time in seconds."
+    },
+    "environment": {
+      "type": "object",
+      "description": "Environment variables passed to the function."
+    },
+    "code_path": {
+      "type": "string",
+      "description": "Path to the function code or deployment package."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:DNS:CoreDNS",
+  "title": "Infrastructure DNS CoreDNS Entity",
+  "description": "CoreDNS-specific configuration. Extends Infrastructure/DNS with CoreDNS plugin-based settings.",
+  "type": "object",
+  "properties": {
+    "plugins": {
+      "type": "array",
+      "description": "CoreDNS plugins to enable.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Plugin name." },
+          "zone": { "type": "string", "description": "Zone this plugin applies to." },
+          "config": { "type": "object", "description": "Plugin-specific configuration." }
+        }
+      }
+    },
+    "forward": {
+      "type": "object",
+      "description": "Forwarding configuration.",
+      "properties": {
+        "from": { "type": "string", "description": "Zone to forward (e.g., . for all)." },
+        "to": {
+          "type": "array",
+          "description": "Upstream DNS servers to forward to.",
+          "items": { "type": "string" }
+        },
+        "policy": {
+          "type": "string",
+          "enum": ["random", "round_robin", "sequential"],
+          "description": "Load balancing policy for upstream servers."
+        }
+      }
+    },
+    "prometheus_address": {
+      "type": "string",
+      "description": "Address for Prometheus metrics endpoint."
+    },
+    "health_address": {
+      "type": "string",
+      "description": "Address for health check endpoint."
+    },
+    "cache_ttl": {
+      "type": "integer",
+      "description": "Cache TTL in seconds."
+    }
+  }
+}

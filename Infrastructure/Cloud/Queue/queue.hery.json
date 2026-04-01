@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Queue",
+  "title": "Infrastructure Cloud Queue Entity",
+  "description": "Common properties shared by all cloud message queue services (AWS SQS, GCP Pub/Sub, Azure Service Bus).",
+  "type": "object",
+  "properties": {
+    "queue_name": {
+      "type": "string",
+      "description": "Name of the message queue."
+    },
+    "message_retention": {
+      "type": "string",
+      "description": "Message retention period (e.g., 4d, 7d)."
+    },
+    "visibility_timeout": {
+      "type": "integer",
+      "description": "Visibility timeout in seconds before a message becomes available again."
+    },
+    "encryption": {
+      "type": "boolean",
+      "description": "Whether message encryption is enabled."
+    }
+  }
+}

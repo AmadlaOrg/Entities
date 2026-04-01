@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:LoadBalancer:Azure:AzureLB",
+  "title": "Infrastructure Cloud LoadBalancer Azure LB Entity",
+  "description": "Azure Load Balancer configuration properties.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the Azure Load Balancer."
+    },
+    "resource_group": {
+      "type": "string",
+      "description": "Azure resource group containing the load balancer."
+    },
+    "sku": {
+      "type": "string",
+      "enum": ["Basic", "Standard"],
+      "description": "SKU tier of the load balancer."
+    },
+    "frontend_ip_configurations": {
+      "type": "array",
+      "description": "Frontend IP configurations for receiving traffic.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the frontend IP configuration."
+          },
+          "public_ip_address_id": {
+            "type": "string",
+            "description": "Resource ID of the public IP address."
+          },
+          "subnet_id": {
+            "type": "string",
+            "description": "Resource ID of the subnet for internal load balancers."
+          }
+        }
+      }
+    },
+    "backend_address_pools": {
+      "type": "array",
+      "description": "Backend address pool definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the backend address pool."
+          }
+        }
+      }
+    },
+    "probes": {
+      "type": "array",
+      "description": "Health probe configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the health probe."
+          },
+          "protocol": {
+            "type": "string",
+            "description": "Protocol for the health probe."
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port for the health probe."
+          },
+          "request_path": {
+            "type": "string",
+            "description": "HTTP path for the health probe."
+          },
+          "interval_in_seconds": {
+            "type": "integer",
+            "description": "Seconds between probe attempts."
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "description": "Load balancing rules.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the load balancing rule."
+          },
+          "protocol": {
+            "type": "string",
+            "description": "Protocol for the rule."
+          },
+          "frontend_port": {
+            "type": "integer",
+            "description": "Frontend port for incoming traffic."
+          },
+          "backend_port": {
+            "type": "integer",
+            "description": "Backend port to forward traffic to."
+          },
+          "frontend_ip_configuration_name": {
+            "type": "string",
+            "description": "Name of the frontend IP configuration to use."
+          },
+          "backend_address_pool_name": {
+            "type": "string",
+            "description": "Name of the backend address pool to route to."
+          },
+          "probe_name": {
+            "type": "string",
+            "description": "Name of the health probe to use."
+          }
+        }
+      }
+    }
+  }
+}

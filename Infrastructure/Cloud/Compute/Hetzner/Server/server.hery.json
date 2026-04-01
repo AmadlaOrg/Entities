@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Compute:Hetzner:Server",
+  "title": "Hetzner Cloud Server Entity",
+  "description": "Hetzner Cloud-specific server properties.",
+  "type": "object",
+  "properties": {
+    "server_type": {
+      "type": "string",
+      "description": "Hetzner server type (e.g., cx21, cpx31, cax11)."
+    },
+    "location": {
+      "type": "string",
+      "description": "Hetzner datacenter location (e.g., nbg1, fsn1, hel1)."
+    },
+    "image": {
+      "type": "string",
+      "description": "OS image name (e.g., debian-12, ubuntu-24.04)."
+    },
+    "ssh_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "SSH key names registered with Hetzner."
+    },
+    "firewalls": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Firewall IDs or names to attach."
+    },
+    "networks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Private network IDs to attach."
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Labels applied to the server."
+    },
+    "user_data": {
+      "type": "string",
+      "description": "Cloud-init user data script."
+    }
+  },
+  "required": ["server_type", "location", "image"]
+}

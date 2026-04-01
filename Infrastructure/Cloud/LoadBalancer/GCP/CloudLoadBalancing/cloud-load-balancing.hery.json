@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:LoadBalancer:GCP:CloudLoadBalancing",
+  "title": "Infrastructure Cloud LoadBalancer GCP Cloud Load Balancing Entity",
+  "description": "GCP Cloud Load Balancing configuration properties.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the load balancer."
+    },
+    "load_balancing_scheme": {
+      "type": "string",
+      "enum": ["EXTERNAL", "INTERNAL", "EXTERNAL_MANAGED", "INTERNAL_MANAGED"],
+      "description": "Load balancing scheme determining traffic scope."
+    },
+    "backend_services": {
+      "type": "array",
+      "description": "Backend service definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the backend service."
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["HTTP", "HTTPS", "TCP"],
+            "description": "Protocol used to communicate with backends."
+          },
+          "port_name": {
+            "type": "string",
+            "description": "Named port on the backend instance group."
+          },
+          "backends": {
+            "type": "array",
+            "description": "Backend configurations.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "description": "Instance group or NEG URL."
+                },
+                "balancing_mode": {
+                  "type": "string",
+                  "description": "Balancing mode (e.g., RATE, UTILIZATION, CONNECTION)."
+                },
+                "max_rate_per_instance": {
+                  "type": "number",
+                  "description": "Maximum requests per second per instance."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "url_map": {
+      "type": "object",
+      "description": "URL map for routing requests to backend services.",
+      "properties": {
+        "default_service": {
+          "type": "string",
+          "description": "Default backend service for unmatched requests."
+        },
+        "path_matchers": {
+          "type": "array",
+          "description": "Path-based routing rules.",
+          "items": { "type": "object" }
+        }
+      }
+    },
+    "ssl_certificates": {
+      "type": "array",
+      "description": "SSL certificate resource names.",
+      "items": { "type": "string" }
+    },
+    "health_checks": {
+      "type": "array",
+      "description": "Health check configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the health check."
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port for health check probes."
+          },
+          "request_path": {
+            "type": "string",
+            "description": "HTTP path for health check requests."
+          },
+          "check_interval_sec": {
+            "type": "integer",
+            "description": "Seconds between health check probes."
+          }
+        }
+      }
+    }
+  }
+}

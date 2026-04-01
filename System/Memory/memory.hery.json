@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:System:Memory",
+  "title": "System Memory Entity",
+  "description": "Defines bare-metal/VM memory requirements: size, swap, swappiness, resource limits. Tools translate to OS-specific mechanisms.",
+  "type": "object",
+  "properties": {
+    "size": { "type": ["integer", "string"], "description": "Required memory (e.g., 512, \"1g\", \"2048m\")." },
+    "swap_size": { "type": ["integer", "string"], "description": "Swap space size (e.g., \"2g\")." },
+    "swap_file": { "type": "string", "description": "Swap file path (e.g., /swapfile). If omitted, tool decides." },
+    "swappiness": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Kernel swappiness preference (0=avoid swap, 100=aggressive swap)." },
+    "max_open_files": { "type": "integer", "minimum": 1, "description": "Maximum open file descriptors per process." },
+    "max_processes": { "type": "integer", "minimum": 1, "description": "Maximum number of processes per user." },
+    "hugepages": {
+      "type": "object",
+      "description": "Huge pages configuration for memory-intensive workloads.",
+      "properties": {
+        "size": { "type": "string", "description": "Page size (e.g., \"2M\", \"1G\")." },
+        "count": { "type": "integer", "minimum": 0, "description": "Number of huge pages to allocate." }
+      }
+    },
+    "shared_memory": { "type": ["integer", "string"], "description": "Shared memory size (e.g., \"256m\"). Maps to /dev/shm or equivalent." }
+  }
+}

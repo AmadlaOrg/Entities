@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Backup",
+  "title": "Application Backup Entity",
+  "description": "Common properties shared by all backup applications (Restic, Borg, etc.).",
+  "type": "object",
+  "properties": {
+    "schedule": {
+      "type": "string",
+      "description": "Cron expression or systemd timer for backup schedule."
+    },
+    "retention": {
+      "type": "object",
+      "description": "Retention policy for backup snapshots.",
+      "properties": {
+        "daily": { "type": "integer", "description": "Number of daily backups to retain." },
+        "weekly": { "type": "integer", "description": "Number of weekly backups to retain." },
+        "monthly": { "type": "integer", "description": "Number of monthly backups to retain." },
+        "yearly": { "type": "integer", "description": "Number of yearly backups to retain." }
+      }
+    },
+    "encryption": {
+      "type": "object",
+      "description": "Encryption settings for backups.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether encryption is enabled." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the encryption password." }
+      }
+    },
+    "paths": {
+      "type": "array",
+      "description": "Paths to include in the backup.",
+      "items": { "type": "string" }
+    },
+    "exclude": {
+      "type": "array",
+      "description": "Paths to exclude from the backup.",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:IDS",
+  "title": "Security IDS Entity",
+  "description": "Defines intrusion detection/prevention system configuration. Used by enjoin to configure IDS/IPS tools like fail2ban, OSSEC, Suricata, or Snort.",
+  "type": "object",
+  "properties": {
+    "backend": {
+      "type": "string",
+      "enum": ["fail2ban", "ossec", "suricata", "snort", "crowdsec"],
+      "description": "IDS/IPS backend. If omitted, enjoin auto-detects."
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["detection", "prevention"],
+      "default": "detection",
+      "description": "Detection (log only) or prevention (block)."
+    },
+    "jails": {
+      "type": "array",
+      "description": "Fail2ban-style jail definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "enabled": { "type": "boolean", "default": true },
+          "port": { "type": ["integer", "string"] },
+          "protocol": { "type": "string", "enum": ["tcp", "udp", "all"], "default": "tcp" },
+          "filter": { "type": "string", "description": "Filter name or path to filter config." },
+          "log_path": { "type": "string", "description": "Log file to monitor." },
+          "max_retry": { "type": "integer", "default": 5 },
+          "find_time": { "type": "string", "default": "10m", "description": "Window for counting failures." },
+          "ban_time": { "type": "string", "default": "1h", "description": "Ban duration." },
+          "action": { "type": "string", "description": "Action to take on ban (e.g., iptables-multiport)." }
+        },
+        "required": ["name"]
+      }
+    },
+    "rules": {
+      "type": "array",
+      "description": "IDS rules (Suricata/Snort-style).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "type": "string", "description": "Path to rules file or URL." },
+          "enabled": { "type": "boolean", "default": true },
+          "category": { "type": "string", "description": "Rule category (e.g., emerging-threats, malware)." }
+        },
+        "required": ["name", "source"]
+      }
+    },
+    "whitelist": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "IP addresses or CIDRs to exclude from detection."
+    },
+    "alerting": {
+      "type": "object",
+      "properties": {
+        "log_path": { "type": "string", "description": "Where to write alerts." },
+        "syslog": { "type": "boolean", "default": false },
+        "email": { "type": "string", "description": "Email address for alert notifications." }
+      }
+    }
+  }
+}

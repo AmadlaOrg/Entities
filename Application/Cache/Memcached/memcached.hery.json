@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Cache:Memcached",
+  "title": "Application Cache Memcached Entity",
+  "description": "Memcached-specific configuration. Extends Application/Cache with Memcached-specific settings.",
+  "type": "object",
+  "properties": {
+    "max_connections": {
+      "type": "integer",
+      "description": "Maximum number of simultaneous connections."
+    },
+    "threads": {
+      "type": "integer",
+      "description": "Number of worker threads."
+    },
+    "chunk_size": {
+      "type": "integer",
+      "description": "Default slab chunk size in bytes."
+    },
+    "growth_factor": {
+      "type": "number",
+      "description": "Slab growth factor."
+    },
+    "unix_socket": {
+      "type": "string",
+      "description": "Listen on a UNIX socket instead of TCP."
+    },
+    "verbose": {
+      "type": "boolean",
+      "description": "Enable verbose logging."
+    }
+  }
+}

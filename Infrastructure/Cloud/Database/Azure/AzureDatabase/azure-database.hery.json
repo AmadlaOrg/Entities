@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Database:Azure:AzureDatabase",
+  "title": "Infrastructure Cloud Database Azure Entity",
+  "description": "Azure Database managed instance configuration.",
+  "type": "object",
+  "properties": {
+    "sku_name": {
+      "type": "string",
+      "description": "SKU name (e.g., GP_Gen5_2)."
+    },
+    "storage_mb": {
+      "type": "integer",
+      "description": "Maximum storage in megabytes."
+    },
+    "geo_redundant_backup_enabled": {
+      "type": "boolean",
+      "description": "Enable geo-redundant backups."
+    },
+    "auto_grow_enabled": {
+      "type": "boolean",
+      "description": "Enable storage auto-grow."
+    },
+    "ssl_enforcement_enabled": {
+      "type": "boolean",
+      "description": "Enforce SSL connections."
+    },
+    "firewall_rules": {
+      "type": "array",
+      "description": "Firewall rules for IP-based access control.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "start_ip_address": { "type": "string" },
+          "end_ip_address": { "type": "string" }
+        }
+      }
+    },
+    "virtual_network_rules": {
+      "type": "array",
+      "description": "Virtual network rules for subnet-based access control.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "subnet_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}

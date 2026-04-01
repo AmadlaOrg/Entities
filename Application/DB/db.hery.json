@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DB",
+  "title": "Database Application Entity",
+  "description": "Defines database application configuration.",
+  "type": "object",
+  "properties": {
+    "engine": {
+      "type": "string",
+      "description": "Database engine (e.g., postgresql, mysql, mariadb, mongodb, redis, sqlite)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Database engine version."
+    },
+    "port": {
+      "type": "integer",
+      "description": "Listening port."
+    },
+    "data_dir": {
+      "type": "string",
+      "description": "Data directory path."
+    },
+    "max_connections": {
+      "type": "integer",
+      "description": "Maximum number of concurrent connections."
+    },
+    "authentication": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string", "description": "Authentication method (e.g., md5, scram-sha-256, trust)." },
+        "admin_user": { "type": "string" },
+        "admin_password_secret": { "type": "string", "description": "Secret key for admin password (resolved by doorman)." }
+      }
+    },
+    "databases": {
+      "type": "array",
+      "description": "Databases to create.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "owner": { "type": "string" },
+          "encoding": { "type": "string", "default": "UTF8" }
+        },
+        "required": ["name"]
+      }
+    },
+    "config": {
+      "type": "object",
+      "description": "Engine-specific configuration overrides.",
+      "additionalProperties": { "type": ["string", "integer", "boolean"] }
+    }
+  },
+  "required": ["engine"]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Judge",
+  "title": "Judge Entity",
+  "description": "Defines validation rules and audit configuration for judge plugins.",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "check": { "type": "string", "description": "What to validate (e.g., package_installed, service_running, file_exists, port_open)." },
+          "target": { "type": "string" },
+          "expected": { "type": ["string", "boolean", "integer"] },
+          "severity": { "type": "string", "enum": ["error", "warning", "info"], "default": "error" }
+        },
+        "required": ["name", "check", "target"]
+      }
+    },
+    "skip": { "type": "array", "items": { "type": "string" }, "description": "Rule names to skip." },
+    "fail_on_warning": { "type": "boolean", "default": false }
+  }
+}

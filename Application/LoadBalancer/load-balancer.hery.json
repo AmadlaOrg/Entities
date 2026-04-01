@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LoadBalancer",
+  "title": "Application LoadBalancer Entity",
+  "description": "Common properties shared by all load balancer applications (HAProxy, Traefik, Envoy).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the load balancer listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the load balancer listens on."
+    },
+    "algorithm": {
+      "type": "string",
+      "enum": ["roundrobin", "leastconn", "source", "uri", "random"],
+      "description": "Load balancing algorithm."
+    },
+    "health_check": {
+      "type": "object",
+      "description": "Health check configuration for backends.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether health checks are enabled." },
+        "interval": { "type": "string", "description": "Interval between health checks (e.g., 10s)." },
+        "timeout": { "type": "string", "description": "Timeout for a health check response (e.g., 5s)." },
+        "path": { "type": "string", "description": "HTTP path for health check requests (e.g., /health)." }
+      }
+    },
+    "backends": {
+      "type": "array",
+      "description": "Backend servers to load balance across.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Backend server name." },
+          "address": { "type": "string", "description": "Backend server address." },
+          "port": { "type": "integer", "description": "Backend server port." },
+          "weight": { "type": "integer", "description": "Relative weight for load balancing." }
+        }
+      }
+    }
+  }
+}

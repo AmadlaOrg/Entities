@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:IdentityProvider:Authentik",
+  "title": "Application Identity Provider Authentik Entity",
+  "description": "Authentik-specific configuration. Extends Application/IdentityProvider with Authentik-specific settings.",
+  "type": "object",
+  "properties": {
+    "secret_key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the Authentik secret key."
+    },
+    "database": {
+      "type": "object",
+      "description": "PostgreSQL database configuration.",
+      "properties": {
+        "host": { "type": "string", "description": "Database host." },
+        "port": { "type": "integer", "description": "Database port." },
+        "name": { "type": "string", "description": "Database name." },
+        "user": { "type": "string", "description": "Database user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+      }
+    },
+    "redis": {
+      "type": "object",
+      "description": "Redis configuration for caching and task queue.",
+      "properties": {
+        "host": { "type": "string", "description": "Redis host." },
+        "port": { "type": "integer", "description": "Redis port." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for Redis password." }
+      }
+    },
+    "email": {
+      "type": "object",
+      "description": "Email configuration.",
+      "properties": {
+        "host": { "type": "string", "description": "SMTP host." },
+        "port": { "type": "integer", "description": "SMTP port." },
+        "from": { "type": "string", "description": "From email address." },
+        "username": { "type": "string", "description": "SMTP username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for SMTP password." },
+        "use_tls": { "type": "boolean", "description": "Whether to use TLS for email." }
+      }
+    },
+    "error_reporting": {
+      "type": "object",
+      "description": "Error reporting configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether error reporting is enabled." },
+        "environment": { "type": "string", "description": "Environment name for error reports." }
+      }
+    },
+    "footer_links": {
+      "type": "array",
+      "description": "Custom footer links displayed in the Authentik UI.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Link display name." },
+          "href": { "type": "string", "description": "Link URL." }
+        }
+      }
+    }
+  }
+}

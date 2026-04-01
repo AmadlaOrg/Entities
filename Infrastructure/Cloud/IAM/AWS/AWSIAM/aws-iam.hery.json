@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:IAM:AWS:AWSIAM",
+  "title": "Infrastructure Cloud IAM AWS IAM Entity",
+  "description": "AWS Identity and Access Management configuration properties.",
+  "type": "object",
+  "properties": {
+    "users": {
+      "type": "array",
+      "description": "IAM user definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the IAM user."
+          },
+          "groups": {
+            "type": "array",
+            "description": "Groups the user belongs to.",
+            "items": { "type": "string" }
+          },
+          "policies": {
+            "type": "array",
+            "description": "Policies attached directly to the user.",
+            "items": { "type": "string" }
+          },
+          "access_key": {
+            "type": "boolean",
+            "description": "Whether to create an access key for the user."
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "IAM group definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the IAM group."
+          },
+          "policies": {
+            "type": "array",
+            "description": "Policies attached to the group.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "description": "IAM role definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the IAM role."
+          },
+          "assume_role_policy": {
+            "type": "object",
+            "description": "Trust policy defining who can assume the role.",
+            "properties": {
+              "principal": {
+                "type": "object",
+                "description": "Principal that can assume the role."
+              },
+              "action": {
+                "type": "string",
+                "description": "Action allowed (typically sts:AssumeRole)."
+              },
+              "effect": {
+                "type": "string",
+                "description": "Effect of the trust policy (Allow/Deny)."
+              }
+            }
+          },
+          "managed_policies": {
+            "type": "array",
+            "description": "ARNs of managed policies attached to the role.",
+            "items": { "type": "string" }
+          },
+          "inline_policies": {
+            "type": "array",
+            "description": "Inline policy definitions.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the inline policy."
+                },
+                "document": {
+                  "type": "object",
+                  "description": "IAM policy document."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "policies": {
+      "type": "array",
+      "description": "Standalone IAM policy definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the IAM policy."
+          },
+          "document": {
+            "type": "object",
+            "description": "IAM policy document.",
+            "properties": {
+              "Version": {
+                "type": "string",
+                "description": "Policy language version (e.g., 2012-10-17)."
+              },
+              "Statement": {
+                "type": "array",
+                "description": "Policy statements.",
+                "items": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "instance_profiles": {
+      "type": "array",
+      "description": "Instance profile definitions for EC2.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the instance profile."
+          },
+          "role": {
+            "type": "string",
+            "description": "IAM role to associate with the instance profile."
+          }
+        }
+      }
+    }
+  }
+}

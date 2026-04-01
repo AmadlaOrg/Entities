@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:CICD:GitLabRunner",
+  "title": "Application CICD GitLabRunner Entity",
+  "description": "GitLab Runner-specific configuration. Extends Application/CICD with GitLab Runner settings.",
+  "type": "object",
+  "properties": {
+    "executor": {
+      "type": "string",
+      "enum": ["shell", "docker", "docker+machine", "kubernetes", "virtualbox", "parallels"],
+      "description": "Executor type for running jobs."
+    },
+    "docker_image": {
+      "type": "string",
+      "description": "Default Docker image for jobs."
+    },
+    "docker_volumes": {
+      "type": "array",
+      "description": "Docker volumes to mount in job containers.",
+      "items": { "type": "string" }
+    },
+    "docker_privileged": {
+      "type": "boolean",
+      "description": "Whether to run Docker containers in privileged mode."
+    },
+    "cache": {
+      "type": "object",
+      "description": "Build cache configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["local", "s3", "gcs"],
+          "description": "Cache storage type."
+        },
+        "path": { "type": "string", "description": "Cache path." },
+        "shared": { "type": "boolean", "description": "Whether cache is shared between runners." },
+        "s3": {
+          "type": "object",
+          "description": "S3 cache backend configuration.",
+          "properties": {
+            "server_address": { "type": "string", "description": "S3 server address." },
+            "bucket": { "type": "string", "description": "S3 bucket name." },
+            "access_key": { "type": "string", "description": "S3 access key." },
+            "secret_key_secret": { "type": "string", "description": "Doorman secret reference for S3 secret key." }
+          }
+        }
+      }
+    },
+    "environment": {
+      "type": "array",
+      "description": "Environment variables for build jobs.",
+      "items": { "type": "string" }
+    }
+  }
+}

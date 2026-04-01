@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:APIGateway:Kong",
+  "title": "Application API Gateway Kong Entity",
+  "description": "Kong-specific configuration. Extends Application/APIGateway with Kong-specific settings.",
+  "type": "object",
+  "properties": {
+    "database": {
+      "type": "string",
+      "enum": ["postgres", "cassandra", "off"],
+      "description": "Database backend. Use 'off' for DB-less declarative mode."
+    },
+    "database_config": {
+      "type": "object",
+      "description": "Database connection configuration.",
+      "properties": {
+        "host": { "type": "string", "description": "Database host." },
+        "port": { "type": "integer", "description": "Database port." },
+        "name": { "type": "string", "description": "Database name." },
+        "user": { "type": "string", "description": "Database user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+      }
+    },
+    "declarative_config": {
+      "type": "string",
+      "description": "Path to declarative YAML config file (used in DB-less mode)."
+    },
+    "plugins": {
+      "type": "array",
+      "description": "Enabled plugins (e.g., rate-limiting, key-auth, jwt, oauth2, cors, acl).",
+      "items": { "type": "string" }
+    },
+    "proxy_listen": {
+      "type": "string",
+      "description": "Proxy listener address and port (e.g., '0.0.0.0:8000')."
+    },
+    "admin_listen": {
+      "type": "string",
+      "description": "Admin API listener address and port (e.g., '127.0.0.1:8001')."
+    },
+    "status_listen": {
+      "type": "string",
+      "description": "Status API listener address and port (e.g., '0.0.0.0:8100')."
+    },
+    "nginx_worker_processes": {
+      "type": "string",
+      "description": "Number of Nginx worker processes (e.g., 'auto' or a number)."
+    }
+  }
+}

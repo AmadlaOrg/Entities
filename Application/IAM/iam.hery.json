@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:IAM",
+  "title": "IAM Application Entity",
+  "description": "Defines identity and access management application configuration.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "description": "IAM provider (e.g., keycloak, authentik, authelia, openldap)."
+    },
+    "realm": {
+      "type": "string",
+      "description": "Authentication realm or domain."
+    },
+    "clients": {
+      "type": "array",
+      "description": "OAuth2/OIDC client registrations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "client_id": { "type": "string" },
+          "redirect_uris": { "type": "array", "items": { "type": "string" } },
+          "grant_types": { "type": "array", "items": { "type": "string" } },
+          "public": { "type": "boolean", "default": false }
+        },
+        "required": ["client_id"]
+      }
+    },
+    "users": {
+      "type": "array",
+      "description": "Initial user accounts.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "roles": { "type": "array", "items": { "type": "string" } },
+          "password_secret": { "type": "string", "description": "Secret key (resolved by doorman)." }
+        },
+        "required": ["username"]
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "description": "Supported authentication protocols.",
+      "items": { "type": "string", "enum": ["oidc", "saml", "ldap", "oauth2"] }
+    }
+  },
+  "required": ["provider"]
+}

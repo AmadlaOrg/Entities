@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Network",
+  "title": "Cloud Network Entity",
+  "description": "Common cloud network/VPC properties. Parent for provider-specific network sub-types.",
+  "type": "object",
+  "properties": {
+    "cidr": {
+      "type": "string",
+      "description": "Primary CIDR block for the network (e.g., 10.0.0.0/16)."
+    },
+    "subnets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Subnet name." },
+          "cidr": { "type": "string", "description": "Subnet CIDR block." },
+          "zone": { "type": "string", "description": "Availability zone." },
+          "public": { "type": "boolean", "description": "Whether the subnet has public internet access." }
+        },
+        "required": ["name", "cidr"]
+      },
+      "description": "Subnet definitions."
+    },
+    "enable_dns": {
+      "type": "boolean",
+      "description": "Whether to enable DNS resolution in the network."
+    },
+    "enable_nat": {
+      "type": "boolean",
+      "description": "Whether to enable NAT for private subnets."
+    }
+  },
+  "required": ["cidr"]
+}

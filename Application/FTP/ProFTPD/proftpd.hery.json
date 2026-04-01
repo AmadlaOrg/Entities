@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FTP:ProFTPD",
+  "title": "Application FTP ProFTPD Entity",
+  "description": "ProFTPD-specific configuration. Extends Application/FTP with ProFTPD-specific settings.",
+  "type": "object",
+  "properties": {
+    "server_name": {
+      "type": "string",
+      "description": "Server name displayed to clients."
+    },
+    "server_type": {
+      "type": "string",
+      "enum": ["standalone", "inetd"],
+      "description": "Server operation mode."
+    },
+    "max_instances": {
+      "type": "integer",
+      "description": "Maximum number of child processes (standalone mode)."
+    },
+    "default_server": {
+      "type": "boolean",
+      "description": "Whether this is the default server for unmatched connections."
+    },
+    "virtual_hosts": {
+      "type": "array",
+      "description": "Virtual host definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string", "description": "Virtual host IP address." },
+          "server_name": { "type": "string", "description": "Virtual host server name." },
+          "root": { "type": "string", "description": "Document root for the virtual host." },
+          "config": { "type": "object", "description": "Additional virtual host configuration." }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "description": "Modules to load (e.g., mod_tls, mod_sql, mod_ldap, mod_quotatab).",
+      "items": { "type": "string" }
+    },
+    "sql_backend": {
+      "type": "object",
+      "description": "SQL authentication backend configuration.",
+      "properties": {
+        "engine": {
+          "type": "string",
+          "enum": ["mysql", "postgres"],
+          "description": "SQL database engine."
+        },
+        "host": { "type": "string", "description": "Database host." },
+        "database": { "type": "string", "description": "Database name." },
+        "user": { "type": "string", "description": "Database user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+      }
+    }
+  }
+}

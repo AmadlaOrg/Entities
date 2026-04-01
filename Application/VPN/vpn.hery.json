@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:VPN",
+  "title": "Application VPN Entity",
+  "description": "Common properties shared by all VPN applications (WireGuard, OpenVPN, StrongSwan).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the VPN server listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the VPN server listens on."
+    },
+    "subnet": {
+      "type": "string",
+      "description": "VPN subnet (e.g., 10.0.0.0/24)."
+    },
+    "dns": {
+      "type": "array",
+      "description": "DNS servers pushed to VPN clients.",
+      "items": { "type": "string" }
+    }
+  }
+}

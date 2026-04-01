@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:VPN:OpenVPN",
+  "title": "Application VPN OpenVPN Entity",
+  "description": "OpenVPN-specific configuration. Extends Application/VPN with OpenVPN-specific settings.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["server", "client"],
+      "description": "OpenVPN operating mode."
+    },
+    "protocol": {
+      "type": "string",
+      "enum": ["udp", "tcp"],
+      "description": "Transport protocol."
+    },
+    "device": {
+      "type": "string",
+      "enum": ["tun", "tap"],
+      "description": "Virtual network device type."
+    },
+    "ca": {
+      "type": "string",
+      "description": "Path to the CA certificate."
+    },
+    "cert": {
+      "type": "string",
+      "description": "Path to the server certificate."
+    },
+    "key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the private key."
+    },
+    "dh": {
+      "type": "string",
+      "description": "Path to the Diffie-Hellman parameters file."
+    },
+    "cipher": {
+      "type": "string",
+      "description": "Encryption cipher (e.g., AES-256-GCM)."
+    },
+    "auth": {
+      "type": "string",
+      "description": "HMAC authentication algorithm (e.g., SHA256)."
+    },
+    "push_routes": {
+      "type": "array",
+      "description": "Routes pushed to connected clients.",
+      "items": { "type": "string" }
+    },
+    "client_to_client": {
+      "type": "boolean",
+      "description": "Whether clients can communicate with each other."
+    },
+    "keepalive": {
+      "type": "object",
+      "description": "Keepalive ping settings.",
+      "properties": {
+        "interval": { "type": "integer", "description": "Ping interval in seconds." },
+        "timeout": { "type": "integer", "description": "Ping timeout in seconds." }
+      }
+    }
+  }
+}

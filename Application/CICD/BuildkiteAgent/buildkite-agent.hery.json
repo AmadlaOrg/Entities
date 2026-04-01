@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:CICD:BuildkiteAgent",
+  "title": "Application CICD BuildkiteAgent Entity",
+  "description": "Buildkite Agent-specific configuration. Extends Application/CICD with Buildkite agent settings.",
+  "type": "object",
+  "properties": {
+    "token_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for agent registration token."
+    },
+    "name": {
+      "type": "string",
+      "description": "Agent name template (supports %hostname, %n)."
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Agent priority for job assignment (higher = preferred)."
+    },
+    "spawn": {
+      "type": "integer",
+      "description": "Number of parallel agent processes to spawn."
+    },
+    "build_path": {
+      "type": "string",
+      "description": "Directory for build checkouts."
+    },
+    "hooks_path": {
+      "type": "string",
+      "description": "Directory for agent hook scripts."
+    },
+    "plugins_path": {
+      "type": "string",
+      "description": "Directory for Buildkite plugins."
+    },
+    "experiment": {
+      "type": "array",
+      "description": "Experimental features to enable.",
+      "items": { "type": "string" }
+    }
+  }
+}

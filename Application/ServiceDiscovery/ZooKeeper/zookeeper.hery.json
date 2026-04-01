@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ServiceDiscovery:ZooKeeper",
+  "title": "Application ServiceDiscovery ZooKeeper Entity",
+  "description": "ZooKeeper-specific configuration. Extends Application/ServiceDiscovery with ZooKeeper-specific settings.",
+  "type": "object",
+  "properties": {
+    "tick_time": {
+      "type": "integer",
+      "description": "Length of a single tick in milliseconds (basic time unit)."
+    },
+    "init_limit": {
+      "type": "integer",
+      "description": "Number of ticks allowed for initial synchronization."
+    },
+    "sync_limit": {
+      "type": "integer",
+      "description": "Number of ticks allowed for followers to sync with the leader."
+    },
+    "client_port": {
+      "type": "integer",
+      "default": 2181,
+      "description": "Port for client connections."
+    },
+    "max_client_cnxns": {
+      "type": "integer",
+      "description": "Maximum number of concurrent client connections per IP."
+    },
+    "autopurge": {
+      "type": "object",
+      "description": "Automatic purge configuration for transaction logs and snapshots.",
+      "properties": {
+        "snap_retain_count": { "type": "integer", "description": "Number of snapshots to retain." },
+        "purge_interval": { "type": "integer", "description": "Purge interval in hours (0 to disable)." }
+      }
+    },
+    "servers": {
+      "type": "array",
+      "description": "ZooKeeper ensemble server definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "description": "Unique server ID (myid)." },
+          "host": { "type": "string", "description": "Server hostname or address." },
+          "peer_port": { "type": "integer", "description": "Port for peer communication (default 2888)." },
+          "election_port": { "type": "integer", "description": "Port for leader election (default 3888)." }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:IdentityProvider",
+  "title": "Application Identity Provider Entity",
+  "description": "Common properties shared by all identity provider applications (Keycloak, Authentik, Dex).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the identity provider listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the identity provider listens on."
+    },
+    "issuer_url": {
+      "type": "string",
+      "description": "OIDC issuer URL."
+    },
+    "admin_user": {
+      "type": "string",
+      "description": "Admin username."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for admin password."
+    }
+  }
+}

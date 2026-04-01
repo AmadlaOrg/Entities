@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DNSResolver:SystemdResolved",
+  "title": "Application DNSResolver SystemdResolved Entity",
+  "description": "systemd-resolved-specific configuration. Extends Application/DNSResolver with systemd-resolved-specific settings.",
+  "type": "object",
+  "properties": {
+    "dns": {
+      "type": "array",
+      "description": "DNS server addresses.",
+      "items": { "type": "string" }
+    },
+    "fallback_dns": {
+      "type": "array",
+      "description": "Fallback DNS server addresses.",
+      "items": { "type": "string" }
+    },
+    "domains": {
+      "type": "array",
+      "description": "Search domains.",
+      "items": { "type": "string" }
+    },
+    "dnssec": {
+      "type": "string",
+      "description": "DNSSEC validation mode.",
+      "enum": ["yes", "no", "allow-downgrade"]
+    },
+    "dns_over_tls": {
+      "type": "string",
+      "description": "DNS-over-TLS mode.",
+      "enum": ["yes", "no", "opportunistic"]
+    },
+    "multicast_dns": {
+      "type": "string",
+      "description": "Multicast DNS mode.",
+      "enum": ["yes", "no", "resolve"]
+    },
+    "llmnr": {
+      "type": "string",
+      "description": "Link-Local Multicast Name Resolution mode.",
+      "enum": ["yes", "no", "resolve"]
+    }
+  }
+}

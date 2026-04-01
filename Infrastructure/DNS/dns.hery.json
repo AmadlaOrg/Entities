@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:DNS",
+  "title": "Infrastructure DNS Entity",
+  "description": "Common properties shared by all authoritative DNS server implementations (BIND, PowerDNS, CoreDNS, Knot).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the DNS server listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "default": 53,
+      "description": "Port the DNS server listens on."
+    },
+    "zones": {
+      "type": "array",
+      "description": "DNS zones served by this server.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Zone name (e.g., example.com)." },
+          "type": { "type": "string", "description": "Zone type (master or slave)." },
+          "file": { "type": "string", "description": "Path to the zone file." }
+        }
+      }
+    },
+    "allow_transfer": {
+      "type": "array",
+      "description": "IP addresses allowed to perform zone transfers.",
+      "items": { "type": "string" }
+    },
+    "recursion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to enable recursion (authoritative servers usually disable this)."
+    }
+  }
+}

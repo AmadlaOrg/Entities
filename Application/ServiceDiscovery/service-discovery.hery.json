@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ServiceDiscovery",
+  "title": "Application ServiceDiscovery Entity",
+  "description": "Common properties shared by all service discovery applications (Consul, Etcd, ZooKeeper).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the service discovery daemon listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the service discovery daemon listens on."
+    },
+    "data_dir": {
+      "type": "string",
+      "description": "Directory for persistent data storage."
+    },
+    "cluster_name": {
+      "type": "string",
+      "description": "Name of the service discovery cluster."
+    }
+  }
+}

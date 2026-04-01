@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:PHP",
+  "title": "ProgrammingLanguage/PHP Entity",
+  "description": "Defines PHP runtime configuration. Extends ProgrammingLanguage with PHP-specific settings (extensions, php.ini, FPM pools).",
+  "type": "object",
+  "properties": {
+    "extensions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "PHP extensions to install (e.g., pdo_mysql, gd, redis, xdebug)."
+    },
+    "ini": {
+      "type": "object",
+      "additionalProperties": { "type": ["string", "integer", "boolean"] },
+      "description": "php.ini directives (e.g., memory_limit: 256M, upload_max_filesize: 64M)."
+    },
+    "fpm": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "pools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "default": "www" },
+              "user": { "type": "string" },
+              "group": { "type": "string" },
+              "listen": { "type": "string", "default": "/run/php/php-fpm.sock" },
+              "pm": { "type": "string", "enum": ["static", "dynamic", "ondemand"], "default": "dynamic" },
+              "pm_max_children": { "type": "integer", "default": 5 },
+              "pm_start_servers": { "type": "integer", "default": 2 },
+              "pm_min_spare_servers": { "type": "integer", "default": 1 },
+              "pm_max_spare_servers": { "type": "integer", "default": 3 },
+              "pm_max_requests": { "type": "integer", "default": 500 }
+            },
+            "required": ["name"]
+          }
+        }
+      }
+    },
+    "composer": {
+      "type": "object",
+      "properties": {
+        "install": { "type": "boolean", "default": true, "description": "Install Composer." },
+        "global_packages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Global Composer packages to install."
+        }
+      }
+    },
+    "sapi": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["cli", "fpm", "apache2", "cgi"] },
+      "default": ["cli", "fpm"],
+      "description": "PHP SAPIs to install."
+    }
+  }
+}

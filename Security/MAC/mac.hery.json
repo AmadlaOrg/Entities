@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:MAC",
+  "title": "Security MAC Entity",
+  "description": "Defines Mandatory Access Control configuration. Parent type for SELinux and AppArmor. Used by enjoin-mac.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["enforcing", "permissive", "disabled"],
+      "description": "MAC enforcement mode. Maps to SELinux enforcing/permissive/disabled or AppArmor enforce/complain/disable."
+    }
+  }
+}

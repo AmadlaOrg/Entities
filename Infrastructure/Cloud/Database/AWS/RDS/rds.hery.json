@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Database:AWS:RDS",
+  "title": "Infrastructure Cloud Database AWS RDS Entity",
+  "description": "AWS RDS managed database instance configuration.",
+  "type": "object",
+  "properties": {
+    "db_instance_class": {
+      "type": "string",
+      "description": "RDS instance class (e.g., db.t3.micro)."
+    },
+    "allocated_storage": {
+      "type": "integer",
+      "description": "Allocated storage in gigabytes."
+    },
+    "storage_type": {
+      "type": "string",
+      "enum": ["gp3", "io1", "standard"],
+      "description": "Storage type for the instance."
+    },
+    "vpc_security_group_ids": {
+      "type": "array",
+      "description": "VPC security group identifiers.",
+      "items": { "type": "string" }
+    },
+    "db_subnet_group_name": {
+      "type": "string",
+      "description": "DB subnet group name."
+    },
+    "publicly_accessible": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the instance is publicly accessible."
+    },
+    "performance_insights_enabled": {
+      "type": "boolean",
+      "description": "Enable Performance Insights monitoring."
+    },
+    "deletion_protection": {
+      "type": "boolean",
+      "description": "Enable deletion protection."
+    },
+    "parameter_group": {
+      "type": "string",
+      "description": "DB parameter group name."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Kubernetes:GCP:GKE",
+  "title": "Infrastructure Cloud Kubernetes GCP GKE Entity",
+  "description": "Google Kubernetes Engine cluster configuration.",
+  "type": "object",
+  "properties": {
+    "cluster_name": {
+      "type": "string",
+      "description": "GKE cluster name."
+    },
+    "location": {
+      "type": "string",
+      "description": "Cluster location (region or zone)."
+    },
+    "network": {
+      "type": "string",
+      "description": "VPC network for the cluster."
+    },
+    "subnetwork": {
+      "type": "string",
+      "description": "VPC subnetwork for the cluster."
+    },
+    "release_channel": {
+      "type": "string",
+      "enum": ["RAPID", "REGULAR", "STABLE"],
+      "description": "Release channel for automatic upgrades."
+    },
+    "workload_identity": {
+      "type": "object",
+      "description": "Workload Identity configuration.",
+      "properties": {
+        "enabled": { "type": "boolean" }
+      }
+    },
+    "binary_authorization": {
+      "type": "object",
+      "description": "Binary Authorization configuration.",
+      "properties": {
+        "evaluation_mode": { "type": "string" }
+      }
+    },
+    "vertical_pod_autoscaling": {
+      "type": "boolean",
+      "description": "Enable vertical pod autoscaling."
+    }
+  }
+}

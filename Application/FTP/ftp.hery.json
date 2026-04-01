@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FTP",
+  "title": "Application FTP Entity",
+  "description": "Common properties shared by all FTP server applications (Vsftpd, ProFTPD, PureFTPD).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the FTP server listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "default": 21,
+      "description": "Port the FTP server listens on."
+    },
+    "passive_ports": {
+      "type": "object",
+      "description": "Passive mode port range.",
+      "properties": {
+        "min": { "type": "integer", "description": "Minimum passive port." },
+        "max": { "type": "integer", "description": "Maximum passive port." }
+      }
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS/SSL configuration for FTPS.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether TLS is enabled." },
+        "cert": { "type": "string", "description": "Path to TLS certificate." },
+        "key": { "type": "string", "description": "Path to TLS private key." },
+        "force": { "type": "boolean", "description": "Whether to force TLS for all connections." }
+      }
+    },
+    "anonymous_enabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether anonymous FTP access is allowed."
+    },
+    "local_root": {
+      "type": "string",
+      "description": "Default root directory for local users."
+    }
+  }
+}

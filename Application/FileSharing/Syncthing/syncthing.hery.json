@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FileSharing:Syncthing",
+  "title": "Application FileSharing Syncthing Entity",
+  "description": "Syncthing-specific configuration. Extends Application/FileSharing with Syncthing-specific settings.",
+  "type": "object",
+  "properties": {
+    "device_name": {
+      "type": "string",
+      "description": "Name of this Syncthing device."
+    },
+    "gui_address": {
+      "type": "string",
+      "description": "Web GUI listen address (e.g., 127.0.0.1:8384)."
+    },
+    "gui_user": {
+      "type": "string",
+      "description": "Web GUI username."
+    },
+    "gui_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the web GUI password."
+    },
+    "folders": {
+      "type": "array",
+      "description": "Shared folder configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Unique folder identifier." },
+          "path": { "type": "string", "description": "Local filesystem path for the folder." },
+          "type": { "type": "string", "enum": ["sendreceive", "sendonly", "receiveonly"], "description": "Folder synchronization type." },
+          "devices": { "type": "array", "items": { "type": "string" }, "description": "Device IDs to share this folder with." }
+        }
+      }
+    },
+    "default_folder_path": {
+      "type": "string",
+      "description": "Default path for new shared folders."
+    },
+    "global_announce_enabled": {
+      "type": "boolean",
+      "description": "Whether global discovery announcement is enabled."
+    },
+    "local_announce_enabled": {
+      "type": "boolean",
+      "description": "Whether local discovery announcement is enabled."
+    },
+    "nat_enabled": {
+      "type": "boolean",
+      "description": "Whether NAT traversal is enabled."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:NodeJS",
+  "title": "ProgrammingLanguage/NodeJS Entity",
+  "description": "Node.js specific configuration. Extends ProgrammingLanguage with npm/yarn/pnpm, registry, and Corepack settings.",
+  "type": "object",
+  "properties": {
+    "package_manager": {
+      "type": "string",
+      "enum": ["npm", "yarn", "pnpm"],
+      "description": "Preferred package manager for Node.js projects."
+    },
+    "global_packages": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Globally installed npm/yarn/pnpm packages."
+    },
+    "registry": {
+      "type": "string",
+      "description": "Custom npm registry URL."
+    },
+    "corepack_enabled": {
+      "type": "boolean",
+      "description": "Enable Corepack for transparent package manager management."
+    },
+    "engine_strict": {
+      "type": "boolean",
+      "description": "Enforce engine version constraints in package.json."
+    }
+  }
+}

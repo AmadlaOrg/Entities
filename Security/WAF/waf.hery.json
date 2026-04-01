@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:WAF",
+  "title": "Security WAF Entity",
+  "description": "Common properties shared by all Web Application Firewall implementations (ModSecurity, Coraza).",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["detection", "prevention"],
+      "description": "Operating mode: detect only or actively block malicious requests."
+    },
+    "rule_sets": {
+      "type": "array",
+      "description": "Rule sets to load (e.g., OWASP CRS).",
+      "items": { "type": "string" }
+    },
+    "audit_log": {
+      "type": "object",
+      "description": "Audit logging configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether audit logging is enabled." },
+        "path": { "type": "string", "description": "Path to the audit log file." },
+        "format": {
+          "type": "string",
+          "enum": ["json", "native"],
+          "description": "Audit log format."
+        }
+      }
+    },
+    "excluded_paths": {
+      "type": "array",
+      "description": "URL paths to skip WAF scanning.",
+      "items": { "type": "string" }
+    }
+  }
+}

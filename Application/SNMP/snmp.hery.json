@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SNMP",
+  "title": "Application SNMP Entity",
+  "description": "Common properties shared by all SNMP applications (Net-SNMP).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the SNMP agent listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "default": 161,
+      "description": "Port the SNMP agent listens on."
+    },
+    "version": {
+      "type": "string",
+      "enum": ["v2c", "v3"],
+      "description": "SNMP protocol version."
+    },
+    "system_location": {
+      "type": "string",
+      "description": "Physical location of the system (sysLocation OID)."
+    },
+    "system_contact": {
+      "type": "string",
+      "description": "Contact information for the system administrator (sysContact OID)."
+    }
+  }
+}

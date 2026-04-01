@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ServiceDiscovery:Etcd",
+  "title": "Application ServiceDiscovery Etcd Entity",
+  "description": "Etcd-specific configuration. Extends Application/ServiceDiscovery with etcd-specific settings.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this etcd member."
+    },
+    "initial_cluster": {
+      "type": "string",
+      "description": "Initial cluster configuration (e.g., node1=http://host1:2380,node2=http://host2:2380)."
+    },
+    "initial_cluster_state": {
+      "type": "string",
+      "enum": ["new", "existing"],
+      "description": "Whether this is a new cluster or joining an existing one."
+    },
+    "initial_cluster_token": {
+      "type": "string",
+      "description": "Token to distinguish this cluster during initialization."
+    },
+    "advertise_client_urls": {
+      "type": "array",
+      "description": "URLs this member advertises to clients.",
+      "items": { "type": "string" }
+    },
+    "listen_peer_urls": {
+      "type": "array",
+      "description": "URLs to listen on for peer communication.",
+      "items": { "type": "string" }
+    },
+    "listen_client_urls": {
+      "type": "array",
+      "description": "URLs to listen on for client communication.",
+      "items": { "type": "string" }
+    },
+    "auto_compaction_retention": {
+      "type": "string",
+      "description": "Auto compaction retention period (e.g., 1h)."
+    },
+    "snapshot_count": {
+      "type": "integer",
+      "description": "Number of committed transactions to trigger a snapshot."
+    }
+  }
+}

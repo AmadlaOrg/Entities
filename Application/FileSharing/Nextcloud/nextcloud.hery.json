@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FileSharing:Nextcloud",
+  "title": "Application FileSharing Nextcloud Entity",
+  "description": "Nextcloud-specific configuration. Extends Application/FileSharing with Nextcloud-specific settings.",
+  "type": "object",
+  "properties": {
+    "admin_user": {
+      "type": "string",
+      "description": "Administrator username."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the admin password."
+    },
+    "database": {
+      "type": "object",
+      "description": "Database configuration.",
+      "properties": {
+        "type": { "type": "string", "enum": ["sqlite", "mysql", "pgsql"], "description": "Database backend type." },
+        "host": { "type": "string", "description": "Database host address." },
+        "name": { "type": "string", "description": "Database name." },
+        "user": { "type": "string", "description": "Database username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the database password." }
+      }
+    },
+    "trusted_domains": {
+      "type": "array",
+      "description": "List of trusted domains allowed to access Nextcloud.",
+      "items": { "type": "string" }
+    },
+    "default_phone_region": {
+      "type": "string",
+      "description": "Default phone region as ISO 3166-1 country code (e.g., US, DE, FR)."
+    },
+    "mail": {
+      "type": "object",
+      "description": "Mail server configuration for outgoing email.",
+      "properties": {
+        "mode": { "type": "string", "description": "Mail sending mode (e.g., smtp)." },
+        "smtp_host": { "type": "string", "description": "SMTP server hostname." },
+        "smtp_port": { "type": "integer", "description": "SMTP server port." },
+        "smtp_secure": { "type": "string", "enum": ["ssl", "tls"], "description": "SMTP encryption type." },
+        "from_address": { "type": "string", "description": "Sender email address (local part)." },
+        "domain": { "type": "string", "description": "Sender email domain." }
+      }
+    },
+    "apps": {
+      "type": "array",
+      "description": "Nextcloud apps to install and enable.",
+      "items": { "type": "string" }
+    },
+    "redis": {
+      "type": "object",
+      "description": "Redis configuration for file locking and caching.",
+      "properties": {
+        "host": { "type": "string", "description": "Redis server hostname." },
+        "port": { "type": "integer", "description": "Redis server port." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the Redis password." }
+      }
+    },
+    "object_store": {
+      "type": "object",
+      "description": "Object storage backend configuration.",
+      "properties": {
+        "class": { "type": "string", "enum": ["S3", "Swift"], "description": "Object storage class." },
+        "bucket": { "type": "string", "description": "Storage bucket name." },
+        "region": { "type": "string", "description": "Storage region." },
+        "key": { "type": "string", "description": "Access key identifier." },
+        "secret_secret": { "type": "string", "description": "Doorman secret reference for the storage secret key." }
+      }
+    }
+  }
+}

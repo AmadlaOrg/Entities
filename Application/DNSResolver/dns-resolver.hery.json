@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DNSResolver",
+  "title": "Application DNSResolver Entity",
+  "description": "Common properties shared by all DNS resolver applications (Unbound, Dnsmasq, systemd-resolved, etc.).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address to listen on (e.g., 127.0.0.1, 0.0.0.0)."
+    },
+    "listen_port": {
+      "type": "integer",
+      "default": 53,
+      "description": "Port to listen on."
+    },
+    "upstream_servers": {
+      "type": "array",
+      "description": "Upstream DNS servers for recursive resolution.",
+      "items": { "type": "string" }
+    },
+    "cache_size": {
+      "type": "integer",
+      "description": "Maximum number of cache entries."
+    }
+  }
+}

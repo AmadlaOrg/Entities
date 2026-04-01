@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Serverless:Azure:AzureFunctions",
+  "title": "Infrastructure Cloud Serverless Azure Functions Entity",
+  "description": "Azure Functions configuration properties.",
+  "type": "object",
+  "properties": {
+    "function_app_name": {
+      "type": "string",
+      "description": "Name of the Azure Function App."
+    },
+    "resource_group": {
+      "type": "string",
+      "description": "Azure resource group containing the Function App."
+    },
+    "storage_account_name": {
+      "type": "string",
+      "description": "Storage account used by the Function App."
+    },
+    "os_type": {
+      "type": "string",
+      "enum": ["Linux", "Windows"],
+      "description": "Operating system type for the Function App."
+    },
+    "sku": {
+      "type": "string",
+      "enum": ["Consumption", "Premium", "Dedicated"],
+      "description": "Hosting plan SKU."
+    },
+    "app_settings": {
+      "type": "object",
+      "description": "Application settings (key-value pairs)."
+    },
+    "site_config": {
+      "type": "object",
+      "description": "Site configuration settings.",
+      "properties": {
+        "always_on": {
+          "type": "boolean",
+          "description": "Whether the Function App is always running."
+        },
+        "http2_enabled": {
+          "type": "boolean",
+          "description": "Whether HTTP/2 is enabled."
+        },
+        "minimum_tls_version": {
+          "type": "string",
+          "description": "Minimum TLS version (e.g., 1.2)."
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "description": "Managed identity configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["SystemAssigned", "UserAssigned"],
+          "description": "Type of managed identity."
+        }
+      }
+    }
+  }
+}

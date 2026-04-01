@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:Go",
+  "title": "ProgrammingLanguage/Go Entity",
+  "description": "Go-specific configuration. Extends ProgrammingLanguage with GOPATH, module proxy, private modules, and CGO settings.",
+  "type": "object",
+  "properties": {
+    "gopath": {
+      "type": "string",
+      "description": "GOPATH directory."
+    },
+    "gobin": {
+      "type": "string",
+      "description": "GOBIN directory for installed binaries."
+    },
+    "goproxy": {
+      "type": "string",
+      "description": "Module proxy URL (e.g., \"https://proxy.golang.org,direct\")."
+    },
+    "gonosumcheck": {
+      "type": "string",
+      "description": "Patterns to skip checksum verification."
+    },
+    "goprivate": {
+      "type": "string",
+      "description": "Private module patterns (e.g., \"github.com/myorg/*\")."
+    },
+    "go_install": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tools to install via go install (e.g., \"golang.org/x/tools/gopls@latest\")."
+    },
+    "cgo_enabled": {
+      "type": "boolean",
+      "description": "Enable CGO for C interop."
+    }
+  }
+}

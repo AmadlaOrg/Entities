@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FileSharing:Seafile",
+  "title": "Application FileSharing Seafile Entity",
+  "description": "Seafile-specific configuration. Extends Application/FileSharing with Seafile-specific settings.",
+  "type": "object",
+  "properties": {
+    "admin_email": {
+      "type": "string",
+      "description": "Administrator email address."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the admin password."
+    },
+    "database": {
+      "type": "object",
+      "description": "Database configuration.",
+      "properties": {
+        "type": { "type": "string", "enum": ["sqlite", "mysql"], "description": "Database backend type." },
+        "host": { "type": "string", "description": "Database host address." },
+        "port": { "type": "integer", "description": "Database port." },
+        "user": { "type": "string", "description": "Database username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the database password." }
+      }
+    },
+    "file_server_port": {
+      "type": "integer",
+      "description": "Port for the Seafile file server."
+    },
+    "max_upload_size": {
+      "type": "integer",
+      "description": "Maximum upload file size in MB."
+    },
+    "enable_thumbnail": {
+      "type": "boolean",
+      "description": "Whether to enable thumbnail generation for files."
+    },
+    "storage_backend": {
+      "type": "object",
+      "description": "Storage backend configuration.",
+      "properties": {
+        "type": { "type": "string", "enum": ["filesystem", "s3", "ceph"], "description": "Storage backend type." },
+        "config": { "type": "object", "description": "Backend-specific configuration parameters." }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Kubernetes:AWS:EKS",
+  "title": "Infrastructure Cloud Kubernetes AWS EKS Entity",
+  "description": "AWS Elastic Kubernetes Service cluster configuration.",
+  "type": "object",
+  "properties": {
+    "cluster_name": {
+      "type": "string",
+      "description": "EKS cluster name."
+    },
+    "vpc_config": {
+      "type": "object",
+      "description": "VPC configuration for the cluster.",
+      "properties": {
+        "subnet_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "security_group_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "endpoint_public_access": { "type": "boolean" },
+        "endpoint_private_access": { "type": "boolean" }
+      }
+    },
+    "addons": {
+      "type": "array",
+      "description": "EKS managed add-ons.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["vpc-cni", "coredns", "kube-proxy", "ebs-csi-driver"]
+          },
+          "version": { "type": "string" }
+        }
+      }
+    },
+    "iam_role_arn": {
+      "type": "string",
+      "description": "IAM role ARN for the cluster."
+    },
+    "fargate_profiles": {
+      "type": "array",
+      "description": "Fargate profiles for serverless pod execution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "selectors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "namespace": { "type": "string" },
+                "labels": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

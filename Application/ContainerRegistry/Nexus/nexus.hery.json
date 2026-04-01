@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ContainerRegistry:Nexus",
+  "title": "Application Container Registry Nexus Entity",
+  "description": "Defines Sonatype Nexus Repository Manager configuration.",
+  "type": "object",
+  "properties": {
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the admin password."
+    },
+    "repositories": {
+      "type": "array",
+      "description": "Repository definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Repository name." },
+          "type": {
+            "type": "string",
+            "enum": ["hosted", "proxy", "group"],
+            "description": "Repository type."
+          },
+          "format": {
+            "type": "string",
+            "enum": ["docker", "maven", "npm", "raw"],
+            "description": "Repository format."
+          },
+          "config": { "type": "object", "description": "Format-specific configuration." }
+        },
+        "required": ["name", "type", "format"]
+      }
+    },
+    "blob_stores": {
+      "type": "array",
+      "description": "Blob store definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Blob store name." },
+          "type": {
+            "type": "string",
+            "enum": ["file", "s3"],
+            "description": "Blob store type."
+          },
+          "path": { "type": "string", "description": "Storage path (for file type)." }
+        },
+        "required": ["name", "type"]
+      }
+    },
+    "realms": {
+      "type": "array",
+      "description": "Enabled security realms (e.g., DockerToken, NpmToken).",
+      "items": { "type": "string" }
+    },
+    "cleanup_policies": {
+      "type": "array",
+      "description": "Cleanup policy definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Policy name." },
+          "format": { "type": "string", "description": "Repository format this policy applies to." },
+          "criteria": { "type": "object", "description": "Cleanup criteria (e.g., last_downloaded, regex)." }
+        },
+        "required": ["name", "format"]
+      }
+    }
+  }
+}

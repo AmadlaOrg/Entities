@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:VM",
+  "title": "VM Infrastructure Entity",
+  "description": "Defines virtual machine provisioning. Used by raise with libvirt, virtualbox, and vmware. CPU, memory, network, and filesystem requirements are declared as separate entities via _requires.",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "string",
+      "description": "Base image: ISO path, disk image, cloud image, or Vagrant box name (e.g., debian/bookworm64, ~/isos/rocky.iso)."
+    },
+    "image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the base image."
+    },
+    "disk": {
+      "type": "object",
+      "properties": {
+        "size": { "type": ["integer", "string"], "description": "Disk size (e.g., 20, \"50g\")." },
+        "format": { "type": "string", "enum": ["qcow2", "raw", "vmdk", "vdi", "vhd"], "description": "Disk image format." }
+      },
+      "additionalProperties": false
+    },
+    "additional_disks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "size": { "type": ["integer", "string"] },
+          "format": { "type": "string", "enum": ["qcow2", "raw", "vmdk", "vdi", "vhd"] },
+          "mount_point": { "type": "string" }
+        },
+        "required": ["size"]
+      }
+    },
+    "forwarded_ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "guest": { "type": "integer" },
+          "host": { "type": "integer" },
+          "protocol": { "type": "string", "enum": ["tcp", "udp"], "default": "tcp" }
+        },
+        "required": ["guest", "host"]
+      }
+    },
+    "synced_folders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "host": { "type": "string" },
+          "guest": { "type": "string" },
+          "type": { "type": "string", "enum": ["nfs", "rsync", "9p", "virtiofs"] }
+        },
+        "required": ["host", "guest"]
+      }
+    },
+    "gui": { "type": "boolean", "default": false }
+  },
+  "required": ["image"]
+}

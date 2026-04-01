@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:System:Filesystem",
+  "title": "System Filesystem Entity",
+  "description": "Defines bare-metal/VM filesystem configuration: volumes, mounts, tmpfs. Used by enjoin-filesystem.",
+  "type": "object",
+  "properties": {
+    "volumes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "driver": { "type": "string", "default": "local" },
+          "driver_opts": { "type": "object", "additionalProperties": { "type": ["string", "number"] } },
+          "labels": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
+        "required": ["name"]
+      }
+    },
+    "mounts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["bind", "volume", "tmpfs", "nfs", "cifs"] },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "read_only": { "type": "boolean", "default": false },
+          "options": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["type", "target"]
+      }
+    },
+    "tmpfs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target": { "type": "string" },
+          "size": { "type": ["integer", "string"] },
+          "mode": { "type": "integer" }
+        },
+        "required": ["target"]
+      }
+    },
+    "read_only": { "type": "boolean", "default": false }
+  }
+}

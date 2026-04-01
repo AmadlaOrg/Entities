@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Compute:AWS:EC2",
+  "title": "AWS EC2 Instance Entity",
+  "description": "AWS EC2-specific compute instance properties.",
+  "type": "object",
+  "properties": {
+    "ami": {
+      "type": "string",
+      "description": "Amazon Machine Image ID (e.g., ami-0abcdef1234567890)."
+    },
+    "vpc_id": {
+      "type": "string",
+      "description": "VPC ID to launch the instance in."
+    },
+    "subnet_id": {
+      "type": "string",
+      "description": "Subnet ID within the VPC."
+    },
+    "security_group_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of security group IDs."
+    },
+    "iam_instance_profile": {
+      "type": "string",
+      "description": "IAM instance profile name or ARN."
+    },
+    "ebs_optimized": {
+      "type": "boolean",
+      "description": "Whether to enable EBS optimization."
+    },
+    "placement_group": {
+      "type": "string",
+      "description": "Placement group name for clustered instances."
+    },
+    "tenancy": {
+      "type": "string",
+      "enum": ["default", "dedicated", "host"],
+      "description": "Instance tenancy model."
+    },
+    "metadata_options": {
+      "type": "object",
+      "properties": {
+        "http_tokens": {
+          "type": "string",
+          "enum": ["required", "optional"],
+          "description": "Whether IMDSv2 tokens are required."
+        },
+        "http_endpoint": {
+          "type": "string",
+          "enum": ["enabled", "disabled"],
+          "description": "Whether the metadata endpoint is enabled."
+        }
+      },
+      "description": "Instance metadata service (IMDS) options."
+    }
+  },
+  "required": ["ami"]
+}

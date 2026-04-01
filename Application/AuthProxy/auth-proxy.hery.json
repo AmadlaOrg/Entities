@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:AuthProxy",
+  "title": "Application AuthProxy Entity",
+  "description": "Common properties shared by all authentication proxy applications (OAuth2 Proxy, Authelia, Keycloak Gatekeeper).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the auth proxy listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the auth proxy listens on."
+    },
+    "upstream": {
+      "type": "string",
+      "description": "URL of the protected upstream application."
+    },
+    "cookie_secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for cookie encryption key."
+    },
+    "cookie_name": {
+      "type": "string",
+      "description": "Name of the session cookie."
+    },
+    "cookie_secure": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the session cookie requires HTTPS."
+    },
+    "email_domains": {
+      "type": "array",
+      "description": "Allowed email domains for authentication.",
+      "items": { "type": "string" }
+    }
+  }
+}

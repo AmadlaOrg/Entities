@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SNMP:NetSNMP",
+  "title": "Application SNMP Net-SNMP Entity",
+  "description": "Net-SNMP-specific configuration. Extends Application/SNMP with Net-SNMP-specific settings.",
+  "type": "object",
+  "properties": {
+    "community": {
+      "type": "string",
+      "description": "SNMPv2c community string (e.g., public)."
+    },
+    "community_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the community string."
+    },
+    "views": {
+      "type": "array",
+      "description": "SNMP view definitions for access control.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "View name." },
+          "type": { "type": "string", "enum": ["included", "excluded"], "description": "Whether the OID subtree is included or excluded." },
+          "oid": { "type": "string", "description": "OID subtree (e.g., .1.3.6.1.2.1)." }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "SNMP group definitions mapping security models to views.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Group name." },
+          "version": { "type": "string", "description": "Security model version (e.g., v2c, usm)." },
+          "access": { "type": "string", "enum": ["readonly", "readwrite"], "description": "Access level for this group." }
+        }
+      }
+    },
+    "users": {
+      "type": "array",
+      "description": "SNMPv3 user definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Username." },
+          "auth_protocol": { "type": "string", "enum": ["MD5", "SHA", "SHA256"], "description": "Authentication protocol." },
+          "auth_pass_secret": { "type": "string", "description": "Doorman secret reference for the authentication passphrase." },
+          "priv_protocol": { "type": "string", "enum": ["DES", "AES", "AES256"], "description": "Privacy (encryption) protocol." },
+          "priv_pass_secret": { "type": "string", "description": "Doorman secret reference for the privacy passphrase." }
+        }
+      }
+    },
+    "disk_monitors": {
+      "type": "array",
+      "description": "Disk space monitoring definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "Filesystem path to monitor." },
+          "min_space": { "type": "string", "description": "Minimum free space threshold (e.g., 10%, 100MB)." }
+        }
+      }
+    },
+    "process_monitors": {
+      "type": "array",
+      "description": "Process monitoring definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Process name to monitor." },
+          "min": { "type": "integer", "description": "Minimum number of expected instances." },
+          "max": { "type": "integer", "description": "Maximum number of expected instances." }
+        }
+      }
+    },
+    "extend_scripts": {
+      "type": "array",
+      "description": "Custom extend scripts for additional monitoring.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Script name (used as OID label)." },
+          "command": { "type": "string", "description": "Command to execute." }
+        }
+      }
+    }
+  }
+}

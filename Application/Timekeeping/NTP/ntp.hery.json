@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Timekeeping:NTP",
+  "title": "Application Timekeeping NTP Entity",
+  "description": "NTP-specific (ntpd) configuration. Extends Application/Timekeeping with ntpd-specific settings.",
+  "type": "object",
+  "properties": {
+    "restrict": {
+      "type": "array",
+      "description": "Access control restrictions (ntp.conf restrict directives).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string", "description": "IP address or 'default'." },
+          "mask": { "type": "string", "description": "Netmask." },
+          "options": {
+            "type": "array",
+            "description": "Restriction flags (e.g., nomodify, notrap, nopeer, noquery).",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["address"]
+      }
+    },
+    "driftfile": {
+      "type": "string",
+      "description": "Path to the drift file.",
+      "default": "/var/lib/ntp/drift"
+    },
+    "statsdir": {
+      "type": "string",
+      "description": "Directory for statistics files."
+    },
+    "leapfile": {
+      "type": "string",
+      "description": "Path to the leap seconds file."
+    },
+    "broadcast": {
+      "type": "array",
+      "description": "Broadcast addresses for NTP broadcast mode.",
+      "items": { "type": "string" }
+    },
+    "disable_monitor": {
+      "type": "boolean",
+      "default": true,
+      "description": "Disable monlist to prevent amplification attacks."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:DNS",
+  "title": "Cloud DNS Entity",
+  "description": "Common cloud DNS zone and record properties. Parent for provider-specific DNS sub-types.",
+  "type": "object",
+  "properties": {
+    "zone_name": {
+      "type": "string",
+      "description": "DNS zone name (e.g., example.com)."
+    },
+    "zone_type": {
+      "type": "string",
+      "enum": ["public", "private"],
+      "description": "Whether the zone is publicly or privately resolvable."
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Record name (e.g., www, @, mail)." },
+          "type": {
+            "type": "string",
+            "enum": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "NS"],
+            "description": "DNS record type."
+          },
+          "ttl": { "type": "integer", "description": "Time to live in seconds." },
+          "values": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Record values."
+          }
+        },
+        "required": ["name", "type", "values"]
+      },
+      "description": "DNS record definitions."
+    }
+  },
+  "required": ["zone_name"]
+}

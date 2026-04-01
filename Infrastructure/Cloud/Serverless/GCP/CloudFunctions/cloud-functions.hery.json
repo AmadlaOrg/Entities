@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Serverless:GCP:CloudFunctions",
+  "title": "Infrastructure Cloud Serverless GCP Cloud Functions Entity",
+  "description": "GCP Cloud Functions configuration properties.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the Cloud Function."
+    },
+    "region": {
+      "type": "string",
+      "description": "GCP region where the function is deployed."
+    },
+    "trigger": {
+      "type": "object",
+      "description": "Trigger configuration for the function.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["http", "pubsub", "storage", "firestore"],
+          "description": "Trigger type."
+        },
+        "config": {
+          "type": "object",
+          "description": "Trigger-specific configuration."
+        }
+      }
+    },
+    "service_account": {
+      "type": "string",
+      "description": "Service account email used by the function."
+    },
+    "max_instances": {
+      "type": "integer",
+      "description": "Maximum number of concurrent instances."
+    },
+    "min_instances": {
+      "type": "integer",
+      "description": "Minimum number of instances to keep warm."
+    },
+    "vpc_connector": {
+      "type": "string",
+      "description": "VPC connector for private network access."
+    },
+    "ingress_settings": {
+      "type": "string",
+      "enum": ["ALLOW_ALL", "ALLOW_INTERNAL_ONLY", "ALLOW_INTERNAL_AND_GCLB"],
+      "description": "Ingress traffic restriction settings."
+    },
+    "build_environment_variables": {
+      "type": "object",
+      "description": "Environment variables available during the build step."
+    }
+  }
+}

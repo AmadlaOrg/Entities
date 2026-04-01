@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Logging:Rsyslog",
+  "title": "Application Logging Rsyslog Entity",
+  "description": "Rsyslog-specific configuration. Extends Application/Logging with rsyslog-specific settings.",
+  "type": "object",
+  "properties": {
+    "modules": {
+      "type": "array",
+      "description": "Rsyslog modules to load (e.g., imuxsock, imjournal, imtcp, imudp, imfile).",
+      "items": { "type": "string" }
+    },
+    "rules": {
+      "type": "array",
+      "description": "Facility.severity to destination routing rules.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "selector": { "type": "string", "description": "Syslog selector (e.g., \"auth,authpriv.*\", \"*.info;mail.none\")." },
+          "destination": { "type": "string", "description": "Log destination (e.g., \"/var/log/auth.log\", \"@@remote:514\")." }
+        }
+      }
+    },
+    "templates": {
+      "type": "array",
+      "description": "Custom rsyslog log format templates.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Template name." },
+          "format": { "type": "string", "description": "Template format string." }
+        }
+      }
+    },
+    "work_directory": {
+      "type": "string",
+      "description": "Spool/work directory for rsyslog (e.g., /var/spool/rsyslog)."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Database",
+  "title": "Infrastructure Cloud Database Entity",
+  "description": "Common properties shared by all managed database providers.",
+  "type": "object",
+  "properties": {
+    "engine": {
+      "type": "string",
+      "description": "Database engine (e.g., postgres, mysql, mariadb)."
+    },
+    "engine_version": {
+      "type": "string",
+      "description": "Database engine version."
+    },
+    "instance_class": {
+      "type": "string",
+      "description": "Compute instance size."
+    },
+    "storage_size_gb": {
+      "type": "integer",
+      "description": "Allocated storage size in gigabytes."
+    },
+    "multi_az": {
+      "type": "boolean",
+      "description": "Enable multi-AZ deployment for high availability."
+    },
+    "backup_retention_days": {
+      "type": "integer",
+      "description": "Number of days to retain automated backups."
+    },
+    "admin_username": {
+      "type": "string",
+      "description": "Administrator username."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Secret reference for the administrator password."
+    }
+  }
+}

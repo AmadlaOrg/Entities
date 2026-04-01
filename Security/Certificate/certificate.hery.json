@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:Certificate",
+  "title": "Security Certificate Entity",
+  "description": "Defines TLS/SSL certificate configuration. Used by enjoin-certificate to provision certificates via ACME, self-signed, or manual placement.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": ["acme", "self-signed", "manual"],
+      "description": "Certificate provisioning method."
+    },
+    "domains": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Domain names for the certificate (first is primary, rest are SANs)."
+    },
+    "acme": {
+      "type": "object",
+      "properties": {
+        "server": { "type": "string", "description": "ACME server URL (default: Let's Encrypt production)." },
+        "email": { "type": "string", "format": "email" },
+        "challenge": { "type": "string", "enum": ["http-01", "dns-01", "tls-alpn-01"], "default": "http-01" },
+        "dns_provider": { "type": "string", "description": "DNS provider plugin for dns-01 challenge." }
+      },
+      "required": ["email"]
+    },
+    "self_signed": {
+      "type": "object",
+      "properties": {
+        "validity_days": { "type": "integer", "default": 365 },
+        "key_size": { "type": "integer", "default": 2048 },
+        "key_type": { "type": "string", "enum": ["rsa", "ecdsa", "ed25519"], "default": "rsa" },
+        "subject": {
+          "type": "object",
+          "properties": {
+            "cn": { "type": "string" },
+            "o": { "type": "string" },
+            "ou": { "type": "string" },
+            "c": { "type": "string" },
+            "st": { "type": "string" },
+            "l": { "type": "string" }
+          }
+        }
+      }
+    },
+    "cert_path": { "type": "string", "description": "Where to place the certificate file." },
+    "key_path": { "type": "string", "description": "Where to place the private key file." },
+    "chain_path": { "type": "string", "description": "Where to place the CA chain file." },
+    "fullchain_path": { "type": "string", "description": "Where to place the full chain (cert + CA chain)." },
+    "key_mode": { "type": ["string", "integer"], "default": "0600" },
+    "renew_before_days": { "type": "integer", "default": 30, "description": "Renew when fewer than N days remain." },
+    "notify": { "type": "string", "description": "Command to run after renewal (e.g., systemctl reload nginx)." }
+  },
+  "required": ["provider", "domains"]
+}

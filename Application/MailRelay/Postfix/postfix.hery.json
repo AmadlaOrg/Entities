@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MailRelay:Postfix",
+  "title": "Application MailRelay Postfix Entity",
+  "description": "Postfix-specific configuration. Extends Application/MailRelay with postfix-specific settings.",
+  "type": "object",
+  "properties": {
+    "myhostname": {
+      "type": "string",
+      "description": "The hostname of this mail system."
+    },
+    "mydomain": {
+      "type": "string",
+      "description": "The domain name of this mail system."
+    },
+    "mynetworks": {
+      "type": "array",
+      "description": "Trusted networks allowed to relay through this server.",
+      "items": { "type": "string" }
+    },
+    "inet_interfaces": {
+      "type": "string",
+      "description": "Network interfaces to listen on (loopback-only or all)."
+    },
+    "smtp_tls_security_level": {
+      "type": "string",
+      "description": "TLS security level for outbound SMTP connections.",
+      "enum": ["none", "may", "encrypt", "dane"]
+    },
+    "alias_maps": {
+      "type": "object",
+      "description": "Mail alias mappings (key: alias, value: destination).",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

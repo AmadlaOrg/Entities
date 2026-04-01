@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Proxy:Privoxy",
+  "title": "Application Proxy Privoxy Entity",
+  "description": "Defines Privoxy filtering proxy configuration.",
+  "type": "object",
+  "properties": {
+    "toggle": {
+      "type": "boolean",
+      "description": "Enable or disable filtering."
+    },
+    "enable_remote_toggle": {
+      "type": "boolean",
+      "description": "Allow remote toggling of filtering."
+    },
+    "enable_edit_actions": {
+      "type": "boolean",
+      "description": "Allow editing actions via the web interface."
+    },
+    "forward_socks5": {
+      "type": "string",
+      "description": "SOCKS5 proxy to chain to (e.g., 127.0.0.1:9050 for Tor)."
+    },
+    "actionsfile": {
+      "type": "array",
+      "description": "Action files to load.",
+      "items": { "type": "string" }
+    },
+    "filterfile": {
+      "type": "array",
+      "description": "Filter files to load.",
+      "items": { "type": "string" }
+    },
+    "log_level": {
+      "type": "integer",
+      "description": "Logging bitmask."
+    }
+  }
+}

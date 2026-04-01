@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Logging:Journald",
+  "title": "Application Logging Journald Entity",
+  "description": "Systemd-journald-specific configuration. Extends Application/Logging with journald-specific settings.",
+  "type": "object",
+  "properties": {
+    "storage": {
+      "type": "string",
+      "enum": ["volatile", "persistent", "auto", "none"],
+      "description": "Where to store journal data."
+    },
+    "system_max_use": {
+      "type": "string",
+      "description": "Max disk usage for journal files (e.g., \"500M\", \"2G\")."
+    },
+    "system_max_file_size": {
+      "type": "string",
+      "description": "Max size of individual journal files (e.g., \"50M\")."
+    },
+    "max_retention_sec": {
+      "type": "string",
+      "description": "Max retention time for journal entries (e.g., \"1month\", \"2week\")."
+    },
+    "forward_to_syslog": {
+      "type": "boolean",
+      "description": "Forward journal messages to syslog."
+    },
+    "forward_to_wall": {
+      "type": "boolean",
+      "description": "Forward emergency messages to wall."
+    },
+    "rate_limit_interval_sec": {
+      "type": "integer",
+      "description": "Rate limiting interval in seconds."
+    },
+    "rate_limit_burst": {
+      "type": "integer",
+      "description": "Maximum number of messages per rate limit interval."
+    }
+  }
+}

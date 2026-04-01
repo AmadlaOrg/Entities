@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SearchEngine:OpenSearch",
+  "title": "Application SearchEngine OpenSearch Entity",
+  "description": "OpenSearch-specific configuration. Extends Application/SearchEngine with OpenSearch-specific settings.",
+  "type": "object",
+  "properties": {
+    "node_name": {
+      "type": "string",
+      "description": "Name of this OpenSearch node."
+    },
+    "node_roles": {
+      "type": "array",
+      "description": "Roles for this node.",
+      "items": { "type": "string" }
+    },
+    "discovery_seed_hosts": {
+      "type": "array",
+      "description": "Seed hosts for cluster discovery.",
+      "items": { "type": "string" }
+    },
+    "cluster_initial_master_nodes": {
+      "type": "array",
+      "description": "Initial master-eligible nodes for cluster bootstrapping.",
+      "items": { "type": "string" }
+    },
+    "plugins_security_disabled": {
+      "type": "boolean",
+      "description": "Disable the OpenSearch security plugin."
+    },
+    "compatibility_mode": {
+      "type": "boolean",
+      "description": "Enable Elasticsearch compatibility mode."
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:Network",
+  "title": "Security Network Entity",
+  "description": "Defines network security posture: TLS requirements, network isolation, allowed protocols, and connection security. Used by enjoin-network. Security/Firewall handles packet filtering rules; this entity defines higher-level network security policy.",
+  "type": "object",
+  "properties": {
+    "tls": {
+      "type": "object",
+      "properties": {
+        "min_version": { "type": "string", "enum": ["1.0", "1.1", "1.2", "1.3"], "default": "1.2" },
+        "cipher_suites": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Allowed cipher suites (e.g., TLS_AES_256_GCM_SHA384)."
+        },
+        "require_client_cert": { "type": "boolean", "default": false },
+        "hsts": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "max_age": { "type": "integer", "default": 31536000 },
+            "include_subdomains": { "type": "boolean", "default": true },
+            "preload": { "type": "boolean", "default": false }
+          }
+        }
+      }
+    },
+    "isolation": {
+      "type": "object",
+      "properties": {
+        "network_namespaces": { "type": "boolean", "default": false, "description": "Enable network namespace isolation." },
+        "allowed_outbound": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Allowed outbound destinations (CIDR or domain)."
+        },
+        "deny_link_local": { "type": "boolean", "default": false, "description": "Block link-local (169.254.0.0/16) traffic." }
+      }
+    },
+    "protocols": {
+      "type": "object",
+      "properties": {
+        "disable_ipv6": { "type": "boolean", "default": false },
+        "disable_icmp_redirect": { "type": "boolean", "default": true },
+        "disable_source_routing": { "type": "boolean", "default": true },
+        "enable_syn_cookies": { "type": "boolean", "default": true },
+        "enable_rp_filter": { "type": "boolean", "default": true, "description": "Reverse path filtering." }
+      }
+    },
+    "dns_security": {
+      "type": "object",
+      "properties": {
+        "dnssec": { "type": "boolean", "default": false },
+        "dns_over_tls": { "type": "boolean", "default": false },
+        "allowed_dns_servers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Restrict DNS queries to these servers."
+        }
+      }
+    }
+  }
+}

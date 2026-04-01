@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:VPN:StrongSwan",
+  "title": "Application VPN StrongSwan Entity",
+  "description": "StrongSwan-specific configuration. Extends Application/VPN with StrongSwan IPsec settings.",
+  "type": "object",
+  "properties": {
+    "connections": {
+      "type": "array",
+      "description": "IPsec connection definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Connection name." },
+          "local": {
+            "type": "object",
+            "description": "Local endpoint configuration.",
+            "properties": {
+              "auth": { "type": "string", "description": "Authentication method (e.g., pubkey, psk, eap)." },
+              "certs": { "type": "string", "description": "Path to local certificate." },
+              "id": { "type": "string", "description": "Local identity." }
+            }
+          },
+          "remote": {
+            "type": "object",
+            "description": "Remote endpoint configuration.",
+            "properties": {
+              "auth": { "type": "string", "description": "Authentication method for the remote peer." },
+              "id": { "type": "string", "description": "Remote identity." }
+            }
+          },
+          "children": {
+            "type": "object",
+            "description": "Child SA (CHILD_SA) definitions.",
+            "properties": {
+              "local_ts": { "type": "array", "items": { "type": "string" }, "description": "Local traffic selectors (subnets)." },
+              "remote_ts": { "type": "array", "items": { "type": "string" }, "description": "Remote traffic selectors (subnets)." },
+              "start_action": { "type": "string", "description": "Action on startup (e.g., start, trap, none)." }
+            }
+          }
+        }
+      }
+    },
+    "pools": {
+      "type": "array",
+      "description": "Virtual IP address pools for clients.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Pool name." },
+          "addrs": { "type": "string", "description": "Address range in CIDR notation." },
+          "dns": { "type": "array", "items": { "type": "string" }, "description": "DNS servers assigned from this pool." }
+        }
+      }
+    },
+    "authorities": {
+      "type": "array",
+      "description": "Certificate authority definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Authority name." },
+          "cacert": { "type": "string", "description": "Path to CA certificate." },
+          "crl_uris": { "type": "array", "items": { "type": "string" }, "description": "URIs for certificate revocation lists." }
+        }
+      }
+    }
+  }
+}

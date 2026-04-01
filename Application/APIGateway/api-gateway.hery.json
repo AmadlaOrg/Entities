@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:APIGateway",
+  "title": "Application API Gateway Entity",
+  "description": "Common properties shared by all API gateway applications (Kong, Tyk, KrakenD).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the gateway listens on for proxy traffic."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the gateway listens on for proxy traffic."
+    },
+    "admin_listen": {
+      "type": "string",
+      "description": "Address the admin API listens on."
+    },
+    "admin_port": {
+      "type": "integer",
+      "description": "Port the admin API listens on."
+    },
+    "rate_limiting": {
+      "type": "object",
+      "description": "Global rate limiting configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether rate limiting is active." },
+        "requests_per_second": { "type": "integer", "description": "Maximum requests per second." },
+        "burst": { "type": "integer", "description": "Maximum burst size above the rate limit." }
+      }
+    },
+    "cors": {
+      "type": "object",
+      "description": "Cross-Origin Resource Sharing configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether CORS is active." },
+        "origins": {
+          "type": "array",
+          "description": "Allowed origins.",
+          "items": { "type": "string" }
+        },
+        "methods": {
+          "type": "array",
+          "description": "Allowed HTTP methods.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

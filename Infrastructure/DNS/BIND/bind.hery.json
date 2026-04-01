@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:DNS:BIND",
+  "title": "Infrastructure DNS BIND Entity",
+  "description": "BIND-specific configuration. Extends Infrastructure/DNS with BIND named settings.",
+  "type": "object",
+  "properties": {
+    "options": {
+      "type": "object",
+      "description": "BIND global options.",
+      "properties": {
+        "directory": { "type": "string", "description": "Working directory for zone files." },
+        "forwarders": {
+          "type": "array",
+          "description": "Upstream DNS forwarders.",
+          "items": { "type": "string" }
+        },
+        "dnssec_validation": {
+          "type": "string",
+          "enum": ["auto", "yes", "no"],
+          "description": "DNSSEC validation mode."
+        },
+        "allow_query": {
+          "type": "array",
+          "description": "Networks allowed to query this server.",
+          "items": { "type": "string" }
+        },
+        "max_cache_size": {
+          "type": "string",
+          "description": "Maximum cache size (e.g., 256m)."
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "BIND logging configuration.",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "description": "Logging channels.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "description": "Channel name." },
+              "file": { "type": "string", "description": "Log file path." },
+              "severity": { "type": "string", "description": "Log severity level." }
+            }
+          }
+        },
+        "categories": {
+          "type": "object",
+          "description": "Log categories mapped to channels."
+        }
+      }
+    },
+    "acls": {
+      "type": "array",
+      "description": "Named access control lists.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "ACL name." },
+          "addresses": {
+            "type": "array",
+            "description": "Addresses in this ACL.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "views": {
+      "type": "array",
+      "description": "BIND views for split-horizon DNS.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "View name." },
+          "match_clients": {
+            "type": "array",
+            "description": "Client ACLs matched by this view.",
+            "items": { "type": "string" }
+          },
+          "zones": {
+            "type": "array",
+            "description": "Zones served in this view.",
+            "items": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

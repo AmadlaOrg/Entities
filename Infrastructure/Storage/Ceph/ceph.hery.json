@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Storage:Ceph",
+  "title": "Infrastructure Storage Ceph Entity",
+  "description": "Properties for Ceph distributed storage clusters.",
+  "type": "object",
+  "properties": {
+    "fsid": {
+      "type": "string",
+      "description": "Cluster filesystem ID (UUID)."
+    },
+    "mon_initial_members": {
+      "type": "array",
+      "description": "Initial monitor names for cluster bootstrap.",
+      "items": { "type": "string" }
+    },
+    "mon_host": {
+      "type": "array",
+      "description": "Monitor host addresses.",
+      "items": { "type": "string" }
+    },
+    "public_network": {
+      "type": "string",
+      "description": "Public-facing network CIDR (e.g., 10.0.0.0/24)."
+    },
+    "cluster_network": {
+      "type": "string",
+      "description": "Cluster replication network CIDR."
+    },
+    "osd_pool_default_size": {
+      "type": "integer",
+      "description": "Default replication factor for OSD pools."
+    },
+    "osd_pool_default_min_size": {
+      "type": "integer",
+      "description": "Minimum number of replicas required for I/O."
+    },
+    "osd_journal_size": {
+      "type": "integer",
+      "description": "OSD journal size in MB."
+    },
+    "mds_standby_count": {
+      "type": "integer",
+      "description": "Number of standby MDS daemons for CephFS."
+    },
+    "rgw_enabled": {
+      "type": "boolean",
+      "description": "Whether RADOS Gateway (S3/Swift API) is enabled."
+    }
+  }
+}

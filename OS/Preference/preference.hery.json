@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:OS:Preference",
+  "title": "OS Preference Entity",
+  "description": "Declares preferred system tools per concern. Used by lay and enjoin to select backends. If omitted, tools fall back to runtime detection.",
+  "type": "object",
+  "properties": {
+    "network": {
+      "type": "string",
+      "enum": ["nmcli", "netplan", "ifupdown", "systemd-networkd", "networkmanager"],
+      "description": "Preferred network configuration tool."
+    },
+    "firewall": {
+      "type": "string",
+      "enum": ["ufw", "iptables", "nftables", "firewalld"],
+      "description": "Preferred firewall backend."
+    },
+    "mac": {
+      "type": "string",
+      "enum": ["selinux", "apparmor", "none"],
+      "default": "none",
+      "description": "Mandatory Access Control system."
+    },
+    "package_managers": {
+      "type": "object",
+      "properties": {
+        "default": {
+          "type": "string",
+          "description": "Default package manager (e.g., dnf, apt, pacman, brew)."
+        },
+        "additional": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Additional package managers available (e.g., snap, flatpak, nix)."
+        }
+      },
+      "required": ["default"]
+    },
+    "cron": {
+      "type": "string",
+      "enum": ["crontab", "systemd-timer"],
+      "description": "Preferred scheduling backend."
+    },
+    "service_manager": {
+      "type": "string",
+      "enum": ["systemd", "openrc", "sysvinit"],
+      "description": "Preferred service management system."
+    }
+  }
+}

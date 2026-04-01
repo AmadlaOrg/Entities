@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:DNS:PowerDNS",
+  "title": "Infrastructure DNS PowerDNS Entity",
+  "description": "PowerDNS-specific configuration. Extends Infrastructure/DNS with PowerDNS authoritative server settings.",
+  "type": "object",
+  "properties": {
+    "backend": {
+      "type": "string",
+      "enum": ["gsqlite3", "gmysql", "gpgsql", "bind", "pipe"],
+      "description": "Storage backend for zone data."
+    },
+    "backend_config": {
+      "type": "object",
+      "description": "Backend-specific configuration (host, port, dbname, user, password_secret)."
+    },
+    "api_enabled": {
+      "type": "boolean",
+      "description": "Whether to enable the HTTP API."
+    },
+    "api_key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the API key."
+    },
+    "webserver_address": {
+      "type": "string",
+      "description": "Address for the built-in webserver."
+    },
+    "webserver_port": {
+      "type": "integer",
+      "description": "Port for the built-in webserver."
+    },
+    "default_soa_name": {
+      "type": "string",
+      "description": "Default SOA MNAME field for new zones."
+    },
+    "default_soa_mail": {
+      "type": "string",
+      "description": "Default SOA RNAME field for new zones."
+    }
+  }
+}

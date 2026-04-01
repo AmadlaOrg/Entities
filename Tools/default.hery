@@ -1,0 +1,16 @@
+_type: amadla.org/entity/tools@v1.0.0
+_body:
+  tools:
+    - name: hery
+    - name: lay
+    - name: enjoin
+    - name: weaver
+    - name: doorman
+    - name: judge
+    - name: raise
+    - name: waiter
+    - name: unravel
+    - name: garbage
+    - name: conduct
+    - name: lighthouse
+    - name: dryrun

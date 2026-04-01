@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DNSResolver:Dnsmasq",
+  "title": "Application DNSResolver Dnsmasq Entity",
+  "description": "Dnsmasq-specific configuration. Extends Application/DNSResolver with dnsmasq-specific settings.",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Local domain name."
+    },
+    "dhcp_range": {
+      "type": "object",
+      "description": "DHCP range configuration.",
+      "properties": {
+        "start": { "type": "string", "description": "Start of DHCP range (e.g., 192.168.1.100)." },
+        "end": { "type": "string", "description": "End of DHCP range (e.g., 192.168.1.200)." },
+        "lease_time": { "type": "string", "description": "Lease time (e.g., 12h, 24h)." }
+      }
+    },
+    "address_overrides": {
+      "type": "array",
+      "description": "Static address overrides for domains.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": { "type": "string", "description": "Domain name to override." },
+          "ip": { "type": "string", "description": "IP address to return." }
+        }
+      }
+    },
+    "no_resolv": {
+      "type": "boolean",
+      "description": "Do not read /etc/resolv.conf for upstream servers."
+    },
+    "bogus_priv": {
+      "type": "boolean",
+      "description": "Do not forward private reverse-lookup queries upstream."
+    }
+  }
+}

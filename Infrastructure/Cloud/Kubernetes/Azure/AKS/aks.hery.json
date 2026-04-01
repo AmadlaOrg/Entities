@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Kubernetes:Azure:AKS",
+  "title": "Infrastructure Cloud Kubernetes Azure AKS Entity",
+  "description": "Azure Kubernetes Service cluster configuration.",
+  "type": "object",
+  "properties": {
+    "cluster_name": {
+      "type": "string",
+      "description": "AKS cluster name."
+    },
+    "resource_group": {
+      "type": "string",
+      "description": "Azure resource group."
+    },
+    "dns_prefix": {
+      "type": "string",
+      "description": "DNS prefix for the cluster."
+    },
+    "network_profile": {
+      "type": "object",
+      "description": "Network profile configuration.",
+      "properties": {
+        "network_plugin": {
+          "type": "string",
+          "enum": ["azure", "kubenet"]
+        },
+        "service_cidr": { "type": "string" },
+        "dns_service_ip": { "type": "string" },
+        "pod_cidr": { "type": "string" }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "description": "Managed identity configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["SystemAssigned", "UserAssigned"]
+        }
+      }
+    },
+    "azure_policy_enabled": {
+      "type": "boolean",
+      "description": "Enable Azure Policy integration."
+    },
+    "oms_agent": {
+      "type": "object",
+      "description": "OMS agent for Container Insights monitoring.",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "log_analytics_workspace_id": { "type": "string" }
+      }
+    }
+  }
+}

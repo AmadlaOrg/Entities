@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Logging:SyslogNG",
+  "title": "Application Logging SyslogNG Entity",
+  "description": "Syslog-ng-specific configuration. Extends Application/Logging with syslog-ng-specific settings.",
+  "type": "object",
+  "properties": {
+    "sources": {
+      "type": "array",
+      "description": "Syslog-ng source definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Source name identifier." },
+          "driver": { "type": "string", "enum": ["system", "network", "file"], "description": "Source driver type." },
+          "options": { "type": "object", "description": "Driver-specific options." }
+        }
+      }
+    },
+    "destinations": {
+      "type": "array",
+      "description": "Syslog-ng destination definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Destination name identifier." },
+          "driver": { "type": "string", "enum": ["file", "network", "program"], "description": "Destination driver type." },
+          "path": { "type": "string", "description": "File path for file driver." },
+          "host": { "type": "string", "description": "Remote host for network driver." }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "description": "Syslog-ng filter definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Filter name identifier." },
+          "expression": { "type": "string", "description": "Filter expression (e.g., \"facility(auth)\", \"level(err..emerg)\")." }
+        }
+      }
+    },
+    "log_paths": {
+      "type": "array",
+      "description": "Log paths connecting source to filter to destination.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string", "description": "Source name reference." },
+          "filter": { "type": "string", "description": "Filter name reference." },
+          "destination": { "type": "string", "description": "Destination name reference." }
+        }
+      }
+    }
+  }
+}

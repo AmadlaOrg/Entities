@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FTP:PureFTPD",
+  "title": "Application FTP PureFTPD Entity",
+  "description": "Pure-FTPd-specific configuration. Extends Application/FTP with Pure-FTPd-specific settings.",
+  "type": "object",
+  "properties": {
+    "max_clients": {
+      "type": "integer",
+      "description": "Maximum number of simultaneous clients."
+    },
+    "max_clients_per_ip": {
+      "type": "integer",
+      "description": "Maximum number of simultaneous clients from the same IP."
+    },
+    "min_uid": {
+      "type": "integer",
+      "description": "Minimum UID allowed to login."
+    },
+    "no_anonymous": {
+      "type": "boolean",
+      "description": "Whether to disable anonymous access."
+    },
+    "chroot_everyone": {
+      "type": "boolean",
+      "description": "Whether to chroot all users to their home directory."
+    },
+    "create_home_dirs": {
+      "type": "boolean",
+      "description": "Whether to create home directories on first login."
+    },
+    "quota": {
+      "type": "object",
+      "description": "User quota configuration.",
+      "properties": {
+        "max_files": { "type": "integer", "description": "Maximum number of files per user." },
+        "max_size": { "type": "string", "description": "Maximum storage size per user (e.g., '1G', '500M')." }
+      }
+    },
+    "throttle": {
+      "type": "object",
+      "description": "Bandwidth throttling configuration.",
+      "properties": {
+        "bandwidth_upload": { "type": "integer", "description": "Upload bandwidth limit in KB/s." },
+        "bandwidth_download": { "type": "integer", "description": "Download bandwidth limit in KB/s." }
+      }
+    }
+  }
+}

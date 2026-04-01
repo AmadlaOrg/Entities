@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:GitServer:Gitea",
+  "title": "Application GitServer Gitea Entity",
+  "description": "Gitea-specific configuration. Extends Application/GitServer with Gitea settings.",
+  "type": "object",
+  "properties": {
+    "app_name": {
+      "type": "string",
+      "description": "Application display name."
+    },
+    "run_mode": {
+      "type": "string",
+      "enum": ["dev", "prod"],
+      "description": "Run mode (development or production)."
+    },
+    "database": {
+      "type": "object",
+      "description": "Database configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["sqlite3", "mysql", "postgres"],
+          "description": "Database type."
+        },
+        "host": { "type": "string", "description": "Database host." },
+        "name": { "type": "string", "description": "Database name." },
+        "user": { "type": "string", "description": "Database user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+      }
+    },
+    "lfs_enabled": {
+      "type": "boolean",
+      "description": "Whether Git LFS is enabled."
+    },
+    "lfs_path": {
+      "type": "string",
+      "description": "Storage path for LFS objects."
+    },
+    "mailer": {
+      "type": "object",
+      "description": "Email notification configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether the mailer is enabled." },
+        "smtp_addr": { "type": "string", "description": "SMTP server address." },
+        "smtp_port": { "type": "integer", "description": "SMTP server port." },
+        "from": { "type": "string", "description": "Sender email address." },
+        "user": { "type": "string", "description": "SMTP authentication user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for SMTP password." }
+      }
+    },
+    "service": {
+      "type": "object",
+      "description": "Service-level settings.",
+      "properties": {
+        "disable_registration": { "type": "boolean", "description": "Whether to disable user self-registration." },
+        "require_signin_view": { "type": "boolean", "description": "Whether to require sign-in to view content." },
+        "enable_captcha": { "type": "boolean", "description": "Whether to enable CAPTCHA on registration." }
+      }
+    },
+    "oauth2_enabled": {
+      "type": "boolean",
+      "description": "Whether OAuth2 provider is enabled."
+    }
+  }
+}

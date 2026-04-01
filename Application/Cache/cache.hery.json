@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Cache",
+  "title": "Application Cache Entity",
+  "description": "Common properties shared by all caching applications (Redis, Memcached, Varnish).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Bind address for the cache service."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the cache service listens on."
+    },
+    "max_memory": {
+      "type": "string",
+      "description": "Maximum memory usage (e.g., \"256mb\", \"1gb\")."
+    },
+    "eviction_policy": {
+      "type": "string",
+      "description": "Policy when memory is full (e.g., noeviction, allkeys-lru, volatile-lru)."
+    },
+    "persistence": {
+      "type": "boolean",
+      "description": "Whether to persist cached data to disk."
+    }
+  }
+}

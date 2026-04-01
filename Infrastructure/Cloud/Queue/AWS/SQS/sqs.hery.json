@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Queue:AWS:SQS",
+  "title": "Infrastructure Cloud Queue AWS SQS Entity",
+  "description": "AWS Simple Queue Service (SQS) configuration properties.",
+  "type": "object",
+  "properties": {
+    "fifo_queue": {
+      "type": "boolean",
+      "description": "Whether the queue is a FIFO queue (guarantees ordering)."
+    },
+    "content_based_deduplication": {
+      "type": "boolean",
+      "description": "Whether content-based deduplication is enabled (FIFO queues only)."
+    },
+    "delay_seconds": {
+      "type": "integer",
+      "description": "Default delay in seconds before messages become visible."
+    },
+    "max_message_size": {
+      "type": "integer",
+      "description": "Maximum message size in bytes (max 262144)."
+    },
+    "receive_wait_time_seconds": {
+      "type": "integer",
+      "description": "Long polling wait time in seconds."
+    },
+    "redrive_policy": {
+      "type": "object",
+      "description": "Dead letter queue redrive policy.",
+      "properties": {
+        "dead_letter_target_arn": {
+          "type": "string",
+          "description": "ARN of the dead letter queue."
+        },
+        "max_receive_count": {
+          "type": "integer",
+          "description": "Number of receive attempts before sending to dead letter queue."
+        }
+      }
+    },
+    "kms_master_key_id": {
+      "type": "string",
+      "description": "KMS key ID for server-side encryption."
+    }
+  }
+}

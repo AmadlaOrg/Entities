@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application",
+  "title": "Application Entity",
+  "description": "Defines application configuration including runtime, health checks, and restart policies.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "description": "Application name."
+    },
+    "which": {
+      "type": "string",
+      "description": "Absolute path of where the application binary is found on the system."
+    },
+    "description": {
+      "type": "string",
+      "description": "Application description."
+    },
+    "workdir": {
+      "type": "string",
+      "description": "Working directory for execution."
+    },
+    "command": {
+      "type": ["string", "array"],
+      "description": "Command to run the application.",
+      "items": { "type": "string" }
+    },
+    "entrypoint": {
+      "type": ["string", "array"],
+      "description": "Application entrypoint.",
+      "items": { "type": "string" }
+    },
+    "environment": {
+      "type": ["object", "array"],
+      "description": "Environment variables.",
+      "additionalProperties": { "type": ["string", "number", "boolean", "null"] },
+      "items": { "type": "string" }
+    },
+    "env_file": {
+      "type": ["string", "array"],
+      "description": "File(s) containing environment variables.",
+      "items": { "type": "string" }
+    },
+    "provisioning": {
+      "type": "array",
+      "description": "Provisioning steps.",
+      "items": { "type": "string" }
+    },
+    "restart_policy": {
+      "type": "object",
+      "properties": {
+        "condition": { "type": "string", "enum": ["none", "on-failure", "any"] },
+        "delay": { "type": "string", "format": "duration" },
+        "max_attempts": { "type": "integer" },
+        "window": { "type": "string", "format": "duration" }
+      },
+      "additionalProperties": false
+    },
+    "healthcheck": {
+      "type": "object",
+      "properties": {
+        "test": {
+          "type": ["string", "array"],
+          "items": { "type": "string" }
+        },
+        "interval": { "type": "string" },
+        "timeout": { "type": "string" },
+        "retries": { "type": "integer" },
+        "start_period": { "type": "string" },
+        "start_interval": { "type": "string" },
+        "disable": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "development": {
+      "type": ["object", "null"],
+      "properties": {
+        "watch": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "action"],
+            "properties": {
+              "ignore": { "type": "array", "items": { "type": "string" } },
+              "path": { "type": "string" },
+              "action": { "type": "string", "enum": ["rebuild", "sync", "sync+restart"] },
+              "target": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["name"]
+}

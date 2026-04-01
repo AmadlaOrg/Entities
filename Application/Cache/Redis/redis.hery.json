@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Cache:Redis",
+  "title": "Application Cache Redis Entity",
+  "description": "Redis-specific configuration. Extends Application/Cache with Redis-specific settings.",
+  "type": "object",
+  "properties": {
+    "databases": {
+      "type": "integer",
+      "default": 16,
+      "description": "Number of databases."
+    },
+    "save_intervals": {
+      "type": "array",
+      "description": "RDB snapshot intervals.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "seconds": { "type": "integer", "description": "Time window in seconds." },
+          "changes": { "type": "integer", "description": "Minimum number of changes to trigger a snapshot." }
+        },
+        "required": ["seconds", "changes"]
+      }
+    },
+    "appendonly": {
+      "type": "boolean",
+      "description": "Enable AOF (Append Only File) persistence."
+    },
+    "appendfsync": {
+      "type": "string",
+      "enum": ["always", "everysec", "no"],
+      "description": "AOF fsync policy."
+    },
+    "maxmemory_policy": {
+      "type": "string",
+      "description": "Eviction policy override (e.g., allkeys-lru, volatile-ttl)."
+    },
+    "requirepass_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the Redis password."
+    },
+    "cluster_enabled": {
+      "type": "boolean",
+      "description": "Enable Redis Cluster mode."
+    },
+    "replica_of": {
+      "type": "string",
+      "description": "Master address for replication (host:port)."
+    }
+  }
+}

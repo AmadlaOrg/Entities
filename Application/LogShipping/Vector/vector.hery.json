@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LogShipping:Vector",
+  "title": "Application LogShipping Vector Entity",
+  "description": "Vector-specific configuration. Extends Application/LogShipping with vector-specific settings.",
+  "type": "object",
+  "properties": {
+    "sources": {
+      "type": "object",
+      "description": "Named source configurations. Each key is a source ID.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Source type (file, journald, syslog)." }
+        },
+        "additionalProperties": true
+      }
+    },
+    "transforms": {
+      "type": "object",
+      "description": "Named transform configurations. Each key is a transform ID.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Transform type (remap, filter, aggregate)." },
+          "inputs": {
+            "type": "array",
+            "description": "Input source or transform IDs.",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "sinks": {
+      "type": "object",
+      "description": "Named sink configurations. Each key is a sink ID.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Sink type (elasticsearch, loki, kafka, console)." },
+          "inputs": {
+            "type": "array",
+            "description": "Input source or transform IDs.",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

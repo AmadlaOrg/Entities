@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:GitServer",
+  "title": "Application GitServer Entity",
+  "description": "Common properties shared by all Git server applications (Gitea, GitLab, Gogs).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the Git server listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the Git server listens on."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Server domain name."
+    },
+    "admin_user": {
+      "type": "string",
+      "description": "Administrator username."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for administrator password."
+    },
+    "data_dir": {
+      "type": "string",
+      "description": "Directory for repository storage."
+    }
+  }
+}

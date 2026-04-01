@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Cron",
+  "title": "Cron Entity",
+  "description": "Defines scheduled tasks. Used by enjoin-cron to manage crontab entries or systemd timers.",
+  "type": "object",
+  "properties": {
+    "jobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "schedule": { "type": "string", "description": "Cron expression (e.g., \"0 2 * * *\") or systemd calendar spec." },
+          "command": { "type": "string" },
+          "user": { "type": "string", "default": "root" },
+          "environment": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "working_directory": { "type": "string" },
+          "log_output": { "type": "string", "description": "Path to redirect stdout." },
+          "log_error": { "type": "string", "description": "Path to redirect stderr." },
+          "on_failure": { "type": "string", "description": "Command to run if the job fails." },
+          "timeout": { "type": "string", "description": "Kill the job after this duration (e.g., 1h)." },
+          "state": { "type": "string", "enum": ["present", "absent"], "default": "present" }
+        },
+        "required": ["name", "schedule", "command"]
+      }
+    },
+    "backend": {
+      "type": "string",
+      "enum": ["crontab", "systemd-timer"],
+      "description": "Backend for scheduling. If omitted, enjoin auto-detects via OS/Preference."
+    }
+  },
+  "required": ["jobs"]
+}

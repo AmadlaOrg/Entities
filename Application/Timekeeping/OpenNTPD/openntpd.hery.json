@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Timekeeping:OpenNTPD",
+  "title": "Application Timekeeping OpenNTPD Entity",
+  "description": "OpenNTPD specific configuration. BSD-origin NTP implementation, simpler than ntpd.",
+  "type": "object",
+  "properties": {
+    "listen_on": {
+      "type": "array",
+      "description": "Addresses to listen on for NTP queries (e.g., *, 127.0.0.1).",
+      "items": { "type": "string" }
+    },
+    "constraints_from": {
+      "type": "array",
+      "description": "HTTPS URLs used to constrain NTP responses (MITM protection).",
+      "items": { "type": "string" }
+    },
+    "sensor": {
+      "type": "array",
+      "description": "Hardware time sensors (e.g., /dev/gps0).",
+      "items": { "type": "string" }
+    }
+  }
+}

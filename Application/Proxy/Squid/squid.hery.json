@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Proxy:Squid",
+  "title": "Application Proxy Squid Entity",
+  "description": "Defines Squid forward proxy configuration.",
+  "type": "object",
+  "properties": {
+    "cache_dir": {
+      "type": "object",
+      "description": "Disk cache configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["ufs", "aufs", "diskd", "rock"],
+          "description": "Cache storage type."
+        },
+        "path": { "type": "string", "description": "Cache directory path." },
+        "size_mb": { "type": "integer", "description": "Cache size in megabytes." },
+        "l1_dirs": { "type": "integer", "description": "Number of first-level subdirectories." },
+        "l2_dirs": { "type": "integer", "description": "Number of second-level subdirectories." }
+      }
+    },
+    "cache_mem": {
+      "type": "string",
+      "description": "In-memory cache size (e.g., 256 MB)."
+    },
+    "maximum_object_size": {
+      "type": "string",
+      "description": "Maximum cacheable object size (e.g., 4 MB)."
+    },
+    "http_access_rules": {
+      "type": "array",
+      "description": "HTTP access rules.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["allow", "deny"],
+            "description": "Access action."
+          },
+          "acl": { "type": "string", "description": "ACL name to match." }
+        },
+        "required": ["action", "acl"]
+      }
+    },
+    "visible_hostname": {
+      "type": "string",
+      "description": "Hostname shown in error messages and Via headers."
+    },
+    "coredump_dir": {
+      "type": "string",
+      "description": "Directory for core dumps."
+    },
+    "ssl_bump": {
+      "type": "object",
+      "description": "SSL interception (bump) configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether SSL bumping is enabled." },
+        "cert": { "type": "string", "description": "Path to CA certificate for SSL bumping." },
+        "key": { "type": "string", "description": "Path to CA private key for SSL bumping." }
+      }
+    }
+  }
+}

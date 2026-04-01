@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:RemoteAccess",
+  "title": "Application RemoteAccess Entity",
+  "description": "Common properties shared by all remote access applications (XRDP, VNC, Guacamole).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the service listens on (e.g., 0.0.0.0, 127.0.0.1)."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the service listens on."
+    },
+    "auth_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether authentication is required for connections."
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS/SSL configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether TLS is enabled." },
+        "cert": { "type": "string", "description": "Path to TLS certificate file." },
+        "key": { "type": "string", "description": "Path to TLS private key file." }
+      }
+    }
+  }
+}

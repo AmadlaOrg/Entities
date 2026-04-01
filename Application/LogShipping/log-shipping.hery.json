@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LogShipping",
+  "title": "Application LogShipping Entity",
+  "description": "Common properties shared by all log shipping applications (Filebeat, Fluent Bit, Promtail, Vector, etc.).",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "array",
+      "description": "Log input sources.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Input type (file, journald, syslog)." },
+          "path": { "type": "string", "description": "File path (for file type inputs)." },
+          "unit": { "type": "string", "description": "Systemd unit name (for journald type inputs)." }
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "description": "Log output destination.",
+      "properties": {
+        "type": { "type": "string", "description": "Output type (elasticsearch, loki, kafka, file)." },
+        "url": { "type": "string", "description": "Destination URL." },
+        "index": { "type": "string", "description": "Index name (for Elasticsearch)." },
+        "labels": {
+          "type": "object",
+          "description": "Labels to attach (for Loki).",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ContainerRegistry:Harbor",
+  "title": "Application Container Registry Harbor Entity",
+  "description": "Defines Harbor container registry configuration.",
+  "type": "object",
+  "properties": {
+    "hostname": {
+      "type": "string",
+      "description": "External URL hostname."
+    },
+    "admin_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the admin password."
+    },
+    "database": {
+      "type": "object",
+      "description": "Database configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["internal", "external"],
+          "description": "Whether to use internal or external database."
+        },
+        "host": { "type": "string", "description": "Database host." },
+        "port": { "type": "integer", "description": "Database port." },
+        "name": { "type": "string", "description": "Database name." },
+        "username": { "type": "string", "description": "Database username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the database password." }
+      }
+    },
+    "trivy_enabled": {
+      "type": "boolean",
+      "description": "Enable Trivy vulnerability scanning."
+    },
+    "notary_enabled": {
+      "type": "boolean",
+      "description": "Enable Notary content trust."
+    },
+    "chartmuseum_enabled": {
+      "type": "boolean",
+      "description": "Enable ChartMuseum Helm chart repository."
+    },
+    "log_level": {
+      "type": "string",
+      "enum": ["debug", "info", "warning", "error", "fatal"],
+      "description": "Log level."
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Container",
+  "title": "Container Entity",
+  "description": "Defines container orchestration properties: image, build, runtime, networking, resource constraints. Inspired by Docker Compose service definitions. Container-specific cgroup properties belong here, not in System/* entities.",
+  "type": "object",
+  "properties": {
+    "image": { "type": "string", "description": "Container image (e.g., nginx:1.25, postgres:16-alpine)." },
+    "build": {
+      "type": ["string", "object"],
+      "properties": {
+        "context": { "type": "string" },
+        "dockerfile": { "type": "string" },
+        "args": { "type": "object", "additionalProperties": { "type": ["string", "null"] } },
+        "target": { "type": "string" },
+        "cache_from": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "command": { "type": ["string", "array"], "items": { "type": "string" } },
+    "entrypoint": { "type": ["string", "array"], "items": { "type": "string" } },
+    "environment": {
+      "type": ["object", "array"],
+      "additionalProperties": { "type": ["string", "number", "boolean", "null"] },
+      "items": { "type": "string" }
+    },
+    "env_file": { "type": ["string", "array"], "items": { "type": "string" } },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"],
+        "properties": {
+          "target": { "type": "integer" },
+          "published": { "type": ["string", "integer"] },
+          "host_ip": { "type": "string" },
+          "protocol": { "type": "string", "enum": ["tcp", "udp"] }
+        }
+      }
+    },
+    "expose": { "type": "array", "items": { "type": ["string", "integer"] } },
+    "volumes": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"],
+        "properties": {
+          "type": { "type": "string", "enum": ["volume", "bind", "tmpfs"] },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "read_only": { "type": "boolean" }
+        }
+      }
+    },
+    "networks": { "type": ["array", "object"], "items": { "type": "string" } },
+    "network_mode": { "type": "string", "description": "Container network mode (e.g., host, bridge, none, service:name)." },
+    "depends_on": { "type": ["array", "object"], "items": { "type": "string" } },
+    "restart": { "type": "string", "enum": ["no", "always", "on-failure", "unless-stopped"], "default": "no" },
+    "healthcheck": {
+      "type": "object",
+      "properties": {
+        "test": { "type": ["string", "array"] },
+        "interval": { "type": "string" },
+        "timeout": { "type": "string" },
+        "retries": { "type": "integer" },
+        "start_period": { "type": "string" },
+        "disable": { "type": "boolean" }
+      }
+    },
+    "cpu_shares": { "type": ["number", "string"], "description": "Relative CPU weight (default 1024)." },
+    "cpu_quota": { "type": ["number", "string"], "description": "CFS CPU quota (microseconds per cpu_period)." },
+    "cpu_period": { "type": ["number", "string"], "description": "CFS CPU period (default 100000 microseconds)." },
+    "cpu_rt_period": { "type": ["number", "string"], "description": "Real-time scheduling period." },
+    "cpu_rt_runtime": { "type": ["number", "string"], "description": "Real-time scheduling runtime." },
+    "cpu_percent": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Usable percentage of available CPUs." },
+    "cpus": { "type": ["number", "string"], "description": "Number of CPUs (decimal, e.g., 1.5)." },
+    "cpuset": { "type": "string", "description": "CPU affinity (e.g., 0-3, 0,1)." },
+    "mem_limit": { "type": ["number", "string"], "description": "Hard memory limit (e.g., 512m, 1g)." },
+    "mem_reservation": { "type": ["string", "integer"], "description": "Soft memory limit / reservation." },
+    "mem_swappiness": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Container swappiness (0-100)." },
+    "memswap_limit": { "type": ["number", "string"], "description": "Swap limit (-1 for unlimited)." },
+    "oom_kill_disable": { "type": "boolean", "default": false, "description": "Disable OOM killer for this container." },
+    "oom_score_adj": { "type": "integer", "minimum": -1000, "maximum": 1000, "description": "OOM score adjustment." },
+    "shm_size": { "type": ["number", "string"], "description": "Size of /dev/shm." },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "replicas": { "type": "integer", "minimum": 0 },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "cpus": { "type": ["number", "string"] },
+                "memory": { "type": "string" },
+                "pids": { "type": "integer" }
+              }
+            },
+            "reservations": {
+              "type": "object",
+              "properties": {
+                "cpus": { "type": ["number", "string"] },
+                "memory": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "driver": { "type": "string" },
+        "options": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "labels": { "type": ["object", "array"], "additionalProperties": { "type": "string" }, "items": { "type": "string" } },
+    "user": { "type": "string" },
+    "working_dir": { "type": "string" },
+    "init": { "type": "boolean", "default": false },
+    "read_only": { "type": "boolean", "default": false, "description": "Mount container root filesystem as read-only." },
+    "stop_signal": { "type": "string" },
+    "stop_grace_period": { "type": "string" },
+    "secrets": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"],
+        "properties": {
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "mode": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

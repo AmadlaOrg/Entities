@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Storage",
+  "title": "Infrastructure Storage Entity",
+  "description": "Common properties shared by all distributed storage systems (MinIO, Ceph, GlusterFS, etc.).",
+  "type": "object",
+  "properties": {
+    "data_dir": {
+      "type": "string",
+      "description": "Primary data directory for storage."
+    },
+    "replication_factor": {
+      "type": "integer",
+      "description": "Number of data copies maintained across the cluster."
+    },
+    "listen_address": {
+      "type": "string",
+      "description": "Network address the storage service listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the storage service listens on."
+    },
+    "storage_class": {
+      "type": "string",
+      "description": "Storage tier (e.g., standard, ssd, archive)."
+    }
+  }
+}

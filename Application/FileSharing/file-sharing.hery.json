@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FileSharing",
+  "title": "Application FileSharing Entity",
+  "description": "Common properties shared by all file sharing applications (Nextcloud, Seafile, Syncthing).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the service listens on (e.g., 0.0.0.0, 127.0.0.1)."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the service listens on."
+    },
+    "data_dir": {
+      "type": "string",
+      "description": "Directory for file storage."
+    },
+    "max_upload_size": {
+      "type": "string",
+      "description": "Maximum upload file size (e.g., 10G, 512M)."
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS/SSL configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether TLS is enabled." },
+        "cert": { "type": "string", "description": "Path to TLS certificate file." },
+        "key": { "type": "string", "description": "Path to TLS private key file." }
+      }
+    }
+  }
+}

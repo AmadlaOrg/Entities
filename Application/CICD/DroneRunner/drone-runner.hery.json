@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:CICD:DroneRunner",
+  "title": "Application CICD DroneRunner Entity",
+  "description": "Drone Runner-specific configuration. Extends Application/CICD with Drone CI runner settings.",
+  "type": "object",
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "enum": ["http", "https"],
+      "description": "Protocol for connecting to the Drone server."
+    },
+    "host": {
+      "type": "string",
+      "description": "Drone server host."
+    },
+    "secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for RPC secret."
+    },
+    "runner_capacity": {
+      "type": "integer",
+      "description": "Maximum number of concurrent pipelines."
+    },
+    "runner_name": {
+      "type": "string",
+      "description": "Name of this runner instance."
+    },
+    "runner_env": {
+      "type": "object",
+      "description": "Environment variables injected into pipeline steps."
+    }
+  }
+}

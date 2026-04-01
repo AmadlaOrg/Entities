@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Backup:Borg",
+  "title": "Application Backup Borg Entity",
+  "description": "BorgBackup-specific configuration. Extends Application/Backup with borg-specific settings.",
+  "type": "object",
+  "properties": {
+    "repository": {
+      "type": "string",
+      "description": "Repository path (local path or ssh://user@host/path)."
+    },
+    "passphrase_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the repository passphrase."
+    },
+    "compression": {
+      "type": "string",
+      "description": "Compression algorithm for archives.",
+      "enum": ["none", "lz4", "zstd", "zlib", "lzma"]
+    },
+    "prune": {
+      "type": "object",
+      "description": "Pruning policy for old archives.",
+      "properties": {
+        "keep_daily": { "type": "integer", "description": "Number of daily archives to keep." },
+        "keep_weekly": { "type": "integer", "description": "Number of weekly archives to keep." },
+        "keep_monthly": { "type": "integer", "description": "Number of monthly archives to keep." },
+        "keep_yearly": { "type": "integer", "description": "Number of yearly archives to keep." }
+      }
+    }
+  }
+}

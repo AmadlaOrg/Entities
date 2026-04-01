@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Storage:GlusterFS",
+  "title": "Infrastructure Storage GlusterFS Entity",
+  "description": "Properties for GlusterFS distributed filesystem.",
+  "type": "object",
+  "properties": {
+    "peers": {
+      "type": "array",
+      "description": "Trusted storage pool peer addresses.",
+      "items": { "type": "string" }
+    },
+    "volumes": {
+      "type": "array",
+      "description": "GlusterFS volume definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Volume name."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["distribute", "replicate", "disperse", "stripe"],
+            "description": "Volume type."
+          },
+          "bricks": {
+            "type": "array",
+            "description": "Brick locations in host:/path format.",
+            "items": { "type": "string" }
+          },
+          "replica_count": {
+            "type": "integer",
+            "description": "Number of replicas per file."
+          },
+          "disperse_count": {
+            "type": "integer",
+            "description": "Number of bricks in disperse set."
+          },
+          "redundancy_count": {
+            "type": "integer",
+            "description": "Number of redundancy bricks in disperse volume."
+          },
+          "transport": {
+            "type": "string",
+            "enum": ["tcp", "rdma"],
+            "description": "Transport protocol."
+          }
+        }
+      }
+    },
+    "nfs_enabled": {
+      "type": "boolean",
+      "description": "Whether NFS export of volumes is enabled."
+    }
+  }
+}

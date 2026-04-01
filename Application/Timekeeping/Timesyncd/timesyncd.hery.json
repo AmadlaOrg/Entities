@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Timekeeping:Timesyncd",
+  "title": "Application Timekeeping Timesyncd Entity",
+  "description": "systemd-timesyncd specific configuration. Lightweight SNTP client built into systemd.",
+  "type": "object",
+  "properties": {
+    "root_distance_max_sec": {
+      "type": "number",
+      "description": "Maximum acceptable root distance in seconds (default: 5)."
+    },
+    "poll_interval_min_sec": {
+      "type": "integer",
+      "description": "Minimum poll interval in seconds (default: 32)."
+    },
+    "poll_interval_max_sec": {
+      "type": "integer",
+      "description": "Maximum poll interval in seconds (default: 2048)."
+    },
+    "connection_retry_sec": {
+      "type": "integer",
+      "description": "Seconds to wait before retrying a failed connection (default: 30)."
+    },
+    "save_interval_sec": {
+      "type": "integer",
+      "description": "Interval for saving clock state to disk."
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:MAC:SELinux",
+  "title": "Security MAC SELinux Entity",
+  "description": "Defines SELinux policy configuration: mode, booleans, file contexts, ports, and modules. Used by enjoin-mac.",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["enforcing", "permissive", "disabled"],
+      "default": "enforcing",
+      "description": "SELinux enforcement mode."
+    },
+    "policy_type": {
+      "type": "string",
+      "enum": ["targeted", "mls", "minimum"],
+      "default": "targeted",
+      "description": "SELinux policy type."
+    },
+    "booleans": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" },
+      "description": "SELinux booleans to set (e.g., httpd_can_network_connect: true)."
+    },
+    "file_contexts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "File path pattern (regex)." },
+          "context": { "type": "string", "description": "SELinux context (e.g., httpd_sys_content_t)." },
+          "file_type": { "type": "string", "enum": ["all", "file", "dir", "socket", "symlink"], "default": "all" }
+        },
+        "required": ["path", "context"]
+      }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "port": { "type": ["integer", "string"], "description": "Port number or range." },
+          "protocol": { "type": "string", "enum": ["tcp", "udp"], "default": "tcp" },
+          "type": { "type": "string", "description": "SELinux port type (e.g., http_port_t)." }
+        },
+        "required": ["port", "type"]
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "type": "string", "description": "Path to .te or .pp module file." },
+          "state": { "type": "string", "enum": ["present", "absent"], "default": "present" }
+        },
+        "required": ["name"]
+      }
+    }
+  }
+}

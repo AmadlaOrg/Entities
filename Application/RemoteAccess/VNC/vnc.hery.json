@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:RemoteAccess:VNC",
+  "title": "Application RemoteAccess VNC Entity",
+  "description": "VNC-specific configuration. Extends Application/RemoteAccess with VNC-specific settings.",
+  "type": "object",
+  "properties": {
+    "display": {
+      "type": "integer",
+      "description": "VNC display number (e.g., 1 maps to port 5901)."
+    },
+    "geometry": {
+      "type": "string",
+      "description": "Screen resolution (e.g., 1920x1080)."
+    },
+    "depth": {
+      "type": "integer",
+      "enum": [8, 16, 24],
+      "description": "Color depth in bits."
+    },
+    "password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the VNC password."
+    },
+    "localhost_only": {
+      "type": "boolean",
+      "description": "Only accept local connections (tunnel via SSH)."
+    },
+    "server": {
+      "type": "string",
+      "enum": ["tigervnc", "tightvnc", "x11vnc"],
+      "description": "VNC server implementation to use."
+    }
+  }
+}

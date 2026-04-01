@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:OS",
+  "title": "OS Entity",
+  "description": "Defines operating system identity. Used by lay, enjoin, raise, and unravel to select appropriate backends and images.",
+  "type": "object",
+  "properties": {
+    "distro": {
+      "type": "string",
+      "description": "Distribution name (e.g., rocky, ubuntu, debian, alpine, arch, fedora, opensuse)."
+    },
+    "version": {
+      "type": "string",
+      "description": "Distribution version (e.g., \"9\", \"24.04\", \"3.20\")."
+    },
+    "arch": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Supported architectures (e.g., [\"x86_64\", \"aarch64\"])."
+    },
+    "family": {
+      "type": "string",
+      "enum": ["rhel", "debian", "arch", "alpine", "suse", "gentoo", "bsd", "macos", "windows"],
+      "description": "Abstract OS family for shared behavior across distributions."
+    },
+    "init": {
+      "type": "string",
+      "enum": ["systemd", "openrc", "sysvinit", "launchd", "windows"],
+      "default": "systemd",
+      "description": "Init system used by the OS."
+    },
+    "kernel": {
+      "type": "string",
+      "description": "Kernel version constraint (e.g., \">=5.15\")."
+    },
+    "codename": {
+      "type": "string",
+      "description": "Distribution release codename (e.g., noble, bookworm)."
+    }
+  },
+  "required": ["distro", "arch"]
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ContainerRegistry",
+  "title": "Application Container Registry Entity",
+  "description": "Common properties shared by all container registry applications (Harbor, Docker Registry, Nexus).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the registry listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the registry listens on."
+    },
+    "storage_backend": {
+      "type": "string",
+      "enum": ["filesystem", "s3", "gcs", "azure"],
+      "description": "Storage backend type."
+    },
+    "storage_path": {
+      "type": "string",
+      "description": "Local storage path."
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether TLS is enabled." },
+        "cert": { "type": "string", "description": "Path to TLS certificate." },
+        "key": { "type": "string", "description": "Path to TLS private key." }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "description": "Authentication configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["htpasswd", "token", "ldap"],
+          "description": "Authentication type."
+        },
+        "config": {
+          "type": "object",
+          "description": "Authentication backend configuration."
+        }
+      }
+    }
+  }
+}

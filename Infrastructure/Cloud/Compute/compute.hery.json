@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Compute",
+  "title": "Cloud Compute Entity",
+  "description": "Common cloud compute instance properties. Parent for provider-specific compute sub-types.",
+  "type": "object",
+  "properties": {
+    "instance_type": {
+      "type": "string",
+      "description": "Instance size/type (e.g., t3.micro, cx21, s-1vcpu-1gb)."
+    },
+    "image": {
+      "type": "string",
+      "description": "OS image ID or name."
+    },
+    "key_name": {
+      "type": "string",
+      "description": "SSH key pair name registered with the provider."
+    },
+    "public_ip": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to assign a public IP address."
+    },
+    "volumes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "size": { "type": "integer", "description": "Volume size in GB." },
+          "type": { "type": "string", "description": "Volume type (e.g., gp3, pd-ssd)." },
+          "mount_point": { "type": "string", "description": "Filesystem mount point." }
+        },
+        "required": ["size"]
+      },
+      "description": "Attached storage volumes."
+    },
+    "user_data": {
+      "type": "string",
+      "description": "Cloud-init user data script or path."
+    },
+    "spot": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to use spot/preemptible instances."
+    },
+    "max_price": {
+      "type": "string",
+      "description": "Maximum hourly price for spot instances."
+    }
+  },
+  "required": ["instance_type", "image"]
+}

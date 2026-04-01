@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:System:CPU",
+  "title": "System CPU Entity",
+  "description": "Defines bare-metal/VM CPU requirements: core count, architecture, affinity. Tools translate to OS-specific mechanisms.",
+  "type": "object",
+  "properties": {
+    "cpus": { "type": "integer", "minimum": 1, "description": "Number of CPU cores required." },
+    "architecture": { "type": "string", "description": "CPU architecture (e.g., x86_64, aarch64, armv7l, riscv64)." },
+    "cpuset": { "type": "string", "description": "CPU affinity pinning (e.g., \"0-3\", \"0,1\"). Restricts to specific cores." },
+    "governor": { "type": "string", "description": "CPU frequency governor (e.g., performance, powersave, ondemand, conservative)." },
+    "min_frequency": { "type": ["integer", "string"], "description": "Minimum CPU frequency (e.g., \"1.2GHz\", 1200)." },
+    "max_frequency": { "type": ["integer", "string"], "description": "Maximum CPU frequency (e.g., \"3.6GHz\", 3600)." }
+  }
+}

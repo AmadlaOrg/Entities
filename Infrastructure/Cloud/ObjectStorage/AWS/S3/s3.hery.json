@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:ObjectStorage:AWS:S3",
+  "title": "Infrastructure Cloud Object Storage AWS S3 Entity",
+  "description": "AWS S3 bucket configuration.",
+  "type": "object",
+  "properties": {
+    "region": {
+      "type": "string",
+      "description": "AWS region for the S3 bucket."
+    },
+    "encryption": {
+      "type": "object",
+      "description": "Server-side encryption configuration.",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "algorithm": {
+          "type": "string",
+          "enum": ["AES256", "aws:kms"]
+        },
+        "kms_key_id": { "type": "string" }
+      }
+    },
+    "cors_rules": {
+      "type": "array",
+      "description": "Cross-origin resource sharing rules.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "allowed_origins": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "allowed_methods": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "allowed_headers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "max_age_seconds": { "type": "integer" }
+        }
+      }
+    },
+    "replication": {
+      "type": "object",
+      "description": "Cross-region replication configuration.",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "destination_bucket": { "type": "string" },
+        "destination_region": { "type": "string" }
+      }
+    },
+    "public_access_block": {
+      "type": "object",
+      "description": "Public access block configuration.",
+      "properties": {
+        "block_public_acls": { "type": "boolean" },
+        "block_public_policy": { "type": "boolean" },
+        "ignore_public_acls": { "type": "boolean" },
+        "restrict_public_buckets": { "type": "boolean" }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "description": "Server access logging configuration.",
+      "properties": {
+        "target_bucket": { "type": "string" },
+        "target_prefix": { "type": "string" }
+      }
+    }
+  }
+}

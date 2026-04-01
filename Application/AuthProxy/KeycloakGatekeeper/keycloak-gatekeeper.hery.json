@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:AuthProxy:KeycloakGatekeeper",
+  "title": "Application AuthProxy KeycloakGatekeeper Entity",
+  "description": "Keycloak Gatekeeper-specific configuration. Extends Application/AuthProxy with Keycloak proxy settings.",
+  "type": "object",
+  "properties": {
+    "discovery_url": {
+      "type": "string",
+      "description": "Keycloak realm discovery URL."
+    },
+    "client_id": {
+      "type": "string",
+      "description": "OAuth2 client ID registered in Keycloak."
+    },
+    "client_secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for OAuth2 client secret."
+    },
+    "redirection_url": {
+      "type": "string",
+      "description": "URL to redirect to after authentication."
+    },
+    "resources": {
+      "type": "array",
+      "description": "Protected resources with role-based access.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "uri": { "type": "string", "description": "URI pattern to protect." },
+          "methods": {
+            "type": "array",
+            "description": "HTTP methods allowed.",
+            "items": { "type": "string" }
+          },
+          "roles": {
+            "type": "array",
+            "description": "Required roles for access.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "cors_origins": {
+      "type": "array",
+      "description": "Allowed CORS origins.",
+      "items": { "type": "string" }
+    },
+    "enable_refresh_tokens": {
+      "type": "boolean",
+      "description": "Whether to enable refresh token support."
+    },
+    "encryption_key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for encryption key."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MailRelay",
+  "title": "Application MailRelay Entity",
+  "description": "Common properties shared by all mail relay applications (Postfix, msmtp, etc.).",
+  "type": "object",
+  "properties": {
+    "relay_host": {
+      "type": "string",
+      "description": "Upstream SMTP server to relay mail through."
+    },
+    "relay_port": {
+      "type": "integer",
+      "description": "Port of the upstream SMTP server."
+    },
+    "from_address": {
+      "type": "string",
+      "description": "Default sender address for system mail."
+    },
+    "tls": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to use TLS for the relay connection."
+    },
+    "auth": {
+      "type": "object",
+      "description": "Authentication credentials for the relay server.",
+      "properties": {
+        "username": { "type": "string", "description": "SMTP authentication username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the SMTP password." }
+      }
+    }
+  }
+}

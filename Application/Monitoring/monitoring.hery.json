@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Monitoring",
+  "title": "Application Monitoring Entity",
+  "description": "Common properties shared by all monitoring applications (Prometheus node_exporter, Zabbix Agent, Telegraf, collectd).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address to bind the metrics endpoint (e.g., 0.0.0.0, 127.0.0.1)."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port for the metrics endpoint."
+    },
+    "interval": {
+      "type": "string",
+      "description": "Collection interval (e.g., \"10s\", \"1m\", \"30s\")."
+    },
+    "tags": {
+      "type": "object",
+      "description": "Key-value tags attached to all collected metrics.",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}

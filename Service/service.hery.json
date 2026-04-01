@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Service",
+  "title": "Service Entity",
+  "description": "Defines system service configuration. Used by enjoin-service to manage systemd/init services.",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "description": "Service unit name (e.g., nginx, postgresql)." },
+    "state": {
+      "type": "string",
+      "enum": ["started", "stopped", "restarted", "reloaded"],
+      "default": "started"
+    },
+    "enabled": { "type": "boolean", "default": true, "description": "Start on boot." },
+    "masked": { "type": "boolean", "default": false, "description": "Mask the service to prevent starting." },
+    "exec_start": { "type": "string", "description": "Override ExecStart command." },
+    "exec_start_pre": { "type": "string" },
+    "exec_start_post": { "type": "string" },
+    "exec_stop": { "type": "string" },
+    "exec_reload": { "type": "string" },
+    "working_directory": { "type": "string" },
+    "user": { "type": "string" },
+    "group": { "type": "string" },
+    "environment": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Environment variables for the service."
+    },
+    "environment_file": { "type": "string", "description": "Path to environment file." },
+    "restart": {
+      "type": "string",
+      "enum": ["no", "on-success", "on-failure", "on-abnormal", "on-watchdog", "on-abort", "always"],
+      "default": "on-failure"
+    },
+    "restart_sec": { "type": "integer", "default": 1, "description": "Seconds between restart attempts." },
+    "timeout_start_sec": { "type": "integer" },
+    "timeout_stop_sec": { "type": "integer" },
+    "limit_nofile": { "type": "integer", "description": "File descriptor limit." },
+    "after": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Units this service should start after (e.g., network.target)."
+    },
+    "wants": { "type": "array", "items": { "type": "string" } },
+    "requires": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["name"]
+}

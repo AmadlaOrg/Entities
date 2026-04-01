@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:GitServer:GitLab",
+  "title": "Application GitServer GitLab Entity",
+  "description": "GitLab-specific configuration. Extends Application/GitServer with GitLab settings.",
+  "type": "object",
+  "properties": {
+    "external_url": {
+      "type": "string",
+      "description": "External URL for accessing GitLab."
+    },
+    "registry_enabled": {
+      "type": "boolean",
+      "description": "Whether the container registry is enabled."
+    },
+    "pages_enabled": {
+      "type": "boolean",
+      "description": "Whether GitLab Pages is enabled."
+    },
+    "lfs_enabled": {
+      "type": "boolean",
+      "description": "Whether Git LFS is enabled."
+    },
+    "smtp": {
+      "type": "object",
+      "description": "SMTP email configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether SMTP is enabled." },
+        "address": { "type": "string", "description": "SMTP server address." },
+        "port": { "type": "integer", "description": "SMTP server port." },
+        "domain": { "type": "string", "description": "HELO domain." },
+        "user_name": { "type": "string", "description": "SMTP authentication user." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for SMTP password." }
+      }
+    },
+    "ldap": {
+      "type": "object",
+      "description": "LDAP authentication configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether LDAP is enabled." },
+        "host": { "type": "string", "description": "LDAP server host." },
+        "port": { "type": "integer", "description": "LDAP server port." },
+        "base": { "type": "string", "description": "LDAP base DN." },
+        "bind_dn": { "type": "string", "description": "LDAP bind DN." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for LDAP bind password." }
+      }
+    },
+    "backup": {
+      "type": "object",
+      "description": "Backup configuration.",
+      "properties": {
+        "path": { "type": "string", "description": "Backup storage path." },
+        "keep_time": { "type": "integer", "description": "Backup retention time in seconds." }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "description": "Monitoring configuration.",
+      "properties": {
+        "prometheus_enabled": { "type": "boolean", "description": "Whether Prometheus metrics are enabled." },
+        "grafana_enabled": { "type": "boolean", "description": "Whether built-in Grafana is enabled." }
+      }
+    }
+  }
+}

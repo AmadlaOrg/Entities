@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Timekeeping:Chrony",
+  "title": "Application Timekeeping Chrony Entity",
+  "description": "Chrony-specific configuration. Extends Application/Timekeeping with chrony-specific settings.",
+  "type": "object",
+  "properties": {
+    "makestep": {
+      "type": "object",
+      "description": "Allow large clock adjustments on startup.",
+      "properties": {
+        "threshold": { "type": "number", "description": "Seconds threshold for a step adjustment (e.g., 1.0)." },
+        "limit": { "type": "integer", "description": "Max number of step adjustments after start (-1 for unlimited, 3 is common)." }
+      }
+    },
+    "rtcsync": {
+      "type": "boolean",
+      "default": true,
+      "description": "Sync system clock to RTC (hardware clock)."
+    },
+    "driftfile": {
+      "type": "string",
+      "description": "Path to the drift file.",
+      "default": "/var/lib/chrony/drift"
+    },
+    "keyfile": {
+      "type": "string",
+      "description": "Path to the key file for NTP authentication."
+    },
+    "logdir": {
+      "type": "string",
+      "description": "Directory for log files.",
+      "default": "/var/log/chrony"
+    },
+    "allow": {
+      "type": "array",
+      "description": "Networks/hosts allowed to use this machine as NTP server.",
+      "items": { "type": "string" }
+    },
+    "deny": {
+      "type": "array",
+      "description": "Networks/hosts denied from using this machine as NTP server.",
+      "items": { "type": "string" }
+    },
+    "local_stratum": {
+      "type": "integer",
+      "description": "Serve time locally even when not synchronized (stratum value)."
+    },
+    "leapsectz": {
+      "type": "string",
+      "description": "Timezone database for leap second handling (e.g., right/UTC)."
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Timekeeping:PTP",
+  "title": "Application Timekeeping PTP Entity",
+  "description": "Precision Time Protocol (linuxptp) configuration. Sub-microsecond accuracy for data centers and financial systems.",
+  "type": "object",
+  "properties": {
+    "interface": {
+      "type": "string",
+      "description": "Network interface for PTP (must support hardware timestamping)."
+    },
+    "domain": {
+      "type": "integer",
+      "description": "PTP domain number (default: 0).",
+      "default": 0
+    },
+    "transport": {
+      "type": "string",
+      "description": "Transport protocol.",
+      "enum": ["UDPv4", "UDPv6", "L2"]
+    },
+    "delay_mechanism": {
+      "type": "string",
+      "description": "Delay measurement mechanism.",
+      "enum": ["E2E", "P2P", "Auto"]
+    },
+    "slave_only": {
+      "type": "boolean",
+      "description": "Run as slave only (never become grandmaster).",
+      "default": true
+    },
+    "priority1": {
+      "type": "integer",
+      "description": "Clock priority for best master clock algorithm (0-255, lower wins)."
+    },
+    "priority2": {
+      "type": "integer",
+      "description": "Secondary clock priority (0-255)."
+    },
+    "phc2sys": {
+      "type": "object",
+      "description": "phc2sys configuration for syncing PTP hardware clock to system clock.",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "sync_rate": { "type": "integer", "description": "Sync frequency in Hz (default: 1)." }
+      }
+    }
+  }
+}

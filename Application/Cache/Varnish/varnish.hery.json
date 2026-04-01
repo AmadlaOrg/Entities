@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Cache:Varnish",
+  "title": "Application Cache Varnish Entity",
+  "description": "Varnish-specific configuration. Extends Application/Cache with Varnish-specific settings.",
+  "type": "object",
+  "properties": {
+    "storage_backend": {
+      "type": "string",
+      "enum": ["malloc", "file", "persistent"],
+      "description": "Storage backend type."
+    },
+    "storage_size": {
+      "type": "string",
+      "description": "Storage size (e.g., \"1G\")."
+    },
+    "vcl_file": {
+      "type": "string",
+      "description": "Path to VCL configuration file."
+    },
+    "admin_listen": {
+      "type": "string",
+      "description": "Admin interface address:port."
+    },
+    "default_ttl": {
+      "type": "string",
+      "description": "Default TTL for cached objects."
+    },
+    "thread_pool_min": {
+      "type": "integer",
+      "description": "Minimum number of threads per pool."
+    },
+    "thread_pool_max": {
+      "type": "integer",
+      "description": "Maximum number of threads per pool."
+    }
+  }
+}

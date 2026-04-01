@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Monitoring:ZabbixAgent",
+  "title": "Application Monitoring Zabbix Agent Entity",
+  "description": "Zabbix agent configuration. Extends Application/Monitoring with Zabbix-specific settings.",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "string",
+      "description": "Zabbix server address for passive checks."
+    },
+    "server_active": {
+      "type": "string",
+      "description": "Zabbix server address for active checks."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname reported to the Zabbix server."
+    },
+    "user_parameters": {
+      "type": "array",
+      "description": "Custom user parameter checks.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Item key for the custom check."
+          },
+          "command": {
+            "type": "string",
+            "description": "Shell command to execute for the check."
+          }
+        }
+      }
+    },
+    "tls_connect": {
+      "type": "string",
+      "enum": ["unencrypted", "psk", "cert"],
+      "description": "TLS connection mode to the Zabbix server."
+    },
+    "tls_psk_identity": {
+      "type": "string",
+      "description": "PSK identity string for TLS PSK encryption."
+    },
+    "tls_psk_secret": {
+      "type": "string",
+      "description": "PSK secret value (doorman secret reference)."
+    }
+  }
+}

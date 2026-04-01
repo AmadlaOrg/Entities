@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LoadBalancer:Traefik",
+  "title": "Application LoadBalancer Traefik Entity",
+  "description": "Traefik-specific configuration. Extends Application/LoadBalancer with Traefik-specific settings.",
+  "type": "object",
+  "properties": {
+    "entrypoints": {
+      "type": "object",
+      "description": "Named entrypoints, each with an address.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "address": { "type": "string", "description": "Listen address for this entrypoint (e.g., :80, :443)." }
+        }
+      }
+    },
+    "providers": {
+      "type": "object",
+      "description": "Traefik provider configuration.",
+      "properties": {
+        "docker": {
+          "type": "object",
+          "description": "Docker provider settings.",
+          "properties": {
+            "endpoint": { "type": "string", "description": "Docker daemon endpoint (e.g., unix:///var/run/docker.sock)." },
+            "exposedByDefault": { "type": "boolean", "description": "Whether containers are exposed by default." }
+          }
+        },
+        "file": {
+          "type": "object",
+          "description": "File provider settings.",
+          "properties": {
+            "directory": { "type": "string", "description": "Directory to watch for dynamic configuration files." },
+            "watch": { "type": "boolean", "description": "Whether to watch the directory for changes." }
+          }
+        }
+      }
+    },
+    "certificatesResolvers": {
+      "type": "object",
+      "description": "ACME certificate resolvers.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "description": "Email address for ACME registration." },
+          "storage": { "type": "string", "description": "Path to ACME certificate storage file." },
+          "httpChallenge": {
+            "type": "object",
+            "description": "HTTP-01 challenge configuration.",
+            "properties": {
+              "entryPoint": { "type": "string", "description": "Entrypoint to use for HTTP challenge." }
+            }
+          },
+          "tlsChallenge": {
+            "type": "object",
+            "description": "TLS-ALPN-01 challenge configuration."
+          },
+          "dnsChallenge": {
+            "type": "object",
+            "description": "DNS-01 challenge configuration.",
+            "properties": {
+              "provider": { "type": "string", "description": "DNS provider name." },
+              "resolvers": { "type": "array", "items": { "type": "string" }, "description": "DNS resolvers to use." }
+            }
+          }
+        }
+      }
+    },
+    "api": {
+      "type": "object",
+      "description": "Traefik API and dashboard settings.",
+      "properties": {
+        "dashboard": { "type": "boolean", "description": "Whether the dashboard is enabled." },
+        "insecure": { "type": "boolean", "description": "Whether the API is accessible without TLS." }
+      }
+    },
+    "log": {
+      "type": "object",
+      "description": "Traefik log configuration.",
+      "properties": {
+        "level": { "type": "string", "description": "Log level (e.g., DEBUG, INFO, WARN, ERROR)." },
+        "filePath": { "type": "string", "description": "Path to log file." }
+      }
+    },
+    "accessLog": {
+      "type": "object",
+      "description": "Traefik access log configuration.",
+      "properties": {
+        "filePath": { "type": "string", "description": "Path to access log file." },
+        "format": { "type": "string", "description": "Access log format (e.g., common, json)." }
+      }
+    }
+  }
+}

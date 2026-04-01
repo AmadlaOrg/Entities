@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Storage:MinIO",
+  "title": "Infrastructure Storage MinIO Entity",
+  "description": "Properties for MinIO S3-compatible object storage.",
+  "type": "object",
+  "properties": {
+    "root_user": {
+      "type": "string",
+      "description": "MinIO root/admin username."
+    },
+    "root_password_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the root password."
+    },
+    "volumes": {
+      "type": "array",
+      "description": "Storage paths used by MinIO (e.g., /data1, /data2).",
+      "items": { "type": "string" }
+    },
+    "console_address": {
+      "type": "string",
+      "description": "Network address the MinIO web console listens on."
+    },
+    "console_port": {
+      "type": "integer",
+      "description": "Port the MinIO web console listens on."
+    },
+    "server_url": {
+      "type": "string",
+      "description": "Public-facing S3 API URL."
+    },
+    "region": {
+      "type": "string",
+      "description": "S3 region identifier."
+    },
+    "erasure_coding": {
+      "type": "boolean",
+      "description": "Whether erasure coding is enabled for data protection."
+    },
+    "distributed_nodes": {
+      "type": "array",
+      "description": "Node addresses for distributed MinIO mode.",
+      "items": { "type": "string" }
+    }
+  }
+}

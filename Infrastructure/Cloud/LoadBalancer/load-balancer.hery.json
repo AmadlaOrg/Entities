@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:LoadBalancer",
+  "title": "Infrastructure Cloud LoadBalancer Entity",
+  "description": "Common properties shared by all cloud load balancer services (AWS ALB, GCP Cloud Load Balancing, Azure LB).",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["application", "network"],
+      "description": "Load balancer type: L7 (application) vs L4 (network)."
+    },
+    "scheme": {
+      "type": "string",
+      "enum": ["internet-facing", "internal"],
+      "description": "Whether the load balancer is publicly accessible or internal only."
+    },
+    "listeners": {
+      "type": "array",
+      "description": "Listener configurations for incoming traffic.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "type": "integer",
+            "description": "Port number the listener accepts traffic on."
+          },
+          "protocol": {
+            "type": "string",
+            "enum": ["HTTP", "HTTPS", "TCP", "UDP"],
+            "description": "Protocol for the listener."
+          },
+          "target_port": {
+            "type": "integer",
+            "description": "Port on the backend target to forward traffic to."
+          },
+          "certificate": {
+            "type": "string",
+            "description": "TLS/SSL certificate identifier for HTTPS listeners."
+          }
+        }
+      }
+    },
+    "health_check": {
+      "type": "object",
+      "description": "Health check configuration for backend targets.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "HTTP path for health check requests."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port to use for health checks."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Protocol for health check requests."
+        },
+        "interval": {
+          "type": "integer",
+          "description": "Seconds between health checks."
+        },
+        "threshold": {
+          "type": "integer",
+          "description": "Number of consecutive checks before marking healthy/unhealthy."
+        }
+      }
+    }
+  }
+}

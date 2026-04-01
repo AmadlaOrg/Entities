@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:DNS:Knot",
+  "title": "Infrastructure DNS Knot Entity",
+  "description": "Knot DNS-specific configuration. Extends Infrastructure/DNS with Knot authoritative server settings.",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "object",
+      "description": "Server configuration.",
+      "properties": {
+        "listen": {
+          "type": "array",
+          "description": "Addresses and ports to listen on.",
+          "items": { "type": "string" }
+        },
+        "user": { "type": "string", "description": "User to run the server as." },
+        "rundir": { "type": "string", "description": "Runtime directory." }
+      }
+    },
+    "database": {
+      "type": "object",
+      "description": "Database and journal configuration.",
+      "properties": {
+        "storage": { "type": "string", "description": "Path to zone database storage." },
+        "journal_db_mode": { "type": "string", "description": "Journal database mode." }
+      }
+    },
+    "remotes": {
+      "type": "array",
+      "description": "Remote server definitions for zone transfers.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Remote identifier." },
+          "address": { "type": "string", "description": "Remote server address." },
+          "key": { "type": "string", "description": "TSIG key for authentication." }
+        }
+      }
+    },
+    "acl": {
+      "type": "array",
+      "description": "Access control lists.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "ACL identifier." },
+          "address": {
+            "type": "array",
+            "description": "Addresses in this ACL.",
+            "items": { "type": "string" }
+          },
+          "action": {
+            "type": "array",
+            "description": "Allowed actions (transfer, notify, update).",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "policy": {
+      "type": "array",
+      "description": "DNSSEC signing policies.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Policy identifier." },
+          "algorithm": { "type": "string", "description": "DNSSEC signing algorithm." },
+          "zsk_lifetime": { "type": "string", "description": "ZSK key lifetime (e.g., 30d)." }
+        }
+      }
+    }
+  }
+}

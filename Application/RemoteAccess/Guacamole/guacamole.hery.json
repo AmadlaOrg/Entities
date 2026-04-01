@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:RemoteAccess:Guacamole",
+  "title": "Application RemoteAccess Guacamole Entity",
+  "description": "Apache Guacamole-specific configuration. Extends Application/RemoteAccess with Guacamole-specific settings.",
+  "type": "object",
+  "properties": {
+    "guacd_hostname": {
+      "type": "string",
+      "description": "Hostname of the guacd proxy daemon."
+    },
+    "guacd_port": {
+      "type": "integer",
+      "default": 4822,
+      "description": "Port of the guacd proxy daemon."
+    },
+    "database": {
+      "type": "object",
+      "description": "Database configuration for Guacamole authentication.",
+      "properties": {
+        "type": { "type": "string", "enum": ["mysql", "postgresql"], "description": "Database backend type." },
+        "hostname": { "type": "string", "description": "Database host address." },
+        "port": { "type": "integer", "description": "Database port." },
+        "database": { "type": "string", "description": "Database name." },
+        "username": { "type": "string", "description": "Database username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the database password." }
+      }
+    },
+    "totp_enabled": {
+      "type": "boolean",
+      "description": "Whether two-factor authentication via TOTP is enabled."
+    },
+    "ldap": {
+      "type": "object",
+      "description": "LDAP authentication configuration.",
+      "properties": {
+        "hostname": { "type": "string", "description": "LDAP server hostname." },
+        "port": { "type": "integer", "description": "LDAP server port." },
+        "user_base_dn": { "type": "string", "description": "Base DN for user searches." },
+        "username_attribute": { "type": "string", "description": "LDAP attribute used as the username." },
+        "search_bind_dn": { "type": "string", "description": "DN used to bind for LDAP searches." },
+        "search_bind_password_secret": { "type": "string", "description": "Doorman secret reference for the LDAP bind password." }
+      }
+    },
+    "connections": {
+      "type": "array",
+      "description": "Pre-configured remote connections.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Connection display name." },
+          "protocol": { "type": "string", "enum": ["rdp", "vnc", "ssh", "telnet"], "description": "Connection protocol." },
+          "hostname": { "type": "string", "description": "Target host address." },
+          "port": { "type": "integer", "description": "Target port." },
+          "username": { "type": "string", "description": "Connection username." },
+          "password_secret": { "type": "string", "description": "Doorman secret reference for the connection password." },
+          "parameters": { "type": "object", "description": "Additional protocol-specific parameters." }
+        }
+      }
+    }
+  }
+}

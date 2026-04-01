@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Database:GCP:CloudSQL",
+  "title": "Infrastructure Cloud Database GCP Cloud SQL Entity",
+  "description": "Google Cloud SQL managed database instance configuration.",
+  "type": "object",
+  "properties": {
+    "tier": {
+      "type": "string",
+      "description": "Machine tier (e.g., db-f1-micro, db-custom-2-8192)."
+    },
+    "database_version": {
+      "type": "string",
+      "description": "Database version (e.g., POSTGRES_16, MYSQL_8_0)."
+    },
+    "region": {
+      "type": "string",
+      "description": "GCP region for the instance."
+    },
+    "availability_type": {
+      "type": "string",
+      "enum": ["REGIONAL", "ZONAL"],
+      "description": "Availability type for high availability."
+    },
+    "ip_configuration": {
+      "type": "object",
+      "description": "IP and network configuration.",
+      "properties": {
+        "ipv4_enabled": { "type": "boolean" },
+        "private_network": { "type": "string" },
+        "authorized_networks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "backup_configuration": {
+      "type": "object",
+      "description": "Backup configuration.",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "start_time": { "type": "string" },
+        "point_in_time_recovery_enabled": { "type": "boolean" }
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Database flags for custom configuration.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    }
+  }
+}

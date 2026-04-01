@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Compute:DigitalOcean:Droplet",
+  "title": "DigitalOcean Droplet Entity",
+  "description": "DigitalOcean Droplet-specific compute instance properties.",
+  "type": "object",
+  "properties": {
+    "size": {
+      "type": "string",
+      "description": "Droplet size slug (e.g., s-1vcpu-1gb, s-2vcpu-4gb)."
+    },
+    "region": {
+      "type": "string",
+      "description": "DigitalOcean region slug (e.g., nyc1, sfo3, ams3)."
+    },
+    "image": {
+      "type": "string",
+      "description": "OS image slug (e.g., debian-12-x64, ubuntu-24-04-x64)."
+    },
+    "ssh_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "SSH key fingerprints or IDs."
+    },
+    "vpc_uuid": {
+      "type": "string",
+      "description": "VPC UUID to place the droplet in."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags applied to the droplet."
+    },
+    "monitoring": {
+      "type": "boolean",
+      "description": "Whether to enable monitoring agent."
+    },
+    "backups": {
+      "type": "boolean",
+      "description": "Whether to enable automated backups."
+    },
+    "ipv6": {
+      "type": "boolean",
+      "description": "Whether to enable IPv6."
+    }
+  },
+  "required": ["size", "region", "image"]
+}

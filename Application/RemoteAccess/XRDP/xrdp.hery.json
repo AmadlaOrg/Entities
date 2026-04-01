@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:RemoteAccess:XRDP",
+  "title": "Application RemoteAccess XRDP Entity",
+  "description": "XRDP-specific configuration. Extends Application/RemoteAccess with XRDP-specific settings.",
+  "type": "object",
+  "properties": {
+    "max_bpp": {
+      "type": "integer",
+      "enum": [8, 15, 16, 24, 32],
+      "description": "Maximum bits per pixel for the session."
+    },
+    "session_types": {
+      "type": "array",
+      "description": "Allowed session types.",
+      "items": { "type": "string", "enum": ["Xvnc", "Xorg", "X11rdp"] }
+    },
+    "crypt_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "fips"],
+      "description": "RDP encryption level."
+    },
+    "allow_channels": {
+      "type": "boolean",
+      "description": "Whether RDP virtual channels are enabled."
+    },
+    "channel_rdpdr": {
+      "type": "boolean",
+      "description": "Enable drive redirection channel."
+    },
+    "channel_rdpsnd": {
+      "type": "boolean",
+      "description": "Enable sound redirection channel."
+    },
+    "channel_cliprdr": {
+      "type": "boolean",
+      "description": "Enable clipboard redirection channel."
+    }
+  }
+}

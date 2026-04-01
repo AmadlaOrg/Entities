@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:Java",
+  "title": "ProgrammingLanguage/Java Entity",
+  "description": "Java-specific configuration. Extends ProgrammingLanguage with JDK distribution, Maven, Gradle, and keystore settings.",
+  "type": "object",
+  "properties": {
+    "distribution": {
+      "type": "string",
+      "enum": ["openjdk", "temurin", "corretto", "graalvm", "zulu"],
+      "description": "JDK distribution to install."
+    },
+    "jvm_opts": {
+      "type": "string",
+      "description": "Default JVM options (e.g., \"-Xmx512m -Xms256m\")."
+    },
+    "java_home": {
+      "type": "string",
+      "description": "Explicit JAVA_HOME path."
+    },
+    "maven": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string", "description": "Maven version to install." },
+        "settings": { "type": "string", "description": "Path to settings.xml." },
+        "repositories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "url": { "type": "string" }
+            },
+            "required": ["id", "url"]
+          },
+          "description": "Additional Maven repositories."
+        }
+      },
+      "description": "Maven build tool configuration."
+    },
+    "gradle": {
+      "type": "object",
+      "properties": {
+        "version": { "type": "string", "description": "Gradle version to install." },
+        "daemon": { "type": "boolean", "description": "Enable the Gradle daemon." },
+        "properties": {
+          "type": "object",
+          "additionalProperties": { "type": ["string", "integer", "boolean"] },
+          "description": "Gradle properties (gradle.properties key-value pairs)."
+        }
+      },
+      "description": "Gradle build tool configuration."
+    },
+    "keystore": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "description": "Path to the Java keystore file." },
+        "password_secret": { "type": "string", "description": "Secret reference for the keystore password." },
+        "type": {
+          "type": "string",
+          "enum": ["JKS", "PKCS12"],
+          "description": "Keystore type."
+        }
+      },
+      "description": "Java keystore configuration."
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ServiceDiscovery:Consul",
+  "title": "Application ServiceDiscovery Consul Entity",
+  "description": "Consul-specific configuration. Extends Application/ServiceDiscovery with Consul-specific settings.",
+  "type": "object",
+  "properties": {
+    "datacenter": {
+      "type": "string",
+      "description": "Consul datacenter name."
+    },
+    "server": {
+      "type": "boolean",
+      "description": "Whether this agent runs in server mode (true) or client mode (false)."
+    },
+    "bootstrap_expect": {
+      "type": "integer",
+      "description": "Number of server agents expected for quorum bootstrap."
+    },
+    "retry_join": {
+      "type": "array",
+      "description": "Addresses of other agents to join on startup.",
+      "items": { "type": "string" }
+    },
+    "ui_enabled": {
+      "type": "boolean",
+      "description": "Whether the Consul web UI is enabled."
+    },
+    "encrypt_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the gossip encryption key."
+    },
+    "acl": {
+      "type": "object",
+      "description": "Access control list configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether ACLs are enabled." },
+        "default_policy": { "type": "string", "enum": ["allow", "deny"], "description": "Default ACL policy." },
+        "tokens": { "type": "object", "description": "Token configuration (e.g., initial_management, default)." }
+      }
+    },
+    "connect": {
+      "type": "object",
+      "description": "Consul Connect (service mesh) settings.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether Consul Connect is enabled." }
+      }
+    },
+    "dns_config": {
+      "type": "object",
+      "description": "DNS configuration for Consul's built-in DNS server.",
+      "properties": {
+        "allow_stale": { "type": "boolean", "description": "Whether stale reads are allowed for DNS queries." },
+        "max_stale": { "type": "string", "description": "Maximum staleness allowed for DNS responses (e.g., 5s)." }
+      }
+    }
+  }
+}

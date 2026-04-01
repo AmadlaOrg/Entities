@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:AuthProxy:Authelia",
+  "title": "Application AuthProxy Authelia Entity",
+  "description": "Authelia-specific configuration. Extends Application/AuthProxy with Authelia settings for multi-factor authentication.",
+  "type": "object",
+  "properties": {
+    "default_policy": {
+      "type": "string",
+      "enum": ["bypass", "one_factor", "two_factor", "deny"],
+      "description": "Default access control policy."
+    },
+    "access_control": {
+      "type": "array",
+      "description": "Access control rules per domain.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain": { "type": "string", "description": "Domain to match." },
+          "policy": { "type": "string", "description": "Policy for this domain (bypass/one_factor/two_factor/deny)." },
+          "subject": {
+            "type": "array",
+            "description": "Subjects this rule applies to (e.g., group:admins).",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "description": "Session configuration.",
+      "properties": {
+        "domain": { "type": "string", "description": "Cookie domain for sessions." },
+        "expiration": { "type": "string", "description": "Session expiration duration (e.g., 1h)." },
+        "inactivity": { "type": "string", "description": "Session inactivity timeout (e.g., 5m)." },
+        "redis": {
+          "type": "object",
+          "description": "Redis backend for session storage.",
+          "properties": {
+            "host": { "type": "string", "description": "Redis host." },
+            "port": { "type": "integer", "description": "Redis port." }
+          }
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "Storage backend configuration.",
+      "properties": {
+        "local": {
+          "type": "object",
+          "description": "Local SQLite storage.",
+          "properties": {
+            "path": { "type": "string", "description": "Path to SQLite database file." }
+          }
+        },
+        "mysql": {
+          "type": "object",
+          "description": "MySQL storage backend.",
+          "properties": {
+            "host": { "type": "string" },
+            "port": { "type": "integer" },
+            "database": { "type": "string" },
+            "username": { "type": "string" },
+            "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+          }
+        },
+        "postgres": {
+          "type": "object",
+          "description": "PostgreSQL storage backend.",
+          "properties": {
+            "host": { "type": "string" },
+            "port": { "type": "integer" },
+            "database": { "type": "string" },
+            "username": { "type": "string" },
+            "password_secret": { "type": "string", "description": "Doorman secret reference for database password." }
+          }
+        }
+      }
+    },
+    "authentication_backend": {
+      "type": "object",
+      "description": "Authentication backend configuration.",
+      "properties": {
+        "file": {
+          "type": "object",
+          "description": "File-based authentication.",
+          "properties": {
+            "path": { "type": "string", "description": "Path to the users file." }
+          }
+        },
+        "ldap": {
+          "type": "object",
+          "description": "LDAP authentication backend.",
+          "properties": {
+            "url": { "type": "string", "description": "LDAP server URL." },
+            "base_dn": { "type": "string", "description": "Base DN for LDAP searches." },
+            "username_attribute": { "type": "string", "description": "LDAP attribute for username." },
+            "users_filter": { "type": "string", "description": "LDAP filter for user searches." }
+          }
+        }
+      }
+    },
+    "notifier": {
+      "type": "object",
+      "description": "Notification delivery configuration.",
+      "properties": {
+        "smtp": {
+          "type": "object",
+          "description": "SMTP notifier.",
+          "properties": {
+            "host": { "type": "string" },
+            "port": { "type": "integer" },
+            "sender": { "type": "string" },
+            "username": { "type": "string" },
+            "password_secret": { "type": "string", "description": "Doorman secret reference for SMTP password." }
+          }
+        },
+        "filesystem": {
+          "type": "object",
+          "description": "Filesystem notifier (for development).",
+          "properties": {
+            "filename": { "type": "string", "description": "Path to notification output file." }
+          }
+        }
+      }
+    },
+    "totp": {
+      "type": "object",
+      "description": "TOTP (Time-based One-Time Password) settings.",
+      "properties": {
+        "issuer": { "type": "string", "description": "TOTP issuer name shown in authenticator apps." },
+        "period": { "type": "integer", "description": "TOTP token validity period in seconds." },
+        "digits": { "type": "integer", "description": "Number of digits in TOTP token." }
+      }
+    }
+  }
+}

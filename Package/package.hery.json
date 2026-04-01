@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Package",
+  "title": "Package Entity",
+  "description": "Defines system package installation. Used by lay with apt, yum, dnf, pacman, brew, etc.",
+  "type": "object",
+  "properties": {
+    "manager": {
+      "type": "string",
+      "enum": ["apt", "yum", "dnf", "pacman", "apk", "brew", "zypper", "pkg", "snap", "flatpak"],
+      "description": "Package manager. If omitted, lay auto-detects."
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" },
+          "state": { "type": "string", "enum": ["present", "absent", "latest"], "default": "present" }
+        },
+        "required": ["name"]
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string" },
+          "key": { "type": "string", "description": "GPG key URL." },
+          "enabled": { "type": "boolean", "default": true }
+        },
+        "required": ["name", "url"]
+      }
+    },
+    "update": { "type": "boolean", "default": true, "description": "Update package index before installing." },
+    "upgrade": { "type": "boolean", "default": false },
+    "clean": { "type": "boolean", "default": false, "description": "Clean cache after install." }
+  },
+  "required": ["packages"]
+}

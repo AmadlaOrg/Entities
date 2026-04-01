@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DNSResolver:Unbound",
+  "title": "Application DNSResolver Unbound Entity",
+  "description": "Unbound-specific configuration. Extends Application/DNSResolver with unbound-specific settings.",
+  "type": "object",
+  "properties": {
+    "access_control": {
+      "type": "array",
+      "description": "Access control rules for client queries.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subnet": { "type": "string", "description": "Network subnet (e.g., 192.168.1.0/24)." },
+          "action": { "type": "string", "description": "Action for matching clients (allow, deny, refuse)." }
+        }
+      }
+    },
+    "local_zone": {
+      "type": "array",
+      "description": "Local zone definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Zone name." },
+          "type": { "type": "string", "description": "Zone type (static, transparent, redirect)." }
+        }
+      }
+    },
+    "local_data": {
+      "type": "array",
+      "description": "Local DNS data entries.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Record name." },
+          "record": { "type": "string", "description": "DNS record value (e.g., A 192.168.1.1)." }
+        }
+      }
+    },
+    "forward_zones": {
+      "type": "array",
+      "description": "Forward zone configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Zone name to forward." },
+          "forward_addr": {
+            "type": "array",
+            "description": "Addresses to forward queries to.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "prefetch": {
+      "type": "boolean",
+      "description": "Whether to prefetch almost-expired cache entries."
+    },
+    "num_threads": {
+      "type": "integer",
+      "description": "Number of threads to use for serving."
+    }
+  }
+}

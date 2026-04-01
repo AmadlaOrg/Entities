@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:ObjectStorage:GCP:GCS",
+  "title": "Infrastructure Cloud Object Storage GCP GCS Entity",
+  "description": "Google Cloud Storage bucket configuration.",
+  "type": "object",
+  "properties": {
+    "location": {
+      "type": "string",
+      "description": "Bucket location (e.g., US, EU, us-central1)."
+    },
+    "storage_class": {
+      "type": "string",
+      "enum": ["STANDARD", "NEARLINE", "COLDLINE", "ARCHIVE"],
+      "description": "Storage class for the bucket."
+    },
+    "uniform_bucket_level_access": {
+      "type": "boolean",
+      "description": "Enable uniform bucket-level access control."
+    },
+    "retention_policy": {
+      "type": "object",
+      "description": "Retention policy for objects.",
+      "properties": {
+        "retention_period": {
+          "type": "integer",
+          "description": "Retention period in seconds."
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "description": "Labels for the bucket."
+    }
+  }
+}

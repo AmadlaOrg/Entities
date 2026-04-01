@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:WebServer",
+  "title": "Web Server Application Entity",
+  "description": "Defines web server configuration for nginx, apache, caddy, etc.",
+  "type": "object",
+  "properties": {
+    "server_name": {
+      "type": ["string", "array"],
+      "description": "Server name(s) / virtual host(s).",
+      "items": { "type": "string" }
+    },
+    "listen": {
+      "type": ["string", "integer", "array"],
+      "description": "Listen directive(s) — port or address:port.",
+      "items": { "type": ["string", "integer"] }
+    },
+    "root": {
+      "type": "string",
+      "description": "Document root directory."
+    },
+    "index": {
+      "type": ["string", "array"],
+      "description": "Index file(s).",
+      "items": { "type": "string" }
+    },
+    "locations": {
+      "type": "array",
+      "description": "Location blocks.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "URL path pattern." },
+          "proxy_pass": { "type": "string", "description": "Upstream proxy target." },
+          "root": { "type": "string" },
+          "try_files": { "type": "string" },
+          "rewrite": { "type": "string" },
+          "headers": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        },
+        "required": ["path"]
+      }
+    },
+    "ssl": {
+      "type": "object",
+      "properties": {
+        "certificate": { "type": "string", "description": "Path to SSL certificate or entity reference." },
+        "certificate_key": { "type": "string", "description": "Path to SSL private key or secret reference." },
+        "protocols": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["TLSv1.2", "TLSv1.3"] },
+          "default": ["TLSv1.2", "TLSv1.3"]
+        }
+      }
+    },
+    "access_log": { "type": "string", "description": "Access log file path." },
+    "error_log": { "type": "string", "description": "Error log file path." },
+    "worker_connections": { "type": "integer", "description": "Max simultaneous connections per worker." }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:VPN:WireGuard",
+  "title": "Application VPN WireGuard Entity",
+  "description": "WireGuard-specific configuration. Extends Application/VPN with WireGuard-specific settings.",
+  "type": "object",
+  "properties": {
+    "interface": {
+      "type": "string",
+      "description": "WireGuard interface name (e.g., wg0)."
+    },
+    "private_key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the WireGuard private key."
+    },
+    "address": {
+      "type": "string",
+      "description": "Interface address with CIDR (e.g., 10.0.0.1/24)."
+    },
+    "post_up": {
+      "type": "string",
+      "description": "Command to run after the interface comes up (e.g., iptables rules)."
+    },
+    "post_down": {
+      "type": "string",
+      "description": "Command to run after the interface goes down."
+    },
+    "peers": {
+      "type": "array",
+      "description": "WireGuard peer definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "public_key": { "type": "string", "description": "Peer public key." },
+          "allowed_ips": { "type": "array", "items": { "type": "string" }, "description": "Allowed IP ranges for this peer." },
+          "endpoint": { "type": "string", "description": "Peer endpoint address:port." },
+          "persistent_keepalive": { "type": "integer", "description": "Keepalive interval in seconds (e.g., 25)." }
+        }
+      }
+    }
+  }
+}

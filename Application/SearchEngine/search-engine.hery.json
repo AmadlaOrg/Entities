@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SearchEngine",
+  "title": "Application SearchEngine Entity",
+  "description": "Common properties shared by all search engine applications (Elasticsearch, OpenSearch, Meilisearch).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Bind address for the search engine service."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the search engine service listens on."
+    },
+    "cluster_name": {
+      "type": "string",
+      "description": "Name of the search cluster."
+    },
+    "data_dir": {
+      "type": "string",
+      "description": "Directory for index and data storage."
+    },
+    "heap_size": {
+      "type": "string",
+      "description": "JVM heap or memory allocation (e.g., \"1g\", \"512m\")."
+    }
+  }
+}

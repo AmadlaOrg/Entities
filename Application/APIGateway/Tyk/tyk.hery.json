@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:APIGateway:Tyk",
+  "title": "Application API Gateway Tyk Entity",
+  "description": "Tyk-specific configuration. Extends Application/APIGateway with Tyk-specific settings.",
+  "type": "object",
+  "properties": {
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the Tyk gateway listens on."
+    },
+    "secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the Tyk node secret."
+    },
+    "template_path": {
+      "type": "string",
+      "description": "Path to API definition templates."
+    },
+    "use_db_app_configs": {
+      "type": "boolean",
+      "description": "Whether to pull API definitions from the Tyk Dashboard."
+    },
+    "dashboard_url": {
+      "type": "string",
+      "description": "URL of the Tyk Dashboard."
+    },
+    "policies": {
+      "type": "object",
+      "description": "Policy configuration.",
+      "properties": {
+        "policy_source": { "type": "string", "description": "Policy source (service or file)." },
+        "policy_record_name": { "type": "string", "description": "Policy record name or path." }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "description": "Analytics configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether analytics are enabled." },
+        "storage_expiration_after": { "type": "integer", "description": "Seconds before analytics records expire." }
+      }
+    },
+    "health_check": {
+      "type": "object",
+      "description": "Health check configuration.",
+      "properties": {
+        "enable_health_checks": { "type": "boolean", "description": "Whether health checks are enabled." },
+        "health_check_value_timeouts": { "type": "integer", "description": "Timeout in seconds for health check values." }
+      }
+    }
+  }
+}

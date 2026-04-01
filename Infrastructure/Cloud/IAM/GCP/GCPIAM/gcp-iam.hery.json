@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:IAM:GCP:GCPIAM",
+  "title": "Infrastructure Cloud IAM GCP IAM Entity",
+  "description": "GCP Identity and Access Management configuration properties.",
+  "type": "object",
+  "properties": {
+    "service_accounts": {
+      "type": "array",
+      "description": "Service account definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Service account ID."
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Human-readable display name."
+          },
+          "roles": {
+            "type": "array",
+            "description": "Roles granted to the service account (e.g., roles/storage.admin).",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "description": "IAM policy bindings.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "Role to bind (e.g., roles/editor)."
+          },
+          "members": {
+            "type": "array",
+            "description": "Members to bind the role to (e.g., user:, serviceAccount:, group:).",
+            "items": { "type": "string" }
+          },
+          "condition": {
+            "type": "object",
+            "description": "Optional condition for the binding.",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Title of the condition."
+              },
+              "expression": {
+                "type": "string",
+                "description": "CEL expression for the condition."
+              }
+            }
+          }
+        }
+      }
+    },
+    "custom_roles": {
+      "type": "array",
+      "description": "Custom role definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Role ID."
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable title."
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Permissions granted by the role.",
+            "items": { "type": "string" }
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["GA", "BETA", "ALPHA"],
+            "description": "Launch stage of the role."
+          }
+        }
+      }
+    }
+  }
+}

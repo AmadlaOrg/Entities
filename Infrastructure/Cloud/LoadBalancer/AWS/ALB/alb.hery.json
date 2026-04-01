@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:LoadBalancer:AWS:ALB",
+  "title": "Infrastructure Cloud LoadBalancer AWS ALB Entity",
+  "description": "AWS Application Load Balancer configuration properties.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the Application Load Balancer."
+    },
+    "subnets": {
+      "type": "array",
+      "description": "Subnet IDs where the ALB is deployed.",
+      "items": { "type": "string" }
+    },
+    "security_groups": {
+      "type": "array",
+      "description": "Security group IDs attached to the ALB.",
+      "items": { "type": "string" }
+    },
+    "target_groups": {
+      "type": "array",
+      "description": "Target group definitions for routing traffic to backends.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the target group."
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port on which targets receive traffic."
+          },
+          "protocol": {
+            "type": "string",
+            "description": "Protocol for target group traffic."
+          },
+          "target_type": {
+            "type": "string",
+            "enum": ["instance", "ip", "lambda"],
+            "description": "Type of targets registered with this group."
+          },
+          "health_check": {
+            "type": "object",
+            "description": "Health check configuration for this target group."
+          }
+        }
+      }
+    },
+    "listener_rules": {
+      "type": "array",
+      "description": "Listener rules for advanced routing.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "integer",
+            "description": "Rule priority (lower numbers evaluated first)."
+          },
+          "conditions": {
+            "type": "array",
+            "description": "Conditions that trigger this rule.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "description": "Condition field (e.g., path-pattern, host-header)."
+                },
+                "values": {
+                  "type": "array",
+                  "description": "Values to match against.",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          },
+          "action": {
+            "type": "object",
+            "description": "Action to take when conditions are met.",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Action type (e.g., forward, redirect, fixed-response)."
+              },
+              "target_group_arn": {
+                "type": "string",
+                "description": "ARN of the target group to forward to."
+              }
+            }
+          }
+        }
+      }
+    },
+    "access_logs": {
+      "type": "object",
+      "description": "Access logging configuration.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether access logging is enabled."
+        },
+        "bucket": {
+          "type": "string",
+          "description": "S3 bucket for access logs."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "S3 key prefix for log files."
+        }
+      }
+    },
+    "idle_timeout": {
+      "type": "integer",
+      "description": "Idle timeout in seconds before closing connections."
+    }
+  }
+}

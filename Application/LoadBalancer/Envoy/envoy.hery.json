@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LoadBalancer:Envoy",
+  "title": "Application LoadBalancer Envoy Entity",
+  "description": "Envoy-specific configuration. Extends Application/LoadBalancer with Envoy-specific settings.",
+  "type": "object",
+  "properties": {
+    "admin": {
+      "type": "object",
+      "description": "Envoy admin interface configuration.",
+      "properties": {
+        "address": { "type": "string", "description": "Admin interface listen address." },
+        "port": { "type": "integer", "description": "Admin interface listen port." }
+      }
+    },
+    "listeners": {
+      "type": "array",
+      "description": "Envoy listener definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Listener name." },
+          "address": { "type": "string", "description": "Listener bind address." },
+          "port": { "type": "integer", "description": "Listener bind port." },
+          "filter_chains": {
+            "type": "array",
+            "description": "Filter chains for this listener.",
+            "items": { "type": "object" }
+          }
+        }
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "description": "Envoy cluster (upstream) definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Cluster name." },
+          "type": { "type": "string", "enum": ["STRICT_DNS", "LOGICAL_DNS", "STATIC", "EDS"], "description": "Service discovery type." },
+          "lb_policy": { "type": "string", "description": "Load balancing policy (e.g., ROUND_ROBIN, LEAST_REQUEST)." },
+          "endpoints": {
+            "type": "array",
+            "description": "Endpoints in this cluster.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "address": { "type": "string", "description": "Endpoint address." },
+                "port": { "type": "integer", "description": "Endpoint port." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overload_manager": {
+      "type": "object",
+      "description": "Envoy overload manager for resource monitoring and protection."
+    }
+  }
+}

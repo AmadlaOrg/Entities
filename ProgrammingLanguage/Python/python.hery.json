@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:Python",
+  "title": "ProgrammingLanguage/Python Entity",
+  "description": "Python-specific configuration. Extends ProgrammingLanguage with pip, virtualenv, Poetry, and pyproject settings.",
+  "type": "object",
+  "properties": {
+    "pip_packages": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Global pip packages to install."
+    },
+    "virtualenv": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "description": "Path for the virtual environment." },
+        "python": { "type": "string", "description": "Python binary path to use for the virtualenv." }
+      },
+      "description": "Virtual environment configuration."
+    },
+    "poetry_enabled": {
+      "type": "boolean",
+      "description": "Install Poetry package manager."
+    },
+    "pipx_packages": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "CLI tools to install via pipx."
+    },
+    "pyproject": {
+      "type": "object",
+      "properties": {
+        "build_system": {
+          "type": "string",
+          "enum": ["setuptools", "poetry", "flit", "hatch"],
+          "description": "Build system to use for the project."
+        }
+      },
+      "description": "pyproject.toml build configuration."
+    },
+    "site_packages": {
+      "type": "boolean",
+      "description": "Allow system site-packages in virtual environments."
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:WAF:ModSecurity",
+  "title": "Security WAF ModSecurity Entity",
+  "description": "ModSecurity-specific configuration. Extends Security/WAF with ModSecurity-specific settings.",
+  "type": "object",
+  "properties": {
+    "sec_rule_engine": {
+      "type": "string",
+      "enum": ["On", "Off", "DetectionOnly"],
+      "description": "SecRuleEngine directive controlling the rule engine."
+    },
+    "sec_request_body_access": {
+      "type": "boolean",
+      "description": "Whether to inspect request bodies."
+    },
+    "sec_response_body_access": {
+      "type": "boolean",
+      "description": "Whether to inspect response bodies."
+    },
+    "sec_request_body_limit": {
+      "type": "integer",
+      "description": "Maximum request body size in bytes."
+    },
+    "sec_audit_log_parts": {
+      "type": "string",
+      "description": "Audit log parts to include (e.g., 'ABCFHZ')."
+    },
+    "sec_pcre_match_limit": {
+      "type": "integer",
+      "description": "PCRE match limit to prevent ReDoS."
+    },
+    "sec_pcre_match_limit_recursion": {
+      "type": "integer",
+      "description": "PCRE match limit recursion to prevent ReDoS."
+    },
+    "crs_paranoia_level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "description": "OWASP CRS paranoia level (1 = low, 4 = high)."
+    },
+    "crs_exclusions": {
+      "type": "array",
+      "description": "Application-specific CRS exclusion profiles (e.g., wordpress, drupal, nextcloud).",
+      "items": { "type": "string" }
+    }
+  }
+}

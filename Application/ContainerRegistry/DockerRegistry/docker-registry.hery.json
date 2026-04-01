@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:ContainerRegistry:DockerRegistry",
+  "title": "Application Container Registry Docker Registry Entity",
+  "description": "Defines Docker Registry (distribution) configuration.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Registry version."
+    },
+    "delete_enabled": {
+      "type": "boolean",
+      "description": "Whether image deletion is enabled."
+    },
+    "cache": {
+      "type": "object",
+      "description": "Cache configuration.",
+      "properties": {
+        "blobdescriptor": {
+          "type": "string",
+          "enum": ["inmemory", "redis"],
+          "description": "Blob descriptor cache backend."
+        }
+      }
+    },
+    "proxy": {
+      "type": "object",
+      "description": "Pull-through cache configuration.",
+      "properties": {
+        "remoteurl": { "type": "string", "description": "Remote registry URL to proxy." },
+        "username": { "type": "string", "description": "Username for the remote registry." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the remote registry password." }
+      }
+    },
+    "notifications": {
+      "type": "array",
+      "description": "Notification endpoint configuration.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Notification endpoint name." },
+          "url": { "type": "string", "description": "Notification endpoint URL." },
+          "headers": { "type": "object", "description": "HTTP headers to send with notifications." },
+          "timeout": { "type": "string", "description": "Request timeout (e.g., 5s)." }
+        },
+        "required": ["name", "url"]
+      }
+    }
+  }
+}

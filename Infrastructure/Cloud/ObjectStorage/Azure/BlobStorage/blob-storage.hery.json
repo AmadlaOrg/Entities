@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:ObjectStorage:Azure:BlobStorage",
+  "title": "Infrastructure Cloud Object Storage Azure Blob Storage Entity",
+  "description": "Azure Blob Storage account configuration.",
+  "type": "object",
+  "properties": {
+    "account_name": {
+      "type": "string",
+      "description": "Storage account name."
+    },
+    "account_tier": {
+      "type": "string",
+      "enum": ["Standard", "Premium"],
+      "description": "Storage account tier."
+    },
+    "replication_type": {
+      "type": "string",
+      "enum": ["LRS", "GRS", "RAGRS", "ZRS", "GZRS"],
+      "description": "Data replication strategy."
+    },
+    "access_tier": {
+      "type": "string",
+      "enum": ["Hot", "Cool", "Archive"],
+      "description": "Default access tier for blobs."
+    },
+    "container_access_type": {
+      "type": "string",
+      "enum": ["private", "blob", "container"],
+      "description": "Public access level for containers."
+    },
+    "soft_delete": {
+      "type": "object",
+      "description": "Soft delete configuration for data protection.",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "retention_days": { "type": "integer" }
+      }
+    }
+  }
+}

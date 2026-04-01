@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:DNS:GCP:CloudDNS",
+  "title": "GCP Cloud DNS Entity",
+  "description": "Google Cloud DNS-specific properties.",
+  "type": "object",
+  "properties": {
+    "dns_name": {
+      "type": "string",
+      "description": "Zone DNS name with trailing dot (e.g., example.com.)."
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "private"],
+      "description": "Zone visibility."
+    },
+    "private_visibility_config": {
+      "type": "object",
+      "properties": {
+        "networks": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "VPC network self links that can see this zone."
+        }
+      },
+      "description": "Private zone visibility configuration."
+    },
+    "dnssec_config": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["on", "off"],
+          "description": "Whether DNSSEC is enabled."
+        },
+        "default_key_specs": {
+          "type": "array",
+          "items": { "type": "object" },
+          "description": "Default DNSSEC key specifications."
+        }
+      },
+      "description": "DNSSEC configuration."
+    }
+  },
+  "required": ["dns_name"]
+}

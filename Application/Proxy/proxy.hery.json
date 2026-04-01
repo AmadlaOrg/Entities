@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Proxy",
+  "title": "Application Proxy Entity",
+  "description": "Common properties shared by all forward proxy applications (Squid, Privoxy, Tinyproxy).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Address the proxy listens on."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the proxy listens on."
+    },
+    "acl": {
+      "type": "array",
+      "description": "Access control list definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "ACL name." },
+          "type": {
+            "type": "string",
+            "enum": ["src", "dst", "dstdomain", "url_regex"],
+            "description": "ACL type."
+          },
+          "values": {
+            "type": "array",
+            "description": "ACL match values.",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "type", "values"]
+      }
+    },
+    "allowed_ports": {
+      "type": "array",
+      "description": "Ports allowed through the proxy.",
+      "items": { "type": "integer" }
+    },
+    "auth_required": {
+      "type": "boolean",
+      "description": "Whether authentication is required."
+    }
+  }
+}

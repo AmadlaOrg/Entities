@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LogShipping:Filebeat",
+  "title": "Application LogShipping Filebeat Entity",
+  "description": "Filebeat-specific configuration. Extends Application/LogShipping with filebeat-specific settings.",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "array",
+      "description": "Filebeat input configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "description": "Input type (log, filestream, journald)." },
+          "paths": {
+            "type": "array",
+            "description": "File paths to collect.",
+            "items": { "type": "string" }
+          },
+          "fields": {
+            "type": "object",
+            "description": "Additional fields to attach to events.",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    },
+    "output_elasticsearch": {
+      "type": "object",
+      "description": "Elasticsearch output configuration.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "description": "Elasticsearch host addresses.",
+          "items": { "type": "string" }
+        },
+        "index": { "type": "string", "description": "Index name pattern." },
+        "username": { "type": "string", "description": "Authentication username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the password." }
+      }
+    },
+    "output_logstash": {
+      "type": "object",
+      "description": "Logstash output configuration.",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "description": "Logstash host addresses.",
+          "items": { "type": "string" }
+        },
+        "ssl": { "type": "boolean", "description": "Whether to use SSL for the connection." }
+      }
+    },
+    "processors": {
+      "type": "array",
+      "description": "Event processors (add_host_metadata, add_cloud_metadata, etc.).",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

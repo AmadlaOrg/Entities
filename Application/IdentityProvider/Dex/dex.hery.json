@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:IdentityProvider:Dex",
+  "title": "Application Identity Provider Dex Entity",
+  "description": "Dex-specific configuration. Extends Application/IdentityProvider with Dex-specific settings.",
+  "type": "object",
+  "properties": {
+    "issuer": {
+      "type": "string",
+      "description": "Issuer URL for OIDC discovery."
+    },
+    "storage": {
+      "type": "object",
+      "description": "Storage backend configuration.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["sqlite3", "postgres", "mysql", "kubernetes"],
+          "description": "Storage backend type."
+        },
+        "config": { "type": "object", "description": "Storage-specific configuration." }
+      }
+    },
+    "connectors": {
+      "type": "array",
+      "description": "Identity provider connectors.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["ldap", "github", "gitlab", "oidc", "saml"],
+            "description": "Connector type."
+          },
+          "id": { "type": "string", "description": "Connector identifier." },
+          "name": { "type": "string", "description": "Connector display name." },
+          "config": { "type": "object", "description": "Connector-specific configuration." }
+        }
+      }
+    },
+    "static_clients": {
+      "type": "array",
+      "description": "Statically configured OAuth2 clients.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Client ID." },
+          "name": { "type": "string", "description": "Client display name." },
+          "secret_secret": { "type": "string", "description": "Doorman secret reference for client secret." },
+          "redirectURIs": {
+            "type": "array",
+            "description": "Allowed redirect URIs.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "enable_password_db": {
+      "type": "boolean",
+      "description": "Whether to enable the local password database."
+    },
+    "static_passwords": {
+      "type": "array",
+      "description": "Statically configured user passwords (for development/testing).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "description": "User email." },
+          "hash": { "type": "string", "description": "Bcrypt password hash." },
+          "username": { "type": "string", "description": "Username." },
+          "userID": { "type": "string", "description": "User identifier." }
+        }
+      }
+    }
+  }
+}

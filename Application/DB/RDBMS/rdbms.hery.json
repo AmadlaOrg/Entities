@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:DB:RDBMS",
+  "title": "RDBMS Application Entity",
+  "description": "Defines relational database-specific configuration.",
+  "type": "object",
+  "properties": {
+    "schema_migrations": {
+      "type": "object",
+      "description": "Schema migration configuration.",
+      "properties": {
+        "tool": { "type": "string", "description": "Migration tool (e.g., flyway, liquibase, goose, alembic)." },
+        "directory": { "type": "string", "description": "Migrations directory path." },
+        "auto_migrate": { "type": "boolean", "default": false }
+      }
+    },
+    "replication": {
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["primary", "replica", "standby"] },
+        "primary_host": { "type": "string" },
+        "synchronous": { "type": "boolean", "default": false }
+      }
+    },
+    "backup": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": false },
+        "schedule": { "type": "string", "description": "Cron expression for backup schedule." },
+        "retention_days": { "type": "integer", "default": 7 },
+        "destination": { "type": "string", "description": "Backup destination path or URI." }
+      }
+    },
+    "connection_pooling": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "default": false },
+        "tool": { "type": "string", "description": "Pooler (e.g., pgbouncer, proxysql)." },
+        "max_pool_size": { "type": "integer" },
+        "mode": { "type": "string", "enum": ["session", "transaction", "statement"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:System:Network",
+  "title": "System Network Entity",
+  "description": "Defines bare-metal/VM network connectivity: interfaces, DNS, routes. Used by enjoin-network. Security/Network defines what traffic is permitted; this entity declares what connectivity the system needs.",
+  "type": "object",
+  "properties": {
+    "interfaces": {
+      "type": "array",
+      "description": "Network interface configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Interface name (e.g., eth0, bond0, br0)." },
+          "type": { "type": "string", "enum": ["ethernet", "bridge", "bond", "vlan", "loopback"], "description": "Interface type." },
+          "method": { "type": "string", "enum": ["dhcp", "static", "manual"], "description": "Address assignment method." },
+          "address": { "type": "string", "description": "Static IP address with CIDR (e.g., 192.168.1.10/24)." },
+          "gateway": { "type": "string", "description": "Default gateway for this interface." },
+          "mtu": { "type": "integer", "description": "Maximum transmission unit." },
+          "vlan_id": { "type": "integer", "description": "VLAN ID (for vlan type)." },
+          "bond_members": { "type": "array", "items": { "type": "string" }, "description": "Member interfaces (for bond type)." },
+          "bridge_members": { "type": "array", "items": { "type": "string" }, "description": "Member interfaces (for bridge type)." }
+        },
+        "required": ["name"]
+      }
+    },
+    "dns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "DNS nameserver addresses."
+    },
+    "dns_search": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "DNS search domains."
+    },
+    "dns_options": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "DNS resolver options."
+    },
+    "domainname": { "type": "string", "description": "System domain name." },
+    "routes": {
+      "type": "array",
+      "description": "Static routes.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "destination": { "type": "string", "description": "Destination network (e.g., 10.0.0.0/8)." },
+          "gateway": { "type": "string", "description": "Route gateway." },
+          "interface": { "type": "string", "description": "Outgoing interface." },
+          "metric": { "type": "integer", "description": "Route metric/priority." }
+        },
+        "required": ["destination", "gateway"]
+      }
+    },
+    "extra_hosts": {
+      "type": "array",
+      "description": "/etc/hosts entries.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hostname": { "type": "string" },
+          "ip": { "type": "string" }
+        },
+        "required": ["hostname", "ip"]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security",
+  "title": "Security Entity",
+  "description": "Defines security posture and baseline configuration. Parent for Certificate, File, Network, AppArmor, and SELinux sub-types. Used by enjoin and judge.",
+  "type": "object",
+  "properties": {
+    "enforcement_mode": {
+      "type": "string",
+      "enum": ["strict", "permissive", "audit"],
+      "default": "strict",
+      "description": "Overall security enforcement mode. strict = block violations, permissive = log only, audit = report."
+    },
+    "audit_log": {
+      "type": "string",
+      "description": "Path to security audit log (e.g., /var/log/amadla/security-audit.log)."
+    },
+    "compliance_profile": {
+      "type": "string",
+      "description": "Compliance standard to follow (e.g., cis-benchmark, pci-dss, hipaa, stig)."
+    }
+  }
+}

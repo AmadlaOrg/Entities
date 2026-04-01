@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MessageQueue",
+  "title": "Application MessageQueue Entity",
+  "description": "Common properties shared by all message queue applications (RabbitMQ, Kafka, NATS).",
+  "type": "object",
+  "properties": {
+    "listen_address": {
+      "type": "string",
+      "description": "Bind address for the message queue service."
+    },
+    "listen_port": {
+      "type": "integer",
+      "description": "Port the message queue service listens on."
+    },
+    "admin_port": {
+      "type": "integer",
+      "description": "Management/API port."
+    },
+    "auth": {
+      "type": "object",
+      "description": "Authentication credentials.",
+      "properties": {
+        "username": { "type": "string", "description": "Authentication username." },
+        "password_secret": { "type": "string", "description": "Doorman secret reference for the password." }
+      }
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Enable TLS." },
+        "cert": { "type": "string", "description": "Path to TLS certificate." },
+        "key": { "type": "string", "description": "Path to TLS private key." }
+      }
+    }
+  }
+}

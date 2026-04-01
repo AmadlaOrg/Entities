@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Template",
+  "title": "Template Entity",
+  "description": "Defines template rendering configuration. Used by weaver to route templates to engine plugins (go, jinja2, mustache, qute, freemarker).",
+  "type": "object",
+  "properties": {
+    "engine": {
+      "type": "string",
+      "description": "Template engine plugin name. Maps to weaver-<engine> binary (e.g., go, jinja2, mustache, qute, freemarker)."
+    },
+    "source": {
+      "type": "string",
+      "description": "Path to the template source file, relative to the entity's location."
+    },
+    "output": {
+      "type": "string",
+      "description": "Output path for the rendered template (absolute or relative)."
+    },
+    "entity_types": {
+      "type": "array",
+      "description": "Entity type URIs this template can render for.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["engine", "source", "output"]
+}

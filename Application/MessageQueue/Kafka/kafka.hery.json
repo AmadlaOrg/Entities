@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MessageQueue:Kafka",
+  "title": "Application MessageQueue Kafka Entity",
+  "description": "Kafka-specific configuration. Extends Application/MessageQueue with Kafka-specific settings.",
+  "type": "object",
+  "properties": {
+    "broker_id": {
+      "type": "integer",
+      "description": "Unique broker identifier."
+    },
+    "log_dirs": {
+      "type": "array",
+      "description": "Data directories for log segments.",
+      "items": { "type": "string" }
+    },
+    "num_partitions": {
+      "type": "integer",
+      "description": "Default number of partitions per topic."
+    },
+    "default_replication_factor": {
+      "type": "integer",
+      "description": "Default replication factor for topics."
+    },
+    "log_retention_hours": {
+      "type": "integer",
+      "description": "Hours to retain log segments."
+    },
+    "log_retention_bytes": {
+      "type": "integer",
+      "description": "Maximum bytes to retain per partition."
+    },
+    "zookeeper_connect": {
+      "type": "string",
+      "description": "ZooKeeper connection string (legacy mode)."
+    },
+    "kraft_mode": {
+      "type": "boolean",
+      "description": "Enable KRaft mode (no ZooKeeper dependency)."
+    },
+    "kraft_controller_quorum_voters": {
+      "type": "string",
+      "description": "KRaft controller quorum voters configuration."
+    }
+  }
+}

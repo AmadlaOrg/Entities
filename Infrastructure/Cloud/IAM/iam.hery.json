@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:IAM",
+  "title": "Infrastructure Cloud IAM Entity",
+  "description": "Common properties shared by all cloud identity and access management services (AWS IAM, GCP IAM, Azure Entra ID).",
+  "type": "object",
+  "properties": {
+    "policies": {
+      "type": "array",
+      "description": "Access policy definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the policy."
+          },
+          "effect": {
+            "type": "string",
+            "enum": ["allow", "deny"],
+            "description": "Whether the policy allows or denies the actions."
+          },
+          "actions": {
+            "type": "array",
+            "description": "Actions the policy applies to.",
+            "items": { "type": "string" }
+          },
+          "resources": {
+            "type": "array",
+            "description": "Resources the policy applies to.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "description": "Role definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the role."
+          },
+          "policies": {
+            "type": "array",
+            "description": "Policies attached to the role.",
+            "items": { "type": "string" }
+          },
+          "trust_policy": {
+            "type": "object",
+            "description": "Trust policy defining which principals can assume the role."
+          }
+        }
+      }
+    }
+  }
+}

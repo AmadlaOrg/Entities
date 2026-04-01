@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Tools",
+  "title": "Tools Entity",
+  "description": "Defines the tool inventory for an Amadla project. Lists which tools are available and how to find them.",
+  "type": "object",
+  "properties": {
+    "tools": {
+      "type": "array",
+      "description": "List of tools registered for this project.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Tool binary name (e.g., 'hery', 'weaver', 'lay'). Used to find the binary in PATH."
+          },
+          "path": {
+            "type": "string",
+            "description": "Optional explicit path to the tool binary. Used when the tool is not in PATH."
+          }
+        },
+        "required": ["name"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["tools"]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Proxy:Tinyproxy",
+  "title": "Application Proxy Tinyproxy Entity",
+  "description": "Defines Tinyproxy lightweight HTTP proxy configuration.",
+  "type": "object",
+  "properties": {
+    "max_clients": {
+      "type": "integer",
+      "description": "Maximum number of simultaneous clients."
+    },
+    "upstream": {
+      "type": "string",
+      "description": "Upstream proxy to forward requests to."
+    },
+    "no_upstream": {
+      "type": "array",
+      "description": "Domains to skip the upstream proxy for.",
+      "items": { "type": "string" }
+    },
+    "filter": {
+      "type": "string",
+      "description": "Path to URL filter file."
+    },
+    "filter_default_deny": {
+      "type": "boolean",
+      "description": "Whether the filter defaults to deny (true) or allow (false)."
+    },
+    "anonymous": {
+      "type": "array",
+      "description": "Allowed headers in anonymous mode.",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SearchEngine:Elasticsearch",
+  "title": "Application SearchEngine Elasticsearch Entity",
+  "description": "Elasticsearch-specific configuration. Extends Application/SearchEngine with Elasticsearch-specific settings.",
+  "type": "object",
+  "properties": {
+    "node_name": {
+      "type": "string",
+      "description": "Name of this Elasticsearch node."
+    },
+    "node_roles": {
+      "type": "array",
+      "description": "Roles for this node (e.g., master, data, ingest, ml, coordinating).",
+      "items": { "type": "string" }
+    },
+    "discovery_seed_hosts": {
+      "type": "array",
+      "description": "Seed hosts for cluster discovery.",
+      "items": { "type": "string" }
+    },
+    "cluster_initial_master_nodes": {
+      "type": "array",
+      "description": "Initial master-eligible nodes for cluster bootstrapping.",
+      "items": { "type": "string" }
+    },
+    "path_logs": {
+      "type": "string",
+      "description": "Path to the log directory."
+    },
+    "xpack_security_enabled": {
+      "type": "boolean",
+      "description": "Enable X-Pack security features."
+    },
+    "xpack_security_transport_ssl": {
+      "type": "object",
+      "description": "X-Pack transport layer SSL configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Enable transport SSL." },
+        "keystore": { "type": "string", "description": "Path to the keystore file." },
+        "truststore": { "type": "string", "description": "Path to the truststore file." }
+      }
+    }
+  }
+}

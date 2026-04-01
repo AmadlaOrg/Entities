@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Logging:Logrotate",
+  "title": "Application Logging Logrotate Entity",
+  "description": "Logrotate-specific configuration. Extends Application/Logging with logrotate-specific settings.",
+  "type": "object",
+  "properties": {
+    "frequency": {
+      "type": "string",
+      "enum": ["daily", "weekly", "monthly"],
+      "description": "Global rotation frequency."
+    },
+    "rotate": {
+      "type": "integer",
+      "description": "Number of rotated log files to keep."
+    },
+    "configs": {
+      "type": "array",
+      "description": "Per-path logrotate configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "Log file path or glob pattern (e.g., \"/var/log/nginx/*.log\")." },
+          "frequency": { "type": "string", "enum": ["daily", "weekly", "monthly"], "description": "Rotation frequency for this path." },
+          "rotate": { "type": "integer", "description": "Number of rotated files to keep for this path." },
+          "compress": { "type": "boolean", "description": "Compress rotated files." },
+          "missingok": { "type": "boolean", "description": "Do not error if the log file is missing." },
+          "notifempty": { "type": "boolean", "description": "Do not rotate if the log file is empty." },
+          "create": {
+            "type": "object",
+            "description": "Create new log file after rotation.",
+            "properties": {
+              "mode": { "type": "string", "description": "File permissions (e.g., \"0640\")." },
+              "owner": { "type": "string", "description": "File owner." },
+              "group": { "type": "string", "description": "File group." }
+            }
+          },
+          "postrotate": { "type": "string", "description": "Script to run after rotation (e.g., \"systemctl reload nginx\")." }
+        }
+      }
+    }
+  }
+}

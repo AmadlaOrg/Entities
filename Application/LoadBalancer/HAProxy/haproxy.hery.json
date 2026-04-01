@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LoadBalancer:HAProxy",
+  "title": "Application LoadBalancer HAProxy Entity",
+  "description": "HAProxy-specific configuration. Extends Application/LoadBalancer with HAProxy-specific settings.",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "object",
+      "description": "HAProxy global section settings.",
+      "properties": {
+        "maxconn": { "type": "integer", "description": "Maximum number of concurrent connections." },
+        "log": { "type": "string", "description": "Log destination (e.g., /dev/log local0)." },
+        "stats_socket": { "type": "string", "description": "Path to the stats UNIX socket." }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "description": "HAProxy defaults section settings.",
+      "properties": {
+        "mode": { "type": "string", "enum": ["http", "tcp"], "description": "Default operating mode." },
+        "timeout_connect": { "type": "string", "description": "Timeout for establishing connections (e.g., 5s)." },
+        "timeout_client": { "type": "string", "description": "Timeout for client inactivity (e.g., 50s)." },
+        "timeout_server": { "type": "string", "description": "Timeout for server inactivity (e.g., 50s)." },
+        "retries": { "type": "integer", "description": "Number of retries on connection failure." }
+      }
+    },
+    "frontends": {
+      "type": "array",
+      "description": "HAProxy frontend definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Frontend name." },
+          "bind": { "type": "string", "description": "Bind address and port (e.g., *:80)." },
+          "default_backend": { "type": "string", "description": "Default backend to route to." },
+          "acls": {
+            "type": "array",
+            "description": "ACL rules for request matching.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "ACL name." },
+                "condition": { "type": "string", "description": "ACL condition expression." }
+              }
+            }
+          },
+          "use_backend_rules": {
+            "type": "array",
+            "description": "Rules mapping ACL matches to backends.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "backend": { "type": "string", "description": "Backend to use when condition matches." },
+                "condition": { "type": "string", "description": "ACL condition for backend selection." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "backends_config": {
+      "type": "array",
+      "description": "HAProxy backend definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Backend name." },
+          "balance": { "type": "string", "description": "Load balancing algorithm for this backend." },
+          "servers": {
+            "type": "array",
+            "description": "Servers in this backend.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "description": "Server name." },
+                "address": { "type": "string", "description": "Server address." },
+                "port": { "type": "integer", "description": "Server port." },
+                "options": { "type": "array", "items": { "type": "string" }, "description": "Additional server options (e.g., check, weight 10)." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "description": "HAProxy stats page configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether the stats page is enabled." },
+        "uri": { "type": "string", "description": "URI for the stats page (e.g., /haproxy-stats)." },
+        "auth": { "type": "string", "description": "Basic auth credentials for stats (user:password)." }
+      }
+    }
+  }
+}

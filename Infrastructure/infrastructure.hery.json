@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure",
+  "title": "Infrastructure Entity",
+  "description": "Defines infrastructure provisioning properties. Used by raise to manage VMs, cloud instances, and containers.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "description": "Infrastructure provider plugin (e.g., libvirt, virtualbox, aws, hetzner, digitalocean)."
+    },
+    "region": {
+      "type": "string",
+      "description": "Geographic region or datacenter."
+    },
+    "zone": {
+      "type": "string",
+      "description": "Availability zone within the region."
+    },
+    "tags": {
+      "type": "object",
+      "description": "Key-value tags for resource labeling.",
+      "additionalProperties": { "type": "string" }
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1,
+      "description": "Number of instances to provision."
+    },
+    "ssh": {
+      "type": "object",
+      "properties": {
+        "user": { "type": "string" },
+        "port": { "type": "integer", "default": 22 },
+        "private_key": { "type": "string" },
+        "public_key": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["provider"]
+}

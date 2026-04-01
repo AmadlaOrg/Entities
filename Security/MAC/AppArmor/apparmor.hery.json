@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:MAC:AppArmor",
+  "title": "Security MAC AppArmor Entity",
+  "description": "Defines AppArmor mandatory access control profiles and policies. Used by enjoin-mac.",
+  "type": "object",
+  "properties": {
+    "profiles": {
+      "type": "array",
+      "description": "AppArmor profile definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Profile name." },
+          "path": { "type": "string", "description": "Binary path the profile applies to." },
+          "mode": {
+            "type": "string",
+            "enum": ["enforce", "complain", "disable"],
+            "description": "Profile enforcement mode."
+          },
+          "rules": {
+            "type": "array",
+            "description": "Raw AppArmor rules for this profile.",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "path", "mode"]
+      }
+    },
+    "custom_profiles_dir": {
+      "type": "string",
+      "description": "Directory for custom profiles (e.g., /etc/apparmor.d)."
+    },
+    "tunables": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Key-value tunable variables."
+    },
+    "abstractions": {
+      "type": "array",
+      "description": "Included abstractions (e.g., base, nameservice, authentication).",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:APIGateway:KrakenD",
+  "title": "Application API Gateway KrakenD Entity",
+  "description": "KrakenD-specific configuration. Extends Application/APIGateway with KrakenD-specific settings.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "description": "KrakenD config version (e.g., 3)."
+    },
+    "timeout": {
+      "type": "string",
+      "description": "Global backend timeout (e.g., '3000ms', '2s')."
+    },
+    "cache_ttl": {
+      "type": "string",
+      "description": "Global response cache TTL (e.g., '300s', '5m')."
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "API endpoint definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "endpoint": { "type": "string", "description": "Public endpoint path." },
+          "method": { "type": "string", "description": "HTTP method." },
+          "backend": {
+            "type": "array",
+            "description": "Backend services for this endpoint.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url_pattern": { "type": "string", "description": "Backend URL pattern." },
+                "host": { "type": "string", "description": "Backend host." },
+                "method": { "type": "string", "description": "Backend HTTP method." }
+              }
+            }
+          },
+          "extra_config": { "type": "object", "description": "Per-endpoint plugin configuration." }
+        }
+      }
+    },
+    "extra_config": {
+      "type": "object",
+      "description": "Global plugin configuration (telemetry, security, auth)."
+    },
+    "output_encoding": {
+      "type": "string",
+      "enum": ["json", "negotiate", "string", "no-op"],
+      "description": "Response encoding format."
+    }
+  }
+}

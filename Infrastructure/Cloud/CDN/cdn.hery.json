@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:CDN",
+  "title": "Infrastructure Cloud CDN Entity",
+  "description": "Common properties shared by all CDN (Content Delivery Network) providers.",
+  "type": "object",
+  "properties": {
+    "origin": {
+      "type": "string",
+      "description": "Origin server URL or domain."
+    },
+    "domain": {
+      "type": "string",
+      "description": "CDN domain or alias."
+    },
+    "cache_ttl": {
+      "type": "integer",
+      "description": "Default cache TTL in seconds."
+    },
+    "compress": {
+      "type": "boolean",
+      "description": "Enable compression for served content."
+    }
+  }
+}

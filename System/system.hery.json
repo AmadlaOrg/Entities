@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:System",
+  "title": "System Entity",
+  "description": "Defines system identity: hostname, timezone, locale. Sub-types handle specific concerns: CPU, Memory, Network, Filesystem.",
+  "type": "object",
+  "properties": {
+    "hostname": { "type": "string", "description": "System hostname." },
+    "timezone": { "type": "string", "description": "E.g., UTC, America/New_York." },
+    "locale": { "type": "string", "description": "E.g., en_US.UTF-8." }
+  }
+}

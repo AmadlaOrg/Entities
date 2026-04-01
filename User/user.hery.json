@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:User",
+  "title": "User Entity",
+  "description": "Defines system user and group configuration. Used by enjoin-user to manage users and permissions.",
+  "type": "object",
+  "properties": {
+    "username": { "type": "string", "pattern": "^[a-z_][a-z0-9_-]*[$]?$" },
+    "uid": { "type": "integer" },
+    "group": { "type": "string" },
+    "gid": { "type": "integer" },
+    "groups": { "type": "array", "items": { "type": "string" } },
+    "home": { "type": "string" },
+    "shell": { "type": "string", "default": "/bin/bash" },
+    "comment": { "type": "string", "description": "GECOS field (full name)." },
+    "system": { "type": "boolean", "default": false },
+    "create_home": { "type": "boolean", "default": true },
+    "password_secret": { "type": "string", "description": "Secret key (resolved by doorman)." },
+    "ssh_authorized_keys": { "type": "array", "items": { "type": "string" } },
+    "sudo": { "type": ["boolean", "string"], "description": "true for full access, or a sudoers rule." },
+    "expires": { "type": "string", "format": "date", "description": "Account expiration (YYYY-MM-DD)." }
+  },
+  "required": ["username"]
+}

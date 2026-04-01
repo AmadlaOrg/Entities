@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Security:WAF:Coraza",
+  "title": "Security WAF Coraza Entity",
+  "description": "Coraza-specific configuration. Extends Security/WAF with Coraza-specific settings.",
+  "type": "object",
+  "properties": {
+    "directives": {
+      "type": "object",
+      "description": "Key-value Coraza directives."
+    },
+    "rules": {
+      "type": "array",
+      "description": "Inline SecRule directives.",
+      "items": { "type": "string" }
+    },
+    "rules_files": {
+      "type": "array",
+      "description": "Paths to rule files to include.",
+      "items": { "type": "string" }
+    },
+    "crs_enabled": {
+      "type": "boolean",
+      "description": "Whether to enable OWASP Core Rule Set."
+    },
+    "crs_paranoia_level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "description": "OWASP CRS paranoia level (1 = low, 4 = high)."
+    }
+  }
+}

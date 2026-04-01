@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Monitoring:NodeExporter",
+  "title": "Application Monitoring Node Exporter Entity",
+  "description": "Prometheus node_exporter configuration. Extends Application/Monitoring with node_exporter-specific settings.",
+  "type": "object",
+  "properties": {
+    "collectors": {
+      "type": "array",
+      "description": "Enabled collectors (e.g., cpu, diskstats, filesystem, meminfo, netdev, loadavg).",
+      "items": { "type": "string" }
+    },
+    "disabled_collectors": {
+      "type": "array",
+      "description": "Explicitly disabled collectors.",
+      "items": { "type": "string" }
+    },
+    "web_config": {
+      "type": "object",
+      "description": "TLS and basic authentication configuration for the metrics endpoint.",
+      "properties": {
+        "tls_cert": {
+          "type": "string",
+          "description": "Path to the TLS certificate file."
+        },
+        "tls_key": {
+          "type": "string",
+          "description": "Path to the TLS private key file."
+        },
+        "basic_auth_users": {
+          "type": "object",
+          "description": "Basic auth users (username to bcrypt-hashed password).",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "textfile_directory": {
+      "type": "string",
+      "description": "Directory for the textfile collector to read .prom files from."
+    }
+  }
+}

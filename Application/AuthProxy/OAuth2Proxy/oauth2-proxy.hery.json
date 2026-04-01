@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:AuthProxy:OAuth2Proxy",
+  "title": "Application AuthProxy OAuth2Proxy Entity",
+  "description": "OAuth2 Proxy-specific configuration. Extends Application/AuthProxy with OAuth2 Proxy settings.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "enum": ["google", "github", "gitlab", "oidc", "azure", "keycloak"],
+      "description": "OAuth2 identity provider."
+    },
+    "client_id": {
+      "type": "string",
+      "description": "OAuth2 client ID."
+    },
+    "client_secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for OAuth2 client secret."
+    },
+    "oidc_issuer_url": {
+      "type": "string",
+      "description": "OIDC discovery URL for the identity provider."
+    },
+    "redirect_url": {
+      "type": "string",
+      "description": "OAuth2 callback URL."
+    },
+    "skip_auth_routes": {
+      "type": "array",
+      "description": "URL paths that bypass authentication.",
+      "items": { "type": "string" }
+    },
+    "pass_access_token": {
+      "type": "boolean",
+      "description": "Whether to pass the OAuth2 access token to the upstream."
+    },
+    "pass_user_headers": {
+      "type": "boolean",
+      "description": "Whether to pass X-Forwarded-User and similar headers to the upstream."
+    },
+    "whitelist_domains": {
+      "type": "array",
+      "description": "Domains allowed for redirect after authentication.",
+      "items": { "type": "string" }
+    }
+  }
+}

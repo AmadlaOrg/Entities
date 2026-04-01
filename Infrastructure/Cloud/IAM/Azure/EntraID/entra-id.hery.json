@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:IAM:Azure:EntraID",
+  "title": "Infrastructure Cloud IAM Azure Entra ID Entity",
+  "description": "Azure Entra ID (formerly Azure Active Directory) configuration properties.",
+  "type": "object",
+  "properties": {
+    "applications": {
+      "type": "array",
+      "description": "Application registrations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "description": "Display name of the application."
+          },
+          "identifier_uris": {
+            "type": "array",
+            "description": "URIs that identify the application.",
+            "items": { "type": "string" }
+          },
+          "web": {
+            "type": "object",
+            "description": "Web platform configuration.",
+            "properties": {
+              "redirect_uris": {
+                "type": "array",
+                "description": "Redirect URIs for authentication.",
+                "items": { "type": "string" }
+              },
+              "implicit_grant": {
+                "type": "object",
+                "description": "Implicit grant flow settings."
+              }
+            }
+          },
+          "api": {
+            "type": "object",
+            "description": "API configuration.",
+            "properties": {
+              "oauth2_permission_scopes": {
+                "type": "array",
+                "description": "OAuth2 permission scopes exposed by the API.",
+                "items": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "service_principals": {
+      "type": "array",
+      "description": "Service principal definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "description": "Display name of the service principal."
+          },
+          "app_id": {
+            "type": "string",
+            "description": "Application ID associated with the service principal."
+          },
+          "app_role_assignments": {
+            "type": "array",
+            "description": "App role assignments for the service principal.",
+            "items": { "type": "object" }
+          }
+        }
+      }
+    },
+    "role_assignments": {
+      "type": "array",
+      "description": "Azure role assignments.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role_definition_name": {
+            "type": "string",
+            "description": "Name of the role (e.g., Contributor, Reader, Owner)."
+          },
+          "principal_id": {
+            "type": "string",
+            "description": "ID of the principal receiving the role assignment."
+          },
+          "scope": {
+            "type": "string",
+            "description": "Scope at which the role is assigned."
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "Entra ID group definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "description": "Display name of the group."
+          },
+          "members": {
+            "type": "array",
+            "description": "Member principal IDs.",
+            "items": { "type": "string" }
+          },
+          "owners": {
+            "type": "array",
+            "description": "Owner principal IDs.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

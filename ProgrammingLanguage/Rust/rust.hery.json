@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:Rust",
+  "title": "ProgrammingLanguage/Rust Entity",
+  "description": "Rust-specific configuration. Extends ProgrammingLanguage with rustup toolchain, targets, components, and cargo settings.",
+  "type": "object",
+  "properties": {
+    "toolchain": {
+      "type": "string",
+      "description": "Rustup toolchain (stable, beta, nightly, or specific version)."
+    },
+    "targets": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Compilation targets (e.g., \"x86_64-unknown-linux-musl\")."
+    },
+    "components": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Rustup components to install (e.g., clippy, rustfmt, rust-analyzer)."
+    },
+    "cargo_install": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Crates to install via cargo install."
+    },
+    "registry": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Custom registry name." },
+        "index": { "type": "string", "description": "Custom registry index URL." }
+      },
+      "description": "Custom crate registry configuration."
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["dev", "release", "bench", "test"],
+      "description": "Default build profile."
+    }
+  }
+}

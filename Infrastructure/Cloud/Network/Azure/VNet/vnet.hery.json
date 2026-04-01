@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Network:Azure:VNet",
+  "title": "Azure Virtual Network Entity",
+  "description": "Azure VNet-specific network properties.",
+  "type": "object",
+  "properties": {
+    "address_space": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Address space CIDR blocks (e.g., [\"10.0.0.0/16\"])."
+    },
+    "subnets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Subnet name." },
+          "address_prefix": { "type": "string", "description": "Subnet address prefix (CIDR)." },
+          "service_endpoints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Service endpoints (e.g., Microsoft.Storage, Microsoft.Sql)."
+          },
+          "delegation": {
+            "type": "string",
+            "description": "Subnet delegation (e.g., Microsoft.Web/serverFarms)."
+          }
+        },
+        "required": ["name", "address_prefix"]
+      },
+      "description": "Subnet definitions."
+    },
+    "nsg_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "NSG rule name." },
+          "priority": { "type": "integer", "description": "Rule priority (100-4096)." },
+          "direction": { "type": "string", "description": "Traffic direction (Inbound/Outbound)." },
+          "access": {
+            "type": "string",
+            "enum": ["Allow", "Deny"],
+            "description": "Rule access action."
+          },
+          "protocol": { "type": "string", "description": "Protocol (Tcp/Udp/Icmp/*)." },
+          "source_port_range": { "type": "string", "description": "Source port range." },
+          "destination_port_range": { "type": "string", "description": "Destination port range." },
+          "source_address_prefix": { "type": "string", "description": "Source address prefix." },
+          "destination_address_prefix": { "type": "string", "description": "Destination address prefix." }
+        },
+        "required": ["name", "priority", "direction", "access", "protocol"]
+      },
+      "description": "Network security group rules."
+    },
+    "peerings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Peering name." },
+          "remote_vnet_id": { "type": "string", "description": "Remote VNet resource ID." },
+          "allow_forwarded_traffic": { "type": "boolean", "description": "Whether to allow forwarded traffic." }
+        },
+        "required": ["name", "remote_vnet_id"]
+      },
+      "description": "VNet peering configurations."
+    }
+  },
+  "required": ["address_space"]
+}

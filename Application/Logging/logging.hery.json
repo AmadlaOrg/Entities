@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Logging",
+  "title": "Application Logging Entity",
+  "description": "Common properties shared by all logging systems (rsyslog, syslog-ng, journald, logrotate).",
+  "type": "object",
+  "properties": {
+    "log_dir": {
+      "type": "string",
+      "description": "Primary log directory (e.g., /var/log)."
+    },
+    "max_size": {
+      "type": "string",
+      "description": "Max log file size before rotation (e.g., \"100M\", \"1G\")."
+    },
+    "retention_days": {
+      "type": "integer",
+      "description": "Number of days to keep logs before deletion."
+    },
+    "compress": {
+      "type": "boolean",
+      "default": true,
+      "description": "Compress rotated log files."
+    },
+    "remote_target": {
+      "type": "object",
+      "description": "Remote syslog target for forwarding logs.",
+      "properties": {
+        "host": { "type": "string", "description": "Remote syslog server hostname or IP." },
+        "port": { "type": "integer", "description": "Remote syslog server port (default 514)." },
+        "protocol": { "type": "string", "enum": ["tcp", "udp", "relp"], "description": "Transport protocol for remote logging." }
+      }
+    }
+  }
+}

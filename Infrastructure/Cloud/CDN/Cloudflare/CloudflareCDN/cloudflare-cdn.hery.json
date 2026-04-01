@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:CDN:Cloudflare:CloudflareCDN",
+  "title": "Infrastructure Cloud CDN Cloudflare Entity",
+  "description": "Cloudflare CDN zone configuration.",
+  "type": "object",
+  "properties": {
+    "zone_id": {
+      "type": "string",
+      "description": "Cloudflare zone identifier."
+    },
+    "api_token_secret": {
+      "type": "string",
+      "description": "Secret reference for the Cloudflare API token."
+    },
+    "ssl_mode": {
+      "type": "string",
+      "enum": ["off", "flexible", "full", "strict"],
+      "description": "SSL/TLS encryption mode."
+    },
+    "always_use_https": {
+      "type": "boolean",
+      "description": "Redirect all HTTP requests to HTTPS."
+    },
+    "min_tls_version": {
+      "type": "string",
+      "enum": ["1.0", "1.1", "1.2", "1.3"],
+      "description": "Minimum TLS version allowed."
+    },
+    "cache_level": {
+      "type": "string",
+      "enum": ["bypass", "basic", "simplified", "aggressive"],
+      "description": "Cache level for the zone."
+    },
+    "browser_cache_ttl": {
+      "type": "integer",
+      "description": "Browser cache TTL in seconds."
+    },
+    "page_rules": {
+      "type": "array",
+      "description": "Page rules for URL-based behavior overrides.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url_pattern": { "type": "string" },
+          "actions": { "type": "object" }
+        }
+      }
+    },
+    "firewall_rules": {
+      "type": "array",
+      "description": "Firewall rules for request filtering.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "expression": { "type": "string" },
+          "action": {
+            "type": "string",
+            "enum": ["block", "challenge", "allow", "log"]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Monitoring:Telegraf",
+  "title": "Application Monitoring Telegraf Entity",
+  "description": "Telegraf configuration. Extends Application/Monitoring with Telegraf-specific settings.",
+  "type": "object",
+  "properties": {
+    "agent_interval": {
+      "type": "string",
+      "description": "Default data collection interval (e.g., \"10s\", \"30s\")."
+    },
+    "agent_flush_interval": {
+      "type": "string",
+      "description": "Interval for flushing data to outputs (e.g., \"10s\", \"1m\")."
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Input plugin configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "plugin": {
+            "type": "string",
+            "description": "Input plugin name (e.g., cpu, disk, mem, net, system)."
+          },
+          "config": {
+            "type": "object",
+            "description": "Plugin-specific configuration options."
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Output plugin configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "plugin": {
+            "type": "string",
+            "description": "Output plugin name (e.g., influxdb, prometheus_client, file)."
+          },
+          "config": {
+            "type": "object",
+            "description": "Plugin-specific configuration options."
+          }
+        }
+      }
+    }
+  }
+}

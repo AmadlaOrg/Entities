@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LogShipping:Fluentbit",
+  "title": "Application LogShipping Fluentbit Entity",
+  "description": "Fluent Bit-specific configuration. Extends Application/LogShipping with fluent-bit-specific settings.",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "array",
+      "description": "Fluent Bit input plugin configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Input plugin name (tail, systemd, cpu, mem)." },
+          "tag": { "type": "string", "description": "Tag to assign to collected records." },
+          "path": { "type": "string", "description": "File path (for tail input)." },
+          "systemd_filter": { "type": "string", "description": "Systemd unit filter (for systemd input)." }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "description": "Fluent Bit filter plugin configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Filter plugin name (grep, modify, record_modifier)." },
+          "match": { "type": "string", "description": "Tag pattern to match." },
+          "config": {
+            "type": "object",
+            "description": "Filter-specific configuration.",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Fluent Bit output plugin configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Output plugin name (es, loki, forward, file)." },
+          "match": { "type": "string", "description": "Tag pattern to match." },
+          "config": {
+            "type": "object",
+            "description": "Output-specific configuration.",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "parsers": {
+      "type": "array",
+      "description": "Custom parser definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Parser name." },
+          "format": { "type": "string", "description": "Parser format (regex, json, logfmt)." },
+          "regex": { "type": "string", "description": "Regular expression (for regex format)." }
+        }
+      }
+    }
+  }
+}

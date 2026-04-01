@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:CICD:JenkinsAgent",
+  "title": "Application CICD JenkinsAgent Entity",
+  "description": "Jenkins Agent-specific configuration. Extends Application/CICD with Jenkins agent settings.",
+  "type": "object",
+  "properties": {
+    "master_url": {
+      "type": "string",
+      "description": "Jenkins master URL."
+    },
+    "agent_name": {
+      "type": "string",
+      "description": "Name of the Jenkins agent."
+    },
+    "secret_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for agent authentication secret."
+    },
+    "labels": {
+      "type": "array",
+      "description": "Labels assigned to this agent for job matching.",
+      "items": { "type": "string" }
+    },
+    "executors": {
+      "type": "integer",
+      "description": "Number of executors (concurrent build slots)."
+    },
+    "remote_root_dir": {
+      "type": "string",
+      "description": "Root directory on the agent for builds."
+    },
+    "jnlp_url": {
+      "type": "string",
+      "description": "JNLP connection URL for agent communication."
+    }
+  }
+}

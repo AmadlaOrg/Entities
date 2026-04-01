@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:LogShipping:Promtail",
+  "title": "Application LogShipping Promtail Entity",
+  "description": "Promtail-specific configuration. Extends Application/LogShipping with promtail-specific settings.",
+  "type": "object",
+  "properties": {
+    "server_port": {
+      "type": "integer",
+      "description": "HTTP server port for Promtail metrics and health checks."
+    },
+    "positions_file": {
+      "type": "string",
+      "description": "Path to the positions file for tracking read offsets."
+    },
+    "clients": {
+      "type": "array",
+      "description": "Loki client configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "description": "Loki push API URL." },
+          "tenant_id": { "type": "string", "description": "Tenant ID for multi-tenant Loki." },
+          "basic_auth": {
+            "type": "object",
+            "description": "Basic authentication credentials.",
+            "properties": {
+              "username": { "type": "string", "description": "Authentication username." },
+              "password_secret": { "type": "string", "description": "Doorman secret reference for the password." }
+            }
+          }
+        }
+      }
+    },
+    "scrape_configs": {
+      "type": "array",
+      "description": "Scrape configurations for log discovery.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "job_name": { "type": "string", "description": "Name of the scrape job." },
+          "static_configs": {
+            "type": "array",
+            "description": "Static target configurations.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "targets": {
+                  "type": "array",
+                  "description": "Target addresses.",
+                  "items": { "type": "string" }
+                },
+                "labels": {
+                  "type": "object",
+                  "description": "Labels to attach to discovered targets.",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "pipeline_stages": {
+      "type": "array",
+      "description": "Pipeline stages for log processing (regex, json, labels, timestamp).",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

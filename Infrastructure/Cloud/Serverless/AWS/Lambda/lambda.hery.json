@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Serverless:AWS:Lambda",
+  "title": "Infrastructure Cloud Serverless AWS Lambda Entity",
+  "description": "AWS Lambda function configuration properties.",
+  "type": "object",
+  "properties": {
+    "function_name": {
+      "type": "string",
+      "description": "Name of the Lambda function."
+    },
+    "role_arn": {
+      "type": "string",
+      "description": "ARN of the IAM execution role."
+    },
+    "layers": {
+      "type": "array",
+      "description": "Lambda layer ARNs to attach to the function.",
+      "items": { "type": "string" }
+    },
+    "vpc_config": {
+      "type": "object",
+      "description": "VPC configuration for the function.",
+      "properties": {
+        "subnet_ids": {
+          "type": "array",
+          "description": "Subnet IDs for VPC access.",
+          "items": { "type": "string" }
+        },
+        "security_group_ids": {
+          "type": "array",
+          "description": "Security group IDs for VPC access.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "reserved_concurrent_executions": {
+      "type": "integer",
+      "description": "Number of reserved concurrent executions."
+    },
+    "tracing_config": {
+      "type": "string",
+      "enum": ["Active", "PassThrough"],
+      "description": "X-Ray tracing mode."
+    },
+    "dead_letter_config": {
+      "type": "object",
+      "description": "Dead letter queue configuration for failed invocations.",
+      "properties": {
+        "target_arn": {
+          "type": "string",
+          "description": "ARN of an SQS queue or SNS topic for failed events."
+        }
+      }
+    },
+    "event_source_mappings": {
+      "type": "array",
+      "description": "Event source mappings that trigger the function.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_arn": {
+            "type": "string",
+            "description": "ARN of the event source."
+          },
+          "batch_size": {
+            "type": "integer",
+            "description": "Maximum number of records per batch."
+          },
+          "starting_position": {
+            "type": "string",
+            "description": "Starting position for stream-based sources (e.g., LATEST, TRIM_HORIZON)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage:Ruby",
+  "title": "ProgrammingLanguage/Ruby Entity",
+  "description": "Ruby-specific configuration. Extends ProgrammingLanguage with gem, Bundler, and Rails settings.",
+  "type": "object",
+  "properties": {
+    "gems": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Global gems to install."
+    },
+    "bundler_version": {
+      "type": "string",
+      "description": "Bundler version to install."
+    },
+    "gem_sources": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Gem source URLs."
+    },
+    "gemrc": {
+      "type": "object",
+      "properties": {
+        "no_document": { "type": "boolean", "description": "Skip documentation generation when installing gems." },
+        "verbose": { "type": "boolean", "description": "Enable verbose output for gem operations." }
+      },
+      "description": "Configuration for .gemrc."
+    },
+    "rails_env": {
+      "type": "string",
+      "description": "Default RAILS_ENV value."
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud",
+  "title": "Cloud Infrastructure Entity",
+  "description": "Common cloud infrastructure properties. Parent for Compute, Network, DNS, CDN, ObjectStorage, Database, Kubernetes, LoadBalancer, Serverless, Queue, IAM sub-types.",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "description": "Cloud provider name (e.g., aws, gcp, azure, hetzner, digitalocean)."
+    },
+    "region": {
+      "type": "string",
+      "description": "Deployment region (e.g., us-east-1, europe-west1)."
+    },
+    "credentials_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for provider credentials."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "Provider account or project ID."
+    },
+    "tags": {
+      "type": "object",
+      "description": "Default tags/labels applied to all resources.",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["provider", "region"]
+}

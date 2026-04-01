@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MessageQueue:RabbitMQ",
+  "title": "Application MessageQueue RabbitMQ Entity",
+  "description": "RabbitMQ-specific configuration. Extends Application/MessageQueue with RabbitMQ-specific settings.",
+  "type": "object",
+  "properties": {
+    "vhosts": {
+      "type": "array",
+      "description": "Virtual hosts to create.",
+      "items": { "type": "string" }
+    },
+    "users": {
+      "type": "array",
+      "description": "Users to create.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Username." },
+          "password_secret": { "type": "string", "description": "Doorman secret reference for the password." },
+          "tags": {
+            "type": "array",
+            "description": "User tags (e.g., administrator, monitoring, management).",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name"]
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "description": "Permission definitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "user": { "type": "string", "description": "Username." },
+          "vhost": { "type": "string", "description": "Virtual host." },
+          "configure": { "type": "string", "description": "Configure permission regex pattern." },
+          "write": { "type": "string", "description": "Write permission regex pattern." },
+          "read": { "type": "string", "description": "Read permission regex pattern." }
+        },
+        "required": ["user", "vhost"]
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "description": "Enabled plugins (e.g., rabbitmq_management, rabbitmq_shovel).",
+      "items": { "type": "string" }
+    },
+    "cluster_nodes": {
+      "type": "array",
+      "description": "Nodes for clustering.",
+      "items": { "type": "string" }
+    },
+    "memory_high_watermark": {
+      "type": "string",
+      "description": "Memory high watermark (e.g., \"0.4\" as fraction or \"512MB\")."
+    }
+  }
+}

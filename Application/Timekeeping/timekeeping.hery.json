@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:Time",
+  "title": "Application Timekeeping Entity",
+  "description": "Common properties shared by all time synchronization applications (NTP, Chrony, systemd-timesyncd, OpenNTPD, PTP).",
+  "type": "object",
+  "properties": {
+    "servers": {
+      "type": "array",
+      "description": "Time server addresses (e.g., time.google.com, time.cloudflare.com).",
+      "items": { "type": "string" }
+    },
+    "pools": {
+      "type": "array",
+      "description": "Time server pool addresses (resolved to multiple servers, e.g., pool.ntp.org).",
+      "items": { "type": "string" }
+    },
+    "fallback_servers": {
+      "type": "array",
+      "description": "Fallback servers used when primary servers are unreachable.",
+      "items": { "type": "string" }
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether time synchronization is active."
+    },
+    "preferred": {
+      "type": "string",
+      "description": "Preferred server (marked with 'prefer' option)."
+    }
+  }
+}

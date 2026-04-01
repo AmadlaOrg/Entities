@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:CDN:Fastly:FastlyCDN",
+  "title": "Infrastructure Cloud CDN Fastly Entity",
+  "description": "Fastly CDN service configuration.",
+  "type": "object",
+  "properties": {
+    "service_id": {
+      "type": "string",
+      "description": "Fastly service identifier."
+    },
+    "api_key_secret": {
+      "type": "string",
+      "description": "Secret reference for the Fastly API key."
+    },
+    "backends": {
+      "type": "array",
+      "description": "Backend server configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "address": { "type": "string" },
+          "port": { "type": "integer" },
+          "ssl": { "type": "boolean" },
+          "weight": { "type": "integer" }
+        }
+      }
+    },
+    "domains": {
+      "type": "array",
+      "description": "Domains served by this Fastly service.",
+      "items": { "type": "string" }
+    },
+    "vcl_snippets": {
+      "type": "array",
+      "description": "VCL snippets for custom edge logic.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["init", "recv", "pass", "fetch", "deliver"]
+          },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "healthcheck": {
+      "type": "object",
+      "description": "Health check configuration for backends.",
+      "properties": {
+        "name": { "type": "string" },
+        "host": { "type": "string" },
+        "path": { "type": "string" },
+        "check_interval": { "type": "integer" },
+        "threshold": { "type": "integer" }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:MessageQueue:NATS",
+  "title": "Application MessageQueue NATS Entity",
+  "description": "NATS-specific configuration. Extends Application/MessageQueue with NATS-specific settings.",
+  "type": "object",
+  "properties": {
+    "max_payload": {
+      "type": "string",
+      "description": "Maximum message size (e.g., \"1MB\")."
+    },
+    "max_connections": {
+      "type": "integer",
+      "description": "Maximum number of client connections."
+    },
+    "jetstream": {
+      "type": "object",
+      "description": "JetStream persistence configuration.",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Enable JetStream." },
+        "store_dir": { "type": "string", "description": "JetStream storage directory." },
+        "max_memory": { "type": "string", "description": "Maximum memory for JetStream." },
+        "max_file": { "type": "string", "description": "Maximum file storage for JetStream." }
+      }
+    },
+    "cluster": {
+      "type": "object",
+      "description": "Cluster configuration.",
+      "properties": {
+        "name": { "type": "string", "description": "Cluster name." },
+        "routes": {
+          "type": "array",
+          "description": "Routes to other cluster members.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "description": "Authorization configuration.",
+      "properties": {
+        "users": {
+          "type": "array",
+          "description": "Authorized users.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": { "type": "string", "description": "Username." },
+              "password_secret": { "type": "string", "description": "Doorman secret reference for the password." },
+              "permissions": { "type": "object", "description": "User permissions." }
+            },
+            "required": ["user"]
+          }
+        }
+      }
+    }
+  }
+}

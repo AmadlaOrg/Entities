@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:FTP:Vsftpd",
+  "title": "Application FTP Vsftpd Entity",
+  "description": "Vsftpd-specific configuration. Extends Application/FTP with vsftpd-specific settings.",
+  "type": "object",
+  "properties": {
+    "write_enable": {
+      "type": "boolean",
+      "description": "Whether to allow write commands (upload, delete, mkdir, etc.)."
+    },
+    "local_umask": {
+      "type": "string",
+      "description": "Umask for file creation by local users (e.g., '022')."
+    },
+    "chroot_local_user": {
+      "type": "boolean",
+      "description": "Whether to chroot local users to their home directory."
+    },
+    "allow_writeable_chroot": {
+      "type": "boolean",
+      "description": "Whether to allow writable chroot directories."
+    },
+    "userlist_enable": {
+      "type": "boolean",
+      "description": "Whether to enable the user list feature."
+    },
+    "userlist_deny": {
+      "type": "boolean",
+      "description": "If false, only users in userlist_file are allowed (whitelist mode)."
+    },
+    "userlist_file": {
+      "type": "string",
+      "description": "Path to the user list file."
+    },
+    "xferlog_enable": {
+      "type": "boolean",
+      "description": "Whether to enable transfer logging."
+    },
+    "xferlog_file": {
+      "type": "string",
+      "description": "Path to the transfer log file."
+    },
+    "idle_session_timeout": {
+      "type": "integer",
+      "description": "Seconds before an idle session is disconnected."
+    },
+    "data_connection_timeout": {
+      "type": "integer",
+      "description": "Seconds before a stalled data connection is closed."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:SearchEngine:Meilisearch",
+  "title": "Application SearchEngine Meilisearch Entity",
+  "description": "Meilisearch-specific configuration. Extends Application/SearchEngine with Meilisearch-specific settings.",
+  "type": "object",
+  "properties": {
+    "master_key_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for the master key."
+    },
+    "db_path": {
+      "type": "string",
+      "description": "Path to the database directory."
+    },
+    "max_indexing_memory": {
+      "type": "string",
+      "description": "Maximum memory for indexing operations."
+    },
+    "max_indexing_threads": {
+      "type": "integer",
+      "description": "Maximum number of indexing threads."
+    },
+    "log_level": {
+      "type": "string",
+      "enum": ["ERROR", "WARN", "INFO", "DEBUG", "TRACE"],
+      "description": "Logging verbosity level."
+    },
+    "snapshot_dir": {
+      "type": "string",
+      "description": "Directory for snapshots."
+    },
+    "schedule_snapshot": {
+      "type": "boolean",
+      "description": "Enable scheduled snapshots."
+    }
+  }
+}

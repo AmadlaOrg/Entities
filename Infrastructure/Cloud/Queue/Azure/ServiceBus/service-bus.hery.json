@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Queue:Azure:ServiceBus",
+  "title": "Infrastructure Cloud Queue Azure Service Bus Entity",
+  "description": "Azure Service Bus namespace, queue, and topic configuration properties.",
+  "type": "object",
+  "properties": {
+    "namespace_name": {
+      "type": "string",
+      "description": "Name of the Service Bus namespace."
+    },
+    "sku": {
+      "type": "string",
+      "enum": ["Basic", "Standard", "Premium"],
+      "description": "SKU tier of the Service Bus namespace."
+    },
+    "queues": {
+      "type": "array",
+      "description": "Queue definitions within the namespace.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the queue."
+          },
+          "max_size_mb": {
+            "type": "integer",
+            "description": "Maximum queue size in megabytes."
+          },
+          "lock_duration": {
+            "type": "string",
+            "description": "Duration a message is locked for processing (e.g., PT1M)."
+          },
+          "dead_lettering_on_message_expiration": {
+            "type": "boolean",
+            "description": "Whether expired messages are sent to the dead letter queue."
+          },
+          "max_delivery_count": {
+            "type": "integer",
+            "description": "Maximum delivery attempts before dead-lettering."
+          }
+        }
+      }
+    },
+    "topics": {
+      "type": "array",
+      "description": "Topic definitions within the namespace.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the topic."
+          },
+          "max_size_mb": {
+            "type": "integer",
+            "description": "Maximum topic size in megabytes."
+          },
+          "subscriptions": {
+            "type": "array",
+            "description": "Subscriptions to the topic.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the subscription."
+                },
+                "max_delivery_count": {
+                  "type": "integer",
+                  "description": "Maximum delivery attempts."
+                },
+                "filter": {
+                  "type": "object",
+                  "description": "Filter for message selection."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "authorization_rules": {
+      "type": "array",
+      "description": "Shared access authorization rules.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the authorization rule."
+          },
+          "listen": {
+            "type": "boolean",
+            "description": "Whether the rule grants listen access."
+          },
+          "send": {
+            "type": "boolean",
+            "description": "Whether the rule grants send access."
+          },
+          "manage": {
+            "type": "boolean",
+            "description": "Whether the rule grants manage access."
+          }
+        }
+      }
+    }
+  }
+}

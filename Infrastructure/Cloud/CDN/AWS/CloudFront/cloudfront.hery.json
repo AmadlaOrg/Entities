@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:CDN:AWS:CloudFront",
+  "title": "Infrastructure Cloud CDN AWS CloudFront Entity",
+  "description": "AWS CloudFront CDN distribution configuration.",
+  "type": "object",
+  "properties": {
+    "distribution_id": {
+      "type": "string",
+      "description": "CloudFront distribution identifier."
+    },
+    "origins": {
+      "type": "array",
+      "description": "Origin configurations for the distribution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "domain_name": { "type": "string" },
+          "origin_path": { "type": "string" },
+          "s3_origin_config": { "type": "object" },
+          "custom_origin_config": {
+            "type": "object",
+            "properties": {
+              "http_port": { "type": "integer" },
+              "https_port": { "type": "integer" },
+              "protocol_policy": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "default_cache_behavior": {
+      "type": "object",
+      "description": "Default cache behavior settings.",
+      "properties": {
+        "viewer_protocol_policy": {
+          "type": "string",
+          "enum": ["redirect-to-https", "allow-all", "https-only"]
+        },
+        "allowed_methods": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "cached_methods": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "compress": { "type": "boolean" },
+        "ttl": {
+          "type": "object",
+          "properties": {
+            "default": { "type": "integer" },
+            "max": { "type": "integer" },
+            "min": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "price_class": {
+      "type": "string",
+      "enum": ["PriceClass_100", "PriceClass_200", "PriceClass_All"],
+      "description": "CloudFront price class determining edge location coverage."
+    },
+    "acm_certificate_arn": {
+      "type": "string",
+      "description": "ARN of the ACM certificate for HTTPS."
+    },
+    "waf_web_acl_id": {
+      "type": "string",
+      "description": "WAF Web ACL identifier for request filtering."
+    }
+  }
+}

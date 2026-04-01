@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Container",
+  "title": "Container Infrastructure Entity",
+  "description": "Defines container runtime infrastructure. Used by raise for container-based environments.",
+  "type": "object",
+  "properties": {
+    "runtime": {
+      "type": "string",
+      "enum": ["docker", "podman", "containerd", "lxc"],
+      "default": "docker"
+    },
+    "image": { "type": "string", "description": "Container image reference." },
+    "build": {
+      "type": ["string", "object"],
+      "properties": {
+        "context": { "type": "string" },
+        "dockerfile": { "type": "string" },
+        "args": { "type": "object", "additionalProperties": { "type": "string" } },
+        "target": { "type": "string" }
+      }
+    },
+    "registry": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "username": { "type": "string" },
+        "password_secret": { "type": "string", "description": "Resolved by doorman." }
+      }
+    },
+    "privileged": { "type": "boolean", "default": false },
+    "cap_add": { "type": "array", "items": { "type": "string" } },
+    "cap_drop": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["image"]
+}

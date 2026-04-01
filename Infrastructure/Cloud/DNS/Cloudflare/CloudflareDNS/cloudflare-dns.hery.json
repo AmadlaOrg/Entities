@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:DNS:Cloudflare:CloudflareDNS",
+  "title": "Cloudflare DNS Entity",
+  "description": "Cloudflare DNS-specific properties.",
+  "type": "object",
+  "properties": {
+    "zone_id": {
+      "type": "string",
+      "description": "Cloudflare zone ID."
+    },
+    "api_token_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for Cloudflare API token."
+    },
+    "proxied": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to enable Cloudflare proxy (orange cloud)."
+    },
+    "ssl_mode": {
+      "type": "string",
+      "enum": ["off", "flexible", "full", "strict"],
+      "description": "SSL/TLS encryption mode."
+    }
+  },
+  "required": ["zone_id"]
+}

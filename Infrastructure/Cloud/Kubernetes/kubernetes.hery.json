@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Kubernetes",
+  "title": "Infrastructure Cloud Kubernetes Entity",
+  "description": "Common properties shared by all managed Kubernetes providers.",
+  "type": "object",
+  "properties": {
+    "kubernetes_version": {
+      "type": "string",
+      "description": "Kubernetes version for the cluster."
+    },
+    "node_pools": {
+      "type": "array",
+      "description": "Node pool configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "instance_type": { "type": "string" },
+          "count": { "type": "integer" },
+          "min_count": { "type": "integer" },
+          "max_count": { "type": "integer" },
+          "disk_size_gb": { "type": "integer" },
+          "labels": { "type": "object" },
+          "taints": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "network_policy": {
+      "type": "string",
+      "enum": ["calico", "cilium", "none"],
+      "description": "Network policy provider."
+    },
+    "private_cluster": {
+      "type": "boolean",
+      "description": "Whether the cluster is private (no public endpoint)."
+    }
+  }
+}

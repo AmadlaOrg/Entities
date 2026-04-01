@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:ProgrammingLanguage",
+  "title": "ProgrammingLanguage Entity",
+  "description": "Defines programming language runtime installation. Used by lay to install interpreters, compilers, and version managers.",
+  "type": "object",
+  "properties": {
+    "language": { "type": "string", "description": "Language name (e.g., python, node, ruby, go, rust, java)." },
+    "version": { "type": "string", "description": "Version or version constraint (e.g., 3.12, >=18, latest)." },
+    "version_manager": {
+      "type": "string",
+      "description": "Version manager to use (e.g., asdf, pyenv, nvm, rbenv, sdkman)."
+    },
+    "system_wide": { "type": "boolean", "default": true, "description": "Install system-wide or per-user." },
+    "user": { "type": "string", "description": "User for per-user install (when system_wide is false)." },
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": ["string", "object"],
+        "properties": {
+          "name": { "type": "string" },
+          "version": { "type": "string" }
+        },
+        "required": ["name"]
+      },
+      "description": "Language-level packages to install (pip, npm, gem, etc.)."
+    },
+    "env": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Environment variables to set (e.g., GOPATH, NODE_ENV)."
+    }
+  },
+  "required": ["language", "version"]
+}

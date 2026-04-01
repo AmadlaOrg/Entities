@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Queue:GCP:PubSub",
+  "title": "Infrastructure Cloud Queue GCP Pub/Sub Entity",
+  "description": "GCP Pub/Sub topic and subscription configuration properties.",
+  "type": "object",
+  "properties": {
+    "topic_name": {
+      "type": "string",
+      "description": "Name of the Pub/Sub topic."
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "Subscription configurations for the topic.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the subscription."
+          },
+          "ack_deadline_seconds": {
+            "type": "integer",
+            "description": "Deadline in seconds for acknowledging messages."
+          },
+          "message_retention_duration": {
+            "type": "string",
+            "description": "Duration to retain unacknowledged messages."
+          },
+          "push_config": {
+            "type": "object",
+            "description": "Push delivery configuration.",
+            "properties": {
+              "push_endpoint": {
+                "type": "string",
+                "description": "URL to push messages to."
+              },
+              "attributes": {
+                "type": "object",
+                "description": "Additional attributes for push delivery."
+              }
+            }
+          },
+          "filter": {
+            "type": "string",
+            "description": "Filter expression for message selection."
+          },
+          "dead_letter_policy": {
+            "type": "object",
+            "description": "Dead letter policy for failed message delivery.",
+            "properties": {
+              "dead_letter_topic": {
+                "type": "string",
+                "description": "Topic to send dead-lettered messages to."
+              },
+              "max_delivery_attempts": {
+                "type": "integer",
+                "description": "Maximum delivery attempts before dead-lettering."
+              }
+            }
+          }
+        }
+      }
+    },
+    "schema": {
+      "type": "object",
+      "description": "Schema configuration for message validation.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the schema."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["AVRO", "PROTOCOL_BUFFER"],
+          "description": "Schema type."
+        },
+        "definition": {
+          "type": "string",
+          "description": "Schema definition string."
+        }
+      }
+    },
+    "message_retention_duration": {
+      "type": "string",
+      "description": "Topic-level message retention duration."
+    }
+  }
+}

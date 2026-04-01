@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:Network:GCP:VPC",
+  "title": "GCP VPC Network Entity",
+  "description": "Google Cloud VPC-specific network properties.",
+  "type": "object",
+  "properties": {
+    "auto_create_subnetworks": {
+      "type": "boolean",
+      "description": "Whether to automatically create subnetworks in each region."
+    },
+    "routing_mode": {
+      "type": "string",
+      "enum": ["REGIONAL", "GLOBAL"],
+      "description": "VPC routing mode."
+    },
+    "firewall_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Firewall rule name." },
+          "direction": {
+            "type": "string",
+            "enum": ["INGRESS", "EGRESS"],
+            "description": "Traffic direction."
+          },
+          "action": {
+            "type": "string",
+            "enum": ["allow", "deny"],
+            "description": "Rule action."
+          },
+          "protocols": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "protocol": { "type": "string", "description": "Protocol (e.g., tcp, udp, icmp)." },
+                "ports": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Port ranges (e.g., 80, 443, 8000-9000)."
+                }
+              },
+              "required": ["protocol"]
+            },
+            "description": "Protocol and port specifications."
+          },
+          "source_ranges": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Source CIDR ranges."
+          },
+          "target_tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Target network tags."
+          }
+        },
+        "required": ["name", "direction", "action"]
+      },
+      "description": "VPC firewall rule definitions."
+    },
+    "cloud_nat": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean", "description": "Whether to enable Cloud NAT." },
+        "router_name": { "type": "string", "description": "Cloud Router name." },
+        "region": { "type": "string", "description": "Region for the Cloud NAT." }
+      },
+      "description": "Cloud NAT configuration."
+    }
+  }
+}

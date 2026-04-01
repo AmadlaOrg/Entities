@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Infrastructure:Cloud:DNS:Azure:AzureDNS",
+  "title": "Azure DNS Entity",
+  "description": "Azure DNS-specific properties.",
+  "type": "object",
+  "properties": {
+    "resource_group": {
+      "type": "string",
+      "description": "Azure resource group name."
+    },
+    "zone_type": {
+      "type": "string",
+      "enum": ["Public", "Private"],
+      "description": "DNS zone type."
+    },
+    "virtual_network_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Link name." },
+          "virtual_network_id": { "type": "string", "description": "Virtual network resource ID." },
+          "registration_enabled": { "type": "boolean", "description": "Whether auto-registration of VM DNS records is enabled." }
+        },
+        "required": ["name", "virtual_network_id"]
+      },
+      "description": "Virtual network links for private DNS zones."
+    }
+  },
+  "required": ["resource_group"]
+}

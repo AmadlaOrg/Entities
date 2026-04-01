@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "urn:hery:github.com:AmadlaOrg:Application:CICD",
+  "title": "Application CICD Entity",
+  "description": "Common properties shared by all CI/CD runner applications (GitLab Runner, Jenkins Agent, Drone Runner, Buildkite Agent).",
+  "type": "object",
+  "properties": {
+    "server_url": {
+      "type": "string",
+      "description": "CI/CD server URL to connect to."
+    },
+    "token_secret": {
+      "type": "string",
+      "description": "Doorman secret reference for registration token."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Runner tags or labels for job matching.",
+      "items": { "type": "string" }
+    },
+    "concurrent": {
+      "type": "integer",
+      "description": "Maximum number of concurrent jobs."
+    },
+    "work_dir": {
+      "type": "string",
+      "description": "Working directory for job execution."
+    }
+  }
+}
