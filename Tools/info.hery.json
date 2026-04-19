@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hery:github.com:AmadlaOrg:Tools:Info",
+  "title": "Tool Info",
+  "description": "Standard output schema for the `info` subcommand of all Amadla tools and plugins. Every tool and plugin MUST output data conforming to this schema when invoked with `<binary> info`.",
+  "type": "object",
+  "required": ["name", "version", "supports", "description"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Binary name of the tool or plugin (e.g., 'raise', 'raise-libvirt', 'judge-application')."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the tool or plugin (e.g., '1.0.0')."
+    },
+    "engine": {
+      "type": "string",
+      "description": "Implementation engine or backend (e.g., 'libvirt', 'vault', 'podman'). Required for plugins, omitted by parent tools."
+    },
+    "supports": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^amadla\\.org/entity/.+@.+$"
+      },
+      "description": "Entity type URIs this tool or plugin handles (e.g., 'amadla.org/entity/infrastructure@^v1.0.0')."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short human-readable description of the tool or plugin."
+    }
+  },
+  "additionalProperties": false
+}
